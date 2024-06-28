@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.ironhorsedevgroup.mods.gunsmoke.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "gunsmoke.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
