@@ -5,6 +5,9 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "gunsmoke.refmap.json",
   "mixins": [
+    "GunClientHandler",
+    "GunEnchantmentHelperMixin",
+    "ShootTrackerMixins"
   ],
   "client": [
   ],

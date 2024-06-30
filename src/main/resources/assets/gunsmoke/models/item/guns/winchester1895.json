@@ -1,0 +1,7 @@
+{
+  "parent": "gunsmoke:special/gun/winchester1895",
+  "textures": {
+    "0": "gunsmoke:items/guns/winchester1895",
+    "particle": "gunsmoke:items/guns/winchester1895"
+  }
+}

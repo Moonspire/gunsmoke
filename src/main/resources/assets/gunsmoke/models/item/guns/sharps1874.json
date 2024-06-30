@@ -1,0 +1,10 @@
+{
+	"parent": "gunsmoke:special/gun/sharps1874",
+	"textures": {
+		"0": "gunsmoke:items/guns/sharps1874",
+		"1": "gunsmoke:items/guns/sharps1874",
+		"2": "gunsmoke:items/guns/sharps1874",
+		"3": "gunsmoke:items/guns/sharps1874",
+		"particle": "gunsmoke:items/guns/sharps1874"
+	}
+}
