@@ -80,8 +80,16 @@ public class Gunsmoke {
             event.getItemColors().register(
                     (
                             GunColor::getColor
-                    )
-                    , GunsmokeItems.SHARPS_1874.get()
+                    ),
+                    GunsmokeItems.SHARPS_1874.get()
+            );
+            event.getItemColors().register(
+                    (
+                        GunColor::getPartColor
+                    ),
+                    GunsmokeItems.BARREL_LONG.get(),
+                    GunsmokeItems.BARREL_MEDIUM.get(),
+                    GunsmokeItems.BARREL_SHORT.get()
             );
         }
     }

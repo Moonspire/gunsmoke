@@ -7,4 +7,8 @@ public class GunColor {
     public static int getColor(ItemStack itemStack, int tintIndex) {
         return GunMaterials.getMaterial(NBT.getStringTag(itemStack, "material_" + tintIndex)).getColor();
     }
+
+    public static int getPartColor(ItemStack itemStack, int tintIndex) {
+        return GunMaterials.getMaterial(NBT.getStringTag(itemStack, "material")).getColor();
+    }
 }
