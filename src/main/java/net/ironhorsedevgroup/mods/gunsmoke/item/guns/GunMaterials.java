@@ -1,7 +1,9 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
+import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.Objects;
 
@@ -130,5 +132,9 @@ public enum GunMaterials implements StringRepresentable {
             }
         }
         return GunMaterials.NULL;
+    }
+
+    public static GunMaterials getMaterial(ItemStack part) {
+        return getMaterial(NBT.getStringTag(part, "material"));
     }
 }

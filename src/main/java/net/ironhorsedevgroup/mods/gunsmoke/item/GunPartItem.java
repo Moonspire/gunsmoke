@@ -1,11 +1,14 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
+import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelAccessor;
 
 public class GunPartItem extends Item {
     public GunPartItem(Properties properties) {
@@ -21,5 +24,10 @@ public class GunPartItem extends Item {
                 }
             }
         }
+    }
+
+    @Override
+    public String getDescriptionId(ItemStack itemStack) {
+        return I18n.get(this.getDescriptionId() + "." + GunMaterials.getMaterial(itemStack).getSerializedName());
     }
 }
