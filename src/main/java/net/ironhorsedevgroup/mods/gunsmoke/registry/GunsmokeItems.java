@@ -28,7 +28,7 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> CAST_BARREL_MEDIUM = TCONSTRUCT.register("castbarrelmedium", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     public static final RegistryObject<Item> CAST_BARREL_LONG = TCONSTRUCT.register("castbarrellong", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     public static final RegistryObject<Item> CAST_STOCK = TCONSTRUCT.register("caststock", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
-    public static final RegistryObject<Item> CAST_STOCK_ADVANCED = TCONSTRUCT.register("caststockadvanced", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+    // public static final RegistryObject<Item> CAST_STOCK_ADVANCED = TCONSTRUCT.register("caststockadvanced", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 
     private static RegistryObject<Item> block(DeferredRegister<Item> registry, RegistryObject<Block> block, CreativeModeTab tab) {
         return registry.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
