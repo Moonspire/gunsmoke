@@ -25,4 +25,5 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> BARREL_MEDIUM = REGISTRY.register("barrelmedium", () -> new GunPartItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     public static final RegistryObject<Item> BARREL_LONG = REGISTRY.register("barrellong", () -> new GunPartItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     public static final RegistryObject<Item> STOCK = REGISTRY.register("stock", () -> new GunPartItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
+    public static final RegistryObject<Item> STOCK_ADVANCED = REGISTRY.register("stockadvanced", () -> new GunPartItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
 }
