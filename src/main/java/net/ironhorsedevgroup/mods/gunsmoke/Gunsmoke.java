@@ -84,7 +84,8 @@ public class Gunsmoke {
                     (
                             GunColor::getColor
                     ),
-                    GunsmokeItems.SHARPS_1874.get()
+                    GunsmokeItems.SHARPS_1874.get(),
+                    GunsmokeItems.WINCHESTER_1895.get()
             );
             event.getItemColors().register(
                     (

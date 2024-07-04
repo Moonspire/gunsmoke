@@ -13,6 +13,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.partbuilder.ItemPartRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
 import java.util.function.Consumer;
 
@@ -47,5 +49,11 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                     .setCoolingTime(coolTime)
                     .save(consumer, new ResourceLocation("gunsmoke", "casting/" + result.getDescriptionId()));
         }
+    }
+
+    public void partsRecipe(ItemStack result, Consumer<FinishedRecipe> consumer) {
+        ItemPartRecipeBuilder
+                .item(new ResourceLocation("gunsmoke", "builder/" + result.getDescriptionId()), ItemOutput.fromStack(result))
+                .save(consumer);
     }
 }

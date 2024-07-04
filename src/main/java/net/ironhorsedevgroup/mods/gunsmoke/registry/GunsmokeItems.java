@@ -16,6 +16,7 @@ public class GunsmokeItems {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Gunsmoke.MODID);
 
     public static final RegistryObject<Item> SHARPS_1874 = REGISTRY.register("sharps1874", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT), 10));
+    public static final RegistryObject<Item> WINCHESTER_1895 = REGISTRY.register("winchester1895", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT), 2));
     public static final RegistryObject<Item> BARREL_SHORT = REGISTRY.register("barrelshort", () -> new GunPartItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     public static final RegistryObject<Item> BARREL_MEDIUM = REGISTRY.register("barrelmedium", () -> new GunPartItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
     public static final RegistryObject<Item> BARREL_LONG = REGISTRY.register("barrellong", () -> new GunPartItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS)));
