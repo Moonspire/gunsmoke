@@ -65,6 +65,22 @@ public enum GunMaterials implements StringRepresentable {
                     .setPurity(5)
     ),
 
+    //Nether Woods
+    CRIMSON(
+            new GunMaterial("crimson")
+                    .setColor(164, 69, 106)
+                    .setDensity(13)
+                    .setHardness(9)
+                    .setPurity(5)
+    ),
+    WARPED(
+            new GunMaterial("warped")
+                    .setColor(65, 167, 165)
+                    .setDensity(4)
+                    .setHardness(6)
+                    .setPurity(5)
+    ),
+
     //Quark Woods
     ANCIENT(
             new GunMaterial("ancient")
@@ -123,22 +139,6 @@ public enum GunMaterials implements StringRepresentable {
                     .setFlamable(true)
                     .setDensity(9)
                     .setHardness(10)
-                    .setPurity(5)
-    ),
-
-    //Nether Woods
-    CRIMSON(
-            new GunMaterial("crimson")
-                    .setColor(164, 69, 106)
-                    .setDensity(13)
-                    .setHardness(9)
-                    .setPurity(5)
-    ),
-    WARPED(
-            new GunMaterial("warped")
-                    .setColor(65, 167, 165)
-                    .setDensity(4)
-                    .setHardness(6)
                     .setPurity(5)
     ),
 
@@ -224,7 +224,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setCastable(true)
     ),
 
-    //Create
+    //Create Metals
     BRASS(
             GunMaterial.TinkersCastable(
                             "brass",
@@ -240,38 +240,6 @@ public enum GunMaterials implements StringRepresentable {
                 .setDensity(80)
                 .setHardness(95)
                 .setPurity(100)
-    ),
-
-    //Undergarden Metals
-    CLOGGRUM(
-            new GunMaterial("cloggrum")
-                    .setColor(215, 188, 155)
-                    .setDensity(79)
-                    .setHardness(90)
-                    .setPurity(30)
-    ),
-
-    //Pigsteel & Hogsgold
-    PIGSTEEL(
-            new GunMaterial("pigsteel")
-                    .setColor(224, 180, 221)
-                    .setDensity(79)
-                    .setHardness(70)
-                    .setPurity(75)
-    ),
-    ZOMBIFIED_PIGSTEEL(
-            new GunMaterial("zombified_pigsteel")
-                    .setColor(109, 142, 106)
-                    .setDensity(78)
-                    .setHardness(60)
-                    .setPurity(40)
-    ),
-    HOGSGOLD(
-            new GunMaterial("hogsgold")
-                    .setColor(230, 171, 83)
-                    .setDensity(89)
-                    .setHardness(25)
-                    .setPurity(100)
     ),
 
     //Tinkers Metals & Alloys
@@ -305,17 +273,49 @@ public enum GunMaterials implements StringRepresentable {
                     .setHardness(35)
                     .setPurity(90)
     ),
-    HEPTAZION(
+    HEPATIZON( //BROKEN
             GunMaterial.TinkersCastable(
-                    "heptazion",
+                    "hepatizon",
                     113, 89, 125
             )
     ),
-    MANYULLYN(
+    MANYULLYN( //BROKEN
             GunMaterial.TinkersCastable(
                     "manyullyn",
                     153, 102, 217
             )
+    ),
+
+    //Pigsteel & Hogsgold
+    PIGSTEEL(
+            new GunMaterial("pigsteel")
+                    .setColor(224, 180, 221)
+                    .setDensity(79)
+                    .setHardness(70)
+                    .setPurity(75)
+    ),
+    ZOMBIFIED_PIGSTEEL(
+            new GunMaterial("zombified_pigsteel")
+                    .setColor(109, 142, 106)
+                    .setDensity(78)
+                    .setHardness(60)
+                    .setPurity(40)
+    ),
+    HOGSGOLD(
+            new GunMaterial("hogsgold")
+                    .setColor(230, 171, 83)
+                    .setDensity(89)
+                    .setHardness(25)
+                    .setPurity(100)
+    ),
+
+    //Undergarden Metals
+    CLOGGRUM(
+            new GunMaterial("cloggrum")
+                    .setColor(215, 188, 155)
+                    .setDensity(79)
+                    .setHardness(90)
+                    .setPurity(30)
     ),
 
     //Oddballs
