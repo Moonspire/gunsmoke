@@ -37,15 +37,6 @@ public class RifleItem extends GunItem {
             itemStack.add(gunItem);
 
             gunItem = new ItemStack(this);
-            NBT.putStringTag(gunItem, "material_1", GunMaterials.SPRUCE.getSerializedName());
-            NBT.putStringTag(gunItem, "material_2", GunMaterials.WROUGHT_IRON.getSerializedName());
-            NBT.putStringTag(gunItem, "material_3", GunMaterials.BRASS.getSerializedName());
-            NBT.putStringTag(gunItem, "material_4", GunMaterials.WROUGHT_IRON.getSerializedName());
-            NBT.putIntTag(gunItem, "AmmoCount", this.getModifiedGun(gunItem).getGeneral().getMaxAmmo());
-            this.gunProperties.damageGun(gunItem, 200);
-            itemStack.add(gunItem);
-
-            gunItem = new ItemStack(this);
             NBT.putStringTag(gunItem, "material_1", GunMaterials.SMOGSTEM.getSerializedName());
             NBT.putStringTag(gunItem, "material_2", GunMaterials.CLOGGRUM.getSerializedName());
             NBT.putStringTag(gunItem, "material_3", GunMaterials.RAW_IRON.getSerializedName());
@@ -58,14 +49,6 @@ public class RifleItem extends GunItem {
             NBT.putStringTag(gunItem, "material_2", GunMaterials.PIGSTEEL.getSerializedName());
             NBT.putStringTag(gunItem, "material_3", GunMaterials.HOGSGOLD.getSerializedName());
             NBT.putStringTag(gunItem, "material_4", GunMaterials.PIGSTEEL.getSerializedName());
-            NBT.putIntTag(gunItem, "AmmoCount", this.getModifiedGun(gunItem).getGeneral().getMaxAmmo());
-            itemStack.add(gunItem);
-
-            gunItem = new ItemStack(this);
-            NBT.putStringTag(gunItem, "material_1", GunMaterials.SHULKER.getSerializedName());
-            NBT.putStringTag(gunItem, "material_2", GunMaterials.LEAD.getSerializedName());
-            NBT.putStringTag(gunItem, "material_3", GunMaterials.SHULKER.getSerializedName());
-            NBT.putStringTag(gunItem, "material_4", GunMaterials.LEAD.getSerializedName());
             NBT.putIntTag(gunItem, "AmmoCount", this.getModifiedGun(gunItem).getGeneral().getMaxAmmo());
             itemStack.add(gunItem);
         }

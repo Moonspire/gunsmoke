@@ -1,5 +1,6 @@
 {
-  "item.gunsmoke.sharps1874": "Sharps Model 1894",
+  "item.gunsmoke.sharps1874": "Sharps Model 1874",
+  "item.gunsmoke.winchester1895": "Winchester Model 1895",
 
   "item.gunsmoke.barrelshort.null": "Short Barrel [NO SPECIFIED MATERIAL]",
   "item.gunsmoke.barrelshort.acacia": "Acacia Short Barrel",
@@ -39,6 +40,7 @@
   "item.gunsmoke.barrelshort.cloggrum": "Cloggrum Short Barrel",
   "item.gunsmoke.barrelshort.nethersteel": "Nethersteel Short Barrel",
   "item.gunsmoke.barrelshort.shulker": "Shulker Shell Short Barrel",
+  "item.gunsmoke.barrelshort.gold": "Golden Short Barrel",
 
   "item.gunsmoke.barrelmedium.null": "Medium Barrel [NO SPECIFIED MATERIAL]",
   "item.gunsmoke.barrelmedium.acacia": "Acacia Medium Barrel",
@@ -78,6 +80,7 @@
   "item.gunsmoke.barrelmedium.cloggrum": "Cloggrum Medium Barrel",
   "item.gunsmoke.barrelmedium.nethersteel": "Nethersteel Medium Barrel",
   "item.gunsmoke.barrelmedium.shulker": "Shulker Shell Medium Barrel",
+  "item.gunsmoke.barrelmedium.gold": "Golden Medium Barrel",
 
   "item.gunsmoke.barrellong.null": "Long Barrel [NO SPECIFIED MATERIAL]",
   "item.gunsmoke.barrellong.acacia": "Acacia Long Barrel",
@@ -117,6 +120,7 @@
   "item.gunsmoke.barrellong.cloggrum": "Cloggrum Long Barrel",
   "item.gunsmoke.barrellong.nethersteel": "Nethersteel Long Barrel",
   "item.gunsmoke.barrellong.shulker": "Shulker Shell Long Barrel",
+  "item.gunsmoke.barrellong.gold": "Golden Long Barrel",
 
   "item.gunsmoke.stock.null": "Basic Stock [NO SPECIFIED MATERIAL]",
   "item.gunsmoke.stock.acacia": "Acacia Basic Stock",
@@ -156,6 +160,7 @@
   "item.gunsmoke.stock.cloggrum": "Cloggrum Basic Stock",
   "item.gunsmoke.stock.nethersteel": "Nethersteel Basic Stock",
   "item.gunsmoke.stock.shulker": "Shulker Shell Basic Stock",
+  "item.gunsmoke.stock.gold": "Golden Basic Stock",
 
   "item.gunsmoke.stockadvanced.null": "Advanced Stock [NO SPECIFIED MATERIAL]",
   "item.gunsmoke.stockadvanced.acacia": "Acacia Advanced Stock",
@@ -194,5 +199,6 @@
   "item.gunsmoke.stockadvanced.manyullyn": "Manyullun Advanced Stock",
   "item.gunsmoke.stockadvanced.cloggrum": "Cloggrum Advanced Stock",
   "item.gunsmoke.stockadvanced.nethersteel": "Nethersteel Advanced Stock",
-  "item.gunsmoke.stockadvanced.shulker": "Shulker Shell Advanced Stock"
+  "item.gunsmoke.stockadvanced.shulker": "Shulker Shell Advanced Stock",
+  "item.gunsmoke.stockadvanced.gold": "Golden Advanced Stock"
 }

@@ -12,10 +12,10 @@ public class GunMakeup {
     private Integer breachDamagePermanent = 0;
     private Integer coreDamagePermanent = 0;
     private Integer stockDamagePermanent = 0;
-    private GunMaterials barrel;
-    private GunMaterials breach;
-    private GunMaterials core;
-    private GunMaterials stock;
+    private GunMaterial barrel;
+    private GunMaterial breach;
+    private GunMaterial core;
+    private GunMaterial stock;
     private ItemStack stack;
     public GunMakeup(ItemStack itemStack) {
         stock = GunMaterials.getMaterial(NBT.getStringTag(itemStack, "material_1"));
@@ -34,10 +34,10 @@ public class GunMakeup {
     }
 
     public GunMakeup() {
-        stock = GunMaterials.NULL;
-        barrel = GunMaterials.NULL;
-        core = GunMaterials.NULL;
-        breach = GunMaterials.NULL;
+        stock = GunMaterials.NULL.getMaterial();
+        barrel = GunMaterials.NULL.getMaterial();
+        core = GunMaterials.NULL.getMaterial();
+        breach = GunMaterials.NULL.getMaterial();
     }
 
     public Integer getBarrelDamage() {
@@ -258,19 +258,19 @@ public class GunMakeup {
         NBT.putIntTag(stack, "stockDamagePermanent", stockDamagePermanent);
     }
 
-    public GunMaterials getBarrel() {
+    public GunMaterial getBarrel() {
         return barrel;
     }
 
-    public GunMaterials getBreach() {
+    public GunMaterial getBreach() {
         return breach;
     }
 
-    public GunMaterials getCore() {
+    public GunMaterial getCore() {
         return core;
     }
 
-    public GunMaterials getStock() {
+    public GunMaterial getStock() {
         return stock;
     }
 

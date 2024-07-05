@@ -1,171 +1,358 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
-import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Objects;
 
 public enum GunMaterials implements StringRepresentable {
-    NULL("null", Color.getIntFromRGB(255, 0, 255), false, 0, 0, 0),
+    NULL(new GunMaterial("null")),
 
     //Overworld Woods
-    ACACIA("acacia", Color.getIntFromRGB(219, 117, 62), true, 10, 10, 10),
-    BIRCH("birch", Color.getIntFromRGB(233, 218, 139), true, 8, 8, 5),
-    DARK_OAK("dark_oak", Color.getIntFromRGB(99, 68, 34), true, 9, 8, 5),
-    JUNGLE("jungle", Color.getIntFromRGB(218, 155, 111), true, 3, 5, 5),
-    MANGROVE("mangrove", Color.getIntFromRGB(173, 69, 76), true, 5, 7, 5),
-    OAK("oak", Color.getIntFromRGB(224, 175, 96), true, 9, 8, 5),
-    SPRUCE("spruce", Color.getIntFromRGB(142, 102, 51), true, 6, 7, 5),
+    ACACIA(
+            new GunMaterial("acacia")
+                    .setColor(219, 117, 62)
+                    .setFlamable(true)
+                    .setDensity(10)
+                    .setHardness(10)
+                    .setPurity(10)
+    ),
+    BIRCH(
+            new GunMaterial("birch")
+                    .setColor(233, 218, 139)
+                    .setFlamable(true)
+                    .setDensity(8)
+                    .setHardness(8)
+                    .setPurity(5)
+    ),
+    DARK_OAK(
+            new GunMaterial("dark_oak")
+                    .setColor(99, 68, 34)
+                    .setFlamable(true)
+                    .setDensity(9)
+                    .setHardness(8)
+                    .setPurity(5)
+    ),
+    JUNGLE(
+            new GunMaterial("jungle")
+                    .setColor(218, 155, 111)
+                    .setFlamable(true)
+                    .setDensity(3)
+                    .setHardness(5)
+                    .setPurity(5)
+    ),
+    MANGROVE(
+            new GunMaterial("mangrove")
+                    .setColor(173, 69, 76)
+                    .setFlamable(true)
+                    .setDensity(5)
+                    .setHardness(7)
+                    .setPurity(5)
+    ),
+    OAK(
+            new GunMaterial("oak")
+                    .setColor(224, 175, 96)
+                    .setFlamable(true)
+                    .setDensity(9)
+                    .setHardness(8)
+                    .setPurity(5)
+    ),
+    SPRUCE(
+            new GunMaterial("spruce")
+                    .setColor(142, 102, 51)
+                    .setFlamable(true)
+                    .setDensity(6)
+                    .setHardness(7)
+                    .setPurity(5)
+    ),
 
-    //Modded Woods
-    ANCIENT("ancient", Color.getIntFromRGB(255, 255, 255), true, 6, 7, 5),
-    AZALEA("azalea", Color.getIntFromRGB(221, 227, 122), true, 9, 8, 5),
-    BLOSSOM("blossom", Color.getIntFromRGB(131, 55, 35), true, 9, 8, 5),
-    TREATED("treated", Color.getIntFromRGB(117, 63, 38), 10, 7, 6),
+    //Quark Woods
+    ANCIENT(
+            new GunMaterial("ancient")
+                    .setColor(255, 255, 255)
+                    .setFlamable(true)
+                    .setDensity(6)
+                    .setHardness(7)
+                    .setPurity(5)
+    ),
+    AZALEA(
+            new GunMaterial("azalea")
+                    .setColor(221, 227, 122)
+                    .setFlamable(true)
+                    .setDensity(9)
+                    .setHardness(8)
+                    .setPurity(5)
+    ),
+    BLOSSOM(
+            new GunMaterial("blossom")
+                    .setColor(131, 55, 35)
+                    .setFlamable(true)
+                    .setDensity(9)
+                    .setHardness(8)
+                    .setPurity(5)
+    ),
+
+    //IE Woods
+    TREATED(
+            new GunMaterial("treated")
+                    .setColor(117, 63, 38)
+                    .setDensity(10)
+                    .setHardness(7)
+                    .setPurity(6)
+    ),
 
     //Undergarden Woods
-    GRONGLE("grongle", Color.getIntFromRGB(108, 120, 67), true, 10, 10, 5),
-    SMOGSTEM("smogstem", Color.getIntFromRGB(93, 121, 114), true, 15, 15, 5),
-    WIGGLEWOOD("wigglewood", Color.getIntFromRGB(126, 95, 59), true, 9, 10, 5),
+    GRONGLE(
+            new GunMaterial("grongle")
+                    .setColor(108, 120, 67)
+                    .setFlamable(true)
+                    .setDensity(10)
+                    .setHardness(10)
+                    .setPurity(5)
+    ),
+    SMOGSTEM(
+            new GunMaterial("smogstem")
+                    .setColor(93, 121, 114)
+                    .setFlamable(true)
+                    .setDensity(15)
+                    .setHardness(15)
+                    .setPurity(5)
+    ),
+    WIGGLEWOOD(
+            new GunMaterial("wigglewood")
+                    .setColor(126, 95, 59)
+                    .setFlamable(true)
+                    .setDensity(9)
+                    .setHardness(10)
+                    .setPurity(5)
+    ),
 
     //Nether Woods
-    CRIMSON("crimson", Color.getIntFromRGB(164, 69, 106), 13, 9, 5),
-    WARPED("warped", Color.getIntFromRGB(65, 167, 165), 4, 6, 5),
+    CRIMSON(
+            new GunMaterial("crimson")
+                    .setColor(164, 69, 106)
+                    .setDensity(13)
+                    .setHardness(9)
+                    .setPurity(5)
+    ),
+    WARPED(
+            new GunMaterial("warped")
+                    .setColor(65, 167, 165)
+                    .setDensity(4)
+                    .setHardness(6)
+                    .setPurity(5)
+    ),
 
-    //Metals
-    IRON("iron", Color.getIntFromRGB(195, 195, 195),79, 45, 65),
-    RAW_IRON("raw_iron", Color.getIntFromRGB(196, 159, 134), 78, 65, 40),
-    WROUGHT_IRON("wrought_iron", "tconstruct:molten_iron", Color.getIntFromRGB(80, 89, 115), 78, 70, 60),
-    COPPER("copper", Color.getIntFromRGB(255, 154, 118), 88, 30, 80),
-    OXIDIZED_COPPER("oxidized_copper", "tconstruct:molten_copper", Color.getIntFromRGB(110, 197, 159), 87, 35, 55),
-    LEAD("lead", "tconstruct:molten_lead", Color.getIntFromRGB(68, 75, 91), 114, 25, 50),
-    SILVER("silver", "tconstruct:molten_silver", Color.getIntFromRGB(200, 229, 255), 104, 35, 85),
-    ROSE_GOLD("rose_gold", "tconstruct:molten_rose_gold", Color.getIntFromRGB(241, 172, 147), 123, 30, 80),
-    STEEL("steel", "tconstruct:molten_steel", Color.getIntFromRGB(88, 89, 93), 77, 80, 70),
-    BRASS("brass", "tconstruct:molten_brass", Color.getIntFromRGB(255, 203, 92), 82, 30, 90),
-    HOGSGOLD("hogsgold", Color.getIntFromRGB(230, 171, 83), 89, 25, 100),
-    PIGSTEEL("pigsteel", Color.getIntFromRGB(224, 180, 221), 79, 70, 75),
-    ZOMBIFIED_PIGSTEEL("zombified_pigsteel", Color.getIntFromRGB(109, 142, 106), 78, 60, 40),
-    CONSTANTAN("constantan", "tconstruct:molten_constantan", Color.getIntFromRGB(178, 99, 80)), //, 88, 30),
-    ELECTRUM("electrum", "tconstruct:molten_electrum", Color.getIntFromRGB(237, 223, 129), 88, 35, 90),
-    COBALT("cobalt", "tconstruct:molten_cobalt", Color.getIntFromRGB(66, 141, 215)), // 89, 40),
-    HEPTAZION("heptazion", "tconstruct:molten_heptazion", Color.getIntFromRGB(113, 89, 125)),
-    MANYULLYN("manyullyn", "tconstruct:molten_manyullyn", Color.getIntFromRGB(153, 102, 217)),
-    CLOGGRUM("cloggrum", Color.getIntFromRGB(215, 188, 155), 79, 90, 30),
-    NETHERSTEEL("nethersteel", Color.getIntFromRGB(117, 99, 91),80, 95, 100),
+    //Vanilla Metals
+    IRON(
+            new GunMaterial("iron")
+                    .setColor(195, 195, 195)
+                    .setDensity(79)
+                    .setHardness(45)
+                    .setPurity(65)
+                    .setCastingFluid("tconstruct:molten_iron")
+    ),
+    RAW_IRON(
+            new GunMaterial("raw_iron")
+                    .setColor(196, 159, 134)
+                    .setDensity(78)
+                    .setHardness(65)
+                    .setPurity(40)
+                    .setCastingFluid("tconstruct:molten_iron")
+    ),
+    WROUGHT_IRON(
+            new GunMaterial("wrought_iron")
+                    .setColor(80, 89, 115)
+                    .setDensity(78)
+                    .setHardness(70)
+                    .setPurity(60)
+                    .setCastingFluid("tconstruct:molten_iron")
+                    .setCastable(true)
+    ),
+    COPPER(
+            new GunMaterial("copper")
+                    .setColor(255, 154, 118)
+                    .setDensity(88)
+                    .setHardness(30)
+                    .setPurity(80)
+                    .setCastingFluid("tconstruct:molten_copper")
+    ),
+    OXIDIZED_COPPER(
+            new GunMaterial("oxidized_copper")
+                    .setColor(110, 197, 159)
+                    .setDensity(87)
+                    .setHardness(35)
+                    .setPurity(65)
+                    .setCastingFluid("tconstruct:molten_copper")
+                    .setCastable(true)
+    ),
+    GOLD(
+            new GunMaterial("gold")
+                    .setColor(253, 245, 95)
+                    .setDensity(193)
+                    .setHardness(25)
+                    .setPurity(100)
+                    .setCastingFluid("tconstruct:molten_gold")
+                    .setCastable(true)
+    ),
+
+    //IE Metals
+    LEAD(
+            new GunMaterial("lead")
+                    .setColor(68, 75, 91)
+                    .setDensity(114)
+                    .setHardness(25)
+                    .setPurity(50)
+                    .setCastingFluid("tconstruct:molten_lead")
+                    .setCastable(true)
+    ),
+    SILVER(
+            new GunMaterial("silver")
+                    .setColor(200, 229, 255)
+                    .setDensity(104)
+                    .setHardness(35)
+                    .setPurity(85)
+                    .setCastingFluid("tconstruct:molten_silver")
+                    .setCastable(true)
+    ),
+    STEEL(
+            new GunMaterial("steel")
+                    .setColor(88, 89, 93)
+                    .setDensity(77)
+                    .setHardness(80)
+                    .setPurity(70)
+                    .setCastingFluid("tconstruct:molten_steel")
+                    .setCastable(true)
+    ),
+
+    //Create
+    BRASS(
+            GunMaterial.TinkersCastable(
+                            "brass",
+                            255, 203, 92
+                    )
+                    .setDensity(82)
+                    .setHardness(30)
+                    .setPurity(90)
+    ),
+    NETHERSTEEL (
+        new GunMaterial("nethersteel")
+                .setColor(117, 99, 91)
+                .setDensity(80)
+                .setHardness(95)
+                .setPurity(100)
+    ),
+
+    //Undergarden Metals
+    CLOGGRUM(
+            new GunMaterial("cloggrum")
+                    .setColor(215, 188, 155)
+                    .setDensity(79)
+                    .setHardness(90)
+                    .setPurity(30)
+    ),
+
+    //Pigsteel & Hogsgold
+    PIGSTEEL(
+            new GunMaterial("pigsteel")
+                    .setColor(224, 180, 221)
+                    .setDensity(79)
+                    .setHardness(70)
+                    .setPurity(75)
+    ),
+    ZOMBIFIED_PIGSTEEL(
+            new GunMaterial("zombified_pigsteel")
+                    .setColor(109, 142, 106)
+                    .setDensity(78)
+                    .setHardness(60)
+                    .setPurity(40)
+    ),
+    HOGSGOLD(
+            new GunMaterial("hogsgold")
+                    .setColor(230, 171, 83)
+                    .setDensity(89)
+                    .setHardness(25)
+                    .setPurity(100)
+    ),
+
+    //Tinkers Metals & Alloys
+    COBALT(
+            GunMaterial.TinkersCastable(
+                    "cobalt",
+                    66, 141, 215
+            )
+    ),
+    ROSE_GOLD(
+            GunMaterial.TinkersCastable(
+                            "rose_gold",
+                            241, 172, 147
+                    )
+                    .setDensity(123)
+                    .setHardness(30)
+                    .setPurity(90)
+    ),
+    CONSTANTAN(
+            GunMaterial.TinkersCastable(
+                    "constantan",
+                    178, 99, 80
+            )
+    ),
+    ELECTRUM(
+            GunMaterial.TinkersCastable(
+                            "electrum",
+                            237, 223, 129
+                    )
+                    .setDensity(88)
+                    .setHardness(35)
+                    .setPurity(90)
+    ),
+    HEPTAZION(
+            GunMaterial.TinkersCastable(
+                    "heptazion",
+                    113, 89, 125
+            )
+    ),
+    MANYULLYN(
+            GunMaterial.TinkersCastable(
+                    "manyullyn",
+                    153, 102, 217
+            )
+    ),
 
     //Oddballs
-    SHULKER("shulker", Color.getIntFromRGB(182, 128, 180),-12, 15, 1);
+    SHULKER(
+            new GunMaterial("shulker")
+                    .setColor(182, 128, 180)
+                    .setDensity(-12)
+                    .setHardness(15)
+                    .setPurity(1)
+    )
+    ;
 
-    /*
-    - Reliability
-     + Barrel: Hardness
-     + Breach: Density
-     + Core: Purity
-     + Furniture: Flammability
+    private final GunMaterial material;
 
-    - Recoil calculated on the density distribution (more balanced guns have less recoil)
-    - Handling calculated off total weapon density
-    - Fire delay calculated off the inverse of the core hardness
-    - Reload delay calculated off breach purity
-    - Bullet spread calculated off Barrel purity
-    */
-
-    private final String name;
-    private final String fluid;
-    private final Boolean flamable;
-    private final int color;
-    private final Integer density; // kg/m3 / 1000
-    private final Integer hardness; // Rough Mohs Hardness * 10
-    private final Integer purity; // Just vibes man
-
-    private GunMaterials(String Name, int Color) {
-        this(Name, Color, false, 0, 0, 0);
+    private GunMaterials(GunMaterial Material) {
+        material = Material;
     }
 
-    private GunMaterials(String Name, String Fluid, int Color) {
-        this(Name, Fluid, Color, 0, 0, 0);
-    }
-
-    private GunMaterials(String Name, int Color, Integer Density, Integer Hardness, Integer Purity) {
-        this(Name, Color, false, Density, Hardness, Purity);
-    }
-
-    private GunMaterials(String Name, int Color, Boolean Flamable, Integer Density, Integer Hardness, Integer Purity) {
-        this.name = Name;
-        this.fluid = null;
-        this.color = Color;
-        this.flamable = Flamable;
-        this.density = Density;
-        this.hardness = Hardness;
-        this.purity = Purity;
-    }
-
-    private GunMaterials(String Name, String Fluid, int Color, Integer Density, Integer Hardness, Integer Purity) {
-        this.name = Name;
-        this.fluid = Fluid;
-        this.color = Color;
-        this.flamable = false;
-        this.density = Density;
-        this.hardness = Hardness;
-        this.purity = Purity;
-    }
     @Override
     public String getSerializedName() {
-        return this.name;
+        return material.getName();
     }
 
-    public Integer getColor() {
-        return this.color;
+    public GunMaterial getMaterial() {
+        return material;
     }
 
-    public Boolean isFlamable() {
-        return this.flamable;
-    }
-
-    public Boolean isMaterial(String name) {
-        return Objects.equals(this.name, name);
-    }
-
-    public Integer getPurity() {
-        return this.purity;
-    }
-
-    public Integer getHardness() {
-        return this.hardness;
-    }
-
-    public Integer getDensity(){
-        return this.density;
-    }
-
-    public String getFluidID() {
-        return this.fluid;
-    }
-
-    public Fluid getFluid() {
-        if (this.fluid != null && ModList.get().isLoaded(this.fluid.split(":")[0])) {
-            return ForgeRegistries.FLUIDS.getValue(new ResourceLocation(this.fluid));
-        }
-        return null;
-    }
-
-    public static GunMaterials getMaterial(String name) {
+    public static GunMaterial getMaterial(String name) {
         for (GunMaterials material : GunMaterials.values()) {
-            if (material.isMaterial(name)) {
-                return material;
+            if (material.getMaterial().isMaterial(name)) {
+                return material.getMaterial();
             }
         }
-        return GunMaterials.NULL;
+        return GunMaterials.NULL.getMaterial();
     }
 
-    public static GunMaterials getMaterial(ItemStack part) {
-        return getMaterial(NBT.getStringTag(part, "material"));
+    public static GunMaterial getMaterial(ItemStack stack) {
+        return getMaterial(NBT.getStringTag(stack, "material"));
     }
 }
