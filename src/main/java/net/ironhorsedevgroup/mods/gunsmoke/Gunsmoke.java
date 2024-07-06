@@ -94,7 +94,8 @@ public class Gunsmoke {
                     GunsmokeItems.BARREL_MEDIUM.get(),
                     GunsmokeItems.BARREL_SHORT.get(),
                     GunsmokeItems.STOCK.get(),
-                    GunsmokeItems.STOCK_ADVANCED.get()
+                    GunsmokeItems.STOCK_ADVANCED.get(),
+                    GunsmokeItems.GUN_PARTS.get()
             );
         }
     }

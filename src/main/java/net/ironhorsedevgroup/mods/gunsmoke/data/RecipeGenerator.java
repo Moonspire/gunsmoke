@@ -32,6 +32,7 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                 castRecipe(GunsmokeItems.CAST_BARREL_MEDIUM.get(), material, 90 * 3, 20, addMaterial(GunsmokeItems.BARREL_MEDIUM.get(), material), consumer);
                 castRecipe(GunsmokeItems.CAST_BARREL_LONG.get(), material, 90 * 4, 20, addMaterial(GunsmokeItems.BARREL_LONG.get(), material), consumer);
                 castRecipe(GunsmokeItems.CAST_STOCK.get(), material, 90 * 3, 20, addMaterial(GunsmokeItems.STOCK.get(), material), consumer);
+                castRecipe(GunsmokeItems.CAST_GUN_PARTS.get(), material, 90 * 2, 20, addMaterial(GunsmokeItems.GUN_PARTS.get(), material), consumer);
             }
         }
     }
