@@ -1,11 +1,14 @@
 package net.ironhorsedevgroup.mods.gunsmoke;
 
 import com.mojang.logging.LogUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
 import net.ironhorsedevgroup.mods.gunsmoke.data.RecipeGenerator;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,6 +21,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -79,6 +83,26 @@ public class Gunsmoke {
         @SubscribeEvent
         public static void registerItemColors(RegisterColorHandlersEvent.Item event)
         {
+            for (RegistryObject<Item> regItem : GunsmokeItems.REGISTRY.getEntries()) {
+                Item item = regItem.get();
+                if (item instanceof GunPartItem) {
+                    event.getItemColors().register(
+                            (
+                                    GunColor::getPartColor
+                            ),
+                            item
+                    );
+                } else if (item instanceof RifleItem) {
+                    event.getItemColors().register(
+                            (
+                                    GunColor::getColor
+                            ),
+                            item
+                    );
+                }
+            }
+
+            /*
             event.getItemColors().register(
                     (
                             GunColor::getColor
@@ -95,8 +119,11 @@ public class Gunsmoke {
                     GunsmokeItems.BARREL_SHORT.get(),
                     GunsmokeItems.STOCK.get(),
                     GunsmokeItems.STOCK_ADVANCED.get(),
-                    GunsmokeItems.GUN_PARTS.get()
+                    GunsmokeItems.GUN_PARTS.get(),
+                    GunsmokeItems.CHAMBER_PARTS.get()
             );
+
+             */
         }
     }
 
