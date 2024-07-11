@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
+import com.mrcrayfish.guns.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
@@ -14,6 +15,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class GunsmokeItems {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Gunsmoke.MODID);
 
+    public static final RegistryObject<Item> PARKER_BROTHERS_LIFTER_1873 = REGISTRY.register("parkerbrotherslifter1873", () -> new GunItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT)));
     public static final RegistryObject<Item> SHARPS_1874 = REGISTRY.register("sharps1874", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT), 10));
     public static final RegistryObject<Item> WINCHESTER_1895 = REGISTRY.register("winchester1895", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_COMBAT), 2));
 

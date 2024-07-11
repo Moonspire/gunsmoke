@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.data;
 
+import com.simibubi.create.content.kinetics.saw.CuttingRecipe;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterials;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
