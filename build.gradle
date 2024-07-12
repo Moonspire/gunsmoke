@@ -178,7 +178,7 @@ dependencies {
     //    }
     //}
 
-    implementation fg.deobf('curse.maven:toolshed-1056101:5496448')
+    implementation fg.deobf('curse.maven:toolshed-1056101:5524900')
 
     implementation fg.deobf('curse.maven:framework-549225:4718247')
     implementation fg.deobf('curse.maven:mrcrayfishs-gun-mod-289479:4718583')

@@ -1,6 +1,5 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
-
 public class RoundProperties {
     private final double damage;
     private boolean gravity = true;
@@ -8,6 +7,7 @@ public class RoundProperties {
     private double size = 1.0;
     private double speed = 10.0;
     private int projectileAmount = 1;
+    private boolean powder = false;
 
     public RoundProperties(Double damage) {
         this.damage = damage;
@@ -17,6 +17,14 @@ public class RoundProperties {
         return damage;
     }
 
+    public RoundProperties setPowder(Boolean value) {
+        this.powder = value;
+        return this;
+    }
+
+    public Boolean getPowder() {
+        return powder;
+    }
     public RoundProperties setGravity(boolean gravity) {
         this.gravity = gravity;
         return this;
