@@ -1,9 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.data;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.minecraft.advancements.Advancement;
@@ -20,7 +18,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
 import java.util.function.Consumer;
 
 public class GunPartUpgradeRecipeBuilder implements RecipeBuilder {
