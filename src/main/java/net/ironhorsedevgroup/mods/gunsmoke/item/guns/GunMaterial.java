@@ -3,6 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,7 +19,7 @@ public class GunMaterial {
     private short purity = 0; // Just vibes man
     private ResourceLocation casting_fluid = null;
     private boolean castable = false;
-    private Item crafting_item = null;
+    private ResourceLocation crafting_item = null;
 
     public GunMaterial(String name) {
         this.name = name;
@@ -92,8 +93,10 @@ public class GunMaterial {
     }
 
     public Fluid getCastingFluid() {
-        if (ModList.get().isLoaded(casting_fluid.getNamespace())) {
-            return ForgeRegistries.FLUIDS.getValue(casting_fluid);
+        if (casting_fluid != null) {
+            if (ModList.get().isLoaded(casting_fluid.getNamespace())) {
+                return ForgeRegistries.FLUIDS.getValue(casting_fluid);
+            }
         }
         return null;
     }
@@ -107,13 +110,27 @@ public class GunMaterial {
         return castable;
     }
 
-    public GunMaterial setCraftingItem(Item item) {
+    public GunMaterial setCraftingItem(String item) {
+        crafting_item = new ResourceLocation(item);
+        return this;
+    }
+
+    public GunMaterial setCraftingItem(ResourceLocation item) {
         crafting_item = item;
         return this;
     }
 
-    public Item getCraftingItem() {
+    public ResourceLocation getCraftingItemID() {
         return crafting_item;
+    }
+
+    public Item getCraftingItem() {
+        if (crafting_item != null) {
+            if (ModList.get().isLoaded(crafting_item.getNamespace())) {
+                return ForgeRegistries.ITEMS.getValue(crafting_item);
+            }
+        }
+        return null;
     }
 
     public Boolean isCraftable() {

@@ -3,6 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public enum GunMaterials implements StringRepresentable {
     NULL(new GunMaterial("null")),
@@ -15,6 +16,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(10)
                     .setHardness(10)
                     .setPurity(10)
+                    .setCraftingItem("minecraft:acacia_planks")
     ),
     BIRCH(
             new GunMaterial("birch")
@@ -23,6 +25,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(8)
                     .setHardness(8)
                     .setPurity(5)
+                    .setCraftingItem("minecraft:birch_planks")
     ),
     DARK_OAK(
             new GunMaterial("dark_oak")
@@ -31,6 +34,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(9)
                     .setHardness(8)
                     .setPurity(5)
+                    .setCraftingItem("minecraft:dark_oak_planks")
     ),
     JUNGLE(
             new GunMaterial("jungle")
@@ -39,6 +43,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(3)
                     .setHardness(5)
                     .setPurity(5)
+                    .setCraftingItem("minecraft:jungle_planks")
     ),
     MANGROVE(
             new GunMaterial("mangrove")
@@ -47,6 +52,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(5)
                     .setHardness(7)
                     .setPurity(5)
+                    .setCraftingItem("minecraft:mangrove_planks")
     ),
     OAK(
             new GunMaterial("oak")
@@ -55,6 +61,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(9)
                     .setHardness(8)
                     .setPurity(5)
+                    .setCraftingItem("minecraft:oak_planks")
     ),
     SPRUCE(
             new GunMaterial("spruce")
@@ -63,6 +70,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(6)
                     .setHardness(7)
                     .setPurity(5)
+                    .setCraftingItem("minecraft:spruce_planks")
     ),
 
     //Nether Woods
@@ -72,6 +80,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(13)
                     .setHardness(9)
                     .setPurity(5)
+                    .setCraftingItem("minecraft:crimson_planks")
     ),
     WARPED(
             new GunMaterial("warped")
@@ -79,6 +88,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(4)
                     .setHardness(6)
                     .setPurity(5)
+                    .setCraftingItem("minecraft:warped_planks")
     ),
 
     //Quark Woods
@@ -158,6 +168,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setHardness(65)
                     .setPurity(40)
                     .setCastingFluid("tconstruct:molten_iron")
+                    .setCraftingItem("minecraft:iron_ingot")
     ),
     WROUGHT_IRON(
             new GunMaterial("wrought_iron")
@@ -175,6 +186,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setHardness(30)
                     .setPurity(80)
                     .setCastingFluid("tconstruct:molten_copper")
+                    .setCastable(true)
     ),
     OXIDIZED_COPPER(
             new GunMaterial("oxidized_copper")
@@ -183,7 +195,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setHardness(35)
                     .setPurity(65)
                     .setCastingFluid("tconstruct:molten_copper")
-                    .setCastable(true)
+                    .setCraftingItem("minecraft:copper_ingot")
     ),
     GOLD(
             new GunMaterial("gold")
@@ -193,6 +205,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setPurity(100)
                     .setCastingFluid("tconstruct:molten_gold")
                     .setCastable(true)
+                    .setCraftingItem("minecraft:gold_ingot")
     ),
 
     //IE Metals
@@ -325,6 +338,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(-12)
                     .setHardness(15)
                     .setPurity(1)
+                    .setCraftingItem("minecraft:shulker_shell")
     )
     ;
 
