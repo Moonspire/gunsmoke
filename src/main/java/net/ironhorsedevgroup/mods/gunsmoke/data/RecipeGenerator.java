@@ -39,17 +39,20 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         for (GunMaterials object : GunMaterials.values()) {
             GunMaterial material = object.getMaterial();
-            if (material.isCastable() && material.getCastingFluid() != null) {
-                castRecipe(GunsmokeItems.CAST_BARREL_SHORT.get(), material, 90 * 2, 20, addMaterial(GunsmokeItems.BARREL_SHORT.get(), material), consumer);
-                castRecipe(GunsmokeItems.CAST_BARREL_MEDIUM.get(), material, 90 * 3, 20, addMaterial(GunsmokeItems.BARREL_MEDIUM.get(), material), consumer);
-                castRecipe(GunsmokeItems.CAST_BARREL_LONG.get(), material, 90 * 4, 20, addMaterial(GunsmokeItems.BARREL_LONG.get(), material), consumer);
-                castRecipe(GunsmokeItems.CAST_STOCK.get(), material, 90 * 3, 20, addMaterial(GunsmokeItems.STOCK.get(), material), consumer);
-                castRecipe(GunsmokeItems.CAST_GUN_PARTS.get(), material, 90 * 2, 20, addMaterial(GunsmokeItems.GUN_PARTS.get(), material), consumer);
-            }
-            try {
-                upgradeRecipe(GunsmokeItems.STOCK_ADVANCED.get(), GunsmokeItems.STOCK.get(), material, consumer);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (material != GunMaterials.NULL.getMaterial()) {
+                if (material.isCastable() && material.getCastingFluid() != null) {
+                    castRecipe(GunsmokeItems.CAST_BARREL_SHORT.get(), material, 90 * 2, 20, addMaterial(GunsmokeItems.BARREL_SHORT.get(), material), consumer);
+                    castRecipe(GunsmokeItems.CAST_BARREL_MEDIUM.get(), material, 90 * 3, 20, addMaterial(GunsmokeItems.BARREL_MEDIUM.get(), material), consumer);
+                    castRecipe(GunsmokeItems.CAST_BARREL_LONG.get(), material, 90 * 4, 20, addMaterial(GunsmokeItems.BARREL_LONG.get(), material), consumer);
+                    castRecipe(GunsmokeItems.CAST_STOCK.get(), material, 90 * 3, 20, addMaterial(GunsmokeItems.STOCK.get(), material), consumer);
+                    castRecipe(GunsmokeItems.CAST_GUN_PARTS.get(), material, 90 * 2, 20, addMaterial(GunsmokeItems.GUN_PARTS.get(), material), consumer);
+                }
+                try {
+                    upgradeRecipe(GunsmokeItems.STOCK_ADVANCED.get(), GunsmokeItems.STOCK.get(), material, consumer);
+                    upgradeRecipe(GunsmokeItems.CHAMBER_PARTS.get(), GunsmokeItems.BARREL_SHORT.get(), material, consumer);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
@@ -77,11 +80,9 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
     }
 
     public void upgradeRecipe(ItemLike result, ItemLike baseItem, GunMaterial material, Consumer<FinishedRecipe> consumer) throws IOException {
-        if (material != GunMaterials.NULL.getMaterial()) {
-            ResourceLocation location = new ResourceLocation("gunsmoke", "crafting/" + addMaterial(result.asItem(), material).getDescriptionId());
-            new GunPartUpgradeRecipeBuilder(result.asItem(), Ingredient.of(baseItem), material)
-                    .unlockedBy("haveiron", has(Items.IRON_INGOT))
-                    .save(consumer, location);
-        }
+        ResourceLocation location = new ResourceLocation("gunsmoke", "crafting/" + addMaterial(result.asItem(), material).getDescriptionId());
+        new GunPartUpgradeRecipeBuilder(result.asItem(), Ingredient.of(baseItem), material)
+                .unlockedBy("haveiron", has(Items.IRON_INGOT))
+                .save(consumer, location);
     }
 }
