@@ -90,37 +90,33 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
     }
 
     public void vanillaRecipes(GunMaterial material, Consumer<FinishedRecipe> consumer) {
-        if (material.getCraftingItem() != null) {
+        if (material.getCraftingItemID() != null) {
             VanillaShapedRecipeBuilder partsRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.GUN_PARTS.get(), material)
                     .pattern("XY")
                     .pattern("YX")
-                    .define('X', material.getCraftingItem())
                     .define('Y', Items.IRON_NUGGET)
                     .unlockedBy("haveiron", has(Items.IRON_INGOT));
 
             VanillaShapedRecipeBuilder stockRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.STOCK.get(), material)
                     .pattern("XX")
                     .pattern(" X")
-                    .define('X', material.getCraftingItem())
                     .unlockedBy("haveiron", has(Items.IRON_INGOT));
 
             VanillaShapedRecipeBuilder shortBarrelRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.BARREL_SHORT.get(), material)
                     .pattern("X ")
                     .pattern(" X")
-                    .define('X', material.getCraftingItem())
                     .unlockedBy("haveiron", has(Items.IRON_INGOT));
 
             VanillaShapedRecipeBuilder mediumBarrelRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.BARREL_MEDIUM.get(), material)
                     .pattern("X  ")
                     .pattern(" X ")
                     .pattern("  X")
-                    .define('X', material.getCraftingItem())
                     .unlockedBy("haveiron", has(Items.IRON_INGOT));
 
             VanillaShapedRecipeBuilder longBarrelRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.BARREL_LONG.get(), material)
-                    .pattern("X ")
-                    .pattern(" X")
-                    .define('X', GunsmokeItems.BARREL_SHORT.get())
+                    .pattern("Y ")
+                    .pattern(" Y")
+                    .define('Y', GunsmokeItems.BARREL_SHORT.get())
                     .requireMaterial()
                     .unlockedBy("haveiron", has(Items.IRON_INGOT));
 

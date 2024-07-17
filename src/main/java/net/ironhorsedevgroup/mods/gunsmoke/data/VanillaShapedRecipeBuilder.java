@@ -124,7 +124,7 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
 
                 for(int ingredients = 0; ingredients < line.length(); ++ingredients) {
                     char ingredient = line.charAt(ingredients);
-                    if (!this.key.containsKey(ingredient) && ingredient != ' ') {
+                    if (!this.key.containsKey(ingredient) && ingredient != ' ' && ingredient != 'X') {
                         throw new IllegalStateException("Pattern in recipe " + location + " uses undefined symbol '" + ingredient + "'");
                     }
 
@@ -136,8 +136,6 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
                 throw new IllegalStateException("Ingredients are defined but not used in pattern for recipe " + location);
             } else if (this.rows.size() == 1 && ((String)this.rows.get(0)).length() == 1) {
                 throw new IllegalStateException("Shaped recipe " + location + " only takes in a single item - should it be a shapeless recipe instead?");
-            } else if (this.advancement.getCriteria().isEmpty()) {
-                throw new IllegalStateException("No way of obtaining recipe " + location);
             }
         }
     }
@@ -172,8 +170,12 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
             nbt.addProperty("material", material.getName());
 
             JsonArray pattern = new JsonArray();
+            boolean usesDefault = false;
 
             for (String line : this.pattern) {
+                if (line.contains("X")) {
+                    usesDefault = true;
+                }
                 pattern.add(line);
             }
             JsonObject ingredients = new JsonObject();
@@ -186,6 +188,13 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
                 }
                 ingredients.add(String.valueOf(characterIngredientEntry.getKey()), part);
             }
+
+            if (usesDefault) {
+                JsonObject itemIngedient = new JsonObject();
+                itemIngedient.addProperty("item", material.getCraftingItemID().toString());
+                ingredients.add("X", itemIngedient);
+            }
+
             JsonObject result = new JsonObject();
 
             result.addProperty("item", Registry.ITEM.getKey(this.result).toString());
@@ -254,7 +263,7 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
             return this.id;
         }
 
-        @Nullable
+        @Override
         public JsonObject serializeAdvancement() {
             return this.advancement.serializeToJson();
         }

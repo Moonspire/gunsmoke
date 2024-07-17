@@ -3,7 +3,6 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public enum GunMaterials implements StringRepresentable {
     NULL(new GunMaterial("null")),
@@ -99,6 +98,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(6)
                     .setHardness(7)
                     .setPurity(5)
+                    .setCraftingItem("quark:ancient_planks")
     ),
     AZALEA(
             new GunMaterial("azalea")
@@ -107,6 +107,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(9)
                     .setHardness(8)
                     .setPurity(5)
+                    .setCraftingItem("quark:azalea_planks")
     ),
     BLOSSOM(
             new GunMaterial("blossom")
@@ -115,6 +116,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(9)
                     .setHardness(8)
                     .setPurity(5)
+                    .setCraftingItem("quark:blossom_planks")
     ),
 
     //IE Woods
@@ -124,6 +126,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(10)
                     .setHardness(7)
                     .setPurity(6)
+                    .setCraftingItem("immersiveengineering:treated_wood_horizontal")
     ),
 
     //Undergarden Woods
@@ -134,6 +137,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(10)
                     .setHardness(10)
                     .setPurity(5)
+                    .setCraftingItem("undergarden:grongle_planks")
     ),
     SMOGSTEM(
             new GunMaterial("smogstem")
@@ -142,6 +146,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(15)
                     .setHardness(15)
                     .setPurity(5)
+                    .setCraftingItem("undergarden:smogstem_planks")
     ),
     WIGGLEWOOD(
             new GunMaterial("wigglewood")
@@ -150,6 +155,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(9)
                     .setHardness(10)
                     .setPurity(5)
+                    .setCraftingItem("undergarden:wigglewood_planks")
     ),
 
     //Vanilla Metals
@@ -217,6 +223,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setPurity(50)
                     .setCastingFluid("tconstruct:molten_lead")
                     .setCastable(true)
+                    .setCraftingItem("immersiveengineeing:ingot_lead")
     ),
     SILVER(
             new GunMaterial("silver")
@@ -226,6 +233,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setPurity(85)
                     .setCastingFluid("tconstruct:molten_silver")
                     .setCastable(true)
+                    .setCraftingItem("immersiveengineeing:ingot_silver")
     ),
     STEEL(
             new GunMaterial("steel")
@@ -235,6 +243,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setPurity(70)
                     .setCastingFluid("tconstruct:molten_steel")
                     .setCastable(true)
+                    .setCraftingItem("immersiveengineeing:ingot_steel")
     ),
 
     //Create Metals
@@ -246,6 +255,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(82)
                     .setHardness(30)
                     .setPurity(90)
+                    .setCraftingItem("create:brass_ingot")
     ),
     NETHERSTEEL (
         new GunMaterial("nethersteel")
@@ -253,6 +263,7 @@ public enum GunMaterials implements StringRepresentable {
                 .setDensity(80)
                 .setHardness(95)
                 .setPurity(100)
+                .setCraftingItem("createbigcannons:nethersteel_ingot")
     ),
 
     //Tinkers Metals & Alloys
@@ -306,6 +317,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(79)
                     .setHardness(70)
                     .setPurity(75)
+                    .setCraftingItem("pigsteel:pigsteel_ingot")
     ),
     ZOMBIFIED_PIGSTEEL(
             new GunMaterial("zombified_pigsteel")
@@ -329,6 +341,7 @@ public enum GunMaterials implements StringRepresentable {
                     .setDensity(79)
                     .setHardness(90)
                     .setPurity(30)
+                    .setCraftingItem("undergarden:cloggrum_ingot")
     ),
 
     //Oddballs
