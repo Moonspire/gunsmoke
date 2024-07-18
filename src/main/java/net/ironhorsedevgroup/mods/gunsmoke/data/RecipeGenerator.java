@@ -102,6 +102,11 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                     .pattern(" X")
                     .unlockedBy("haveiron", has(Items.IRON_INGOT));
 
+            VanillaShapedRecipeBuilder gripRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.GRIP.get(), material)
+                    .pattern(" X")
+                    .pattern("X ")
+                    .unlockedBy("haveiron", has(Items.IRON_INGOT));
+
             VanillaShapedRecipeBuilder shortBarrelRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.BARREL_SHORT.get(), material)
                     .pattern("X ")
                     .pattern(" X")
@@ -130,6 +135,7 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
 
             partsRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.GUN_PARTS.get(), material).getDescriptionId()));
             stockRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.STOCK.get(), material).getDescriptionId()));
+            gripRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.GRIP.get(), material).getDescriptionId()));
             shortBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.BARREL_SHORT.get(), material).getDescriptionId()));
             mediumBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.BARREL_MEDIUM.get(), material).getDescriptionId()));
             longBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.BARREL_LONG.get(), material).getDescriptionId()));
