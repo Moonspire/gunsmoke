@@ -3,7 +3,6 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;

@@ -4,20 +4,20 @@ import net.minecraft.util.StringRepresentable;
 
 public enum RoundCalibers implements StringRepresentable {
     R22(
-            new CaliberProperties(".22")
+            new CaliberProperties("r22")
                     .setBottlenose(
                             new RoundProperties(4.0)
                     )
     ),
     R11_3X36MMR (
-            new CaliberProperties("11.3x36mmR")
+            new CaliberProperties("r11_3x36mmr")
                     .setBottlenose(
                             new RoundProperties(6.7)
                                     .setPowder(true)
                     )
     ),
-    R600_NIRO(
-            new CaliberProperties(".600")
+    R600_NITRO(
+            new CaliberProperties("r600_nirto")
                     .setBuckshot(
                             new RoundProperties(4.0)
                                     .setProjectileAmount(20)
@@ -32,6 +32,10 @@ public enum RoundCalibers implements StringRepresentable {
 
     @Override
     public String getSerializedName() {
-        return properties.getName();
+        return this.properties.getName();
+    }
+
+    public CaliberProperties getCaliber() {
+        return this.properties;
     }
 }

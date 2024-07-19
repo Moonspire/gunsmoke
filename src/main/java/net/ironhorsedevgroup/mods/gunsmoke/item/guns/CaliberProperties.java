@@ -1,5 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
+import java.util.Objects;
+
 public class CaliberProperties {
     private final String caliber;
     private RoundProperties bottlenose = null;
@@ -121,5 +123,13 @@ public class CaliberProperties {
 
     public String getName() {
         return this.caliber;
+    }
+
+    public String getCaliber() {
+        return this.caliber;
+    }
+
+    public Boolean isCaliber(CaliberProperties caliber) {
+        return Objects.equals(this.caliber, caliber.getCaliber());
     }
 }
