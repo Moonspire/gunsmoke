@@ -1,8 +1,10 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
+package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.CaliberProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.RoundProperties;
 import net.minecraft.util.StringRepresentable;
 
-public enum RoundCalibers implements StringRepresentable {
+public enum GunsmokeCalibers implements StringRepresentable {
     R22(
             new CaliberProperties("r22")
                     .addRound(
@@ -29,7 +31,7 @@ public enum RoundCalibers implements StringRepresentable {
 
     private final CaliberProperties properties;
 
-    private RoundCalibers(CaliberProperties properties) {
+    private GunsmokeCalibers(CaliberProperties properties) {
         this.properties = properties;
     }
 

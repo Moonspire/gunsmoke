@@ -6,7 +6,6 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.CaliberProperties;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.RoundCalibers;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -47,7 +46,7 @@ public class GunsmokeItems {
 
     private static Map<String, RegistryObject<Item>> registerCalibers(DeferredRegister<Item> registry) {
         Map<String, RegistryObject<Item>> registryObjects = new HashMap<>();
-        for (RoundCalibers round : RoundCalibers.values()) {
+        for (GunsmokeCalibers round : GunsmokeCalibers.values()) {
             CaliberProperties caliber = round.getCaliber();
             registryObjects.put(round.getSerializedName(), registry.register(round.getSerializedName(), () -> new RoundItem(new Item.Properties().tab(CreativeModeTab.TAB_MATERIALS), caliber)));
         }

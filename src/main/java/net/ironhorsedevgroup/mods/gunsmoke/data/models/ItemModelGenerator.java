@@ -1,16 +1,13 @@
 package net.ironhorsedevgroup.mods.gunsmoke.data.models;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.CaliberProperties;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.RoundCalibers;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeCalibers;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.RoundProperties;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-
-import java.util.List;
 
 public class ItemModelGenerator extends ItemModelProvider {
     private static final ResourceLocation ITEM_GENERATED = new ResourceLocation("item/generated");
@@ -21,7 +18,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        for (RoundCalibers calibers : RoundCalibers.values()) {
+        for (GunsmokeCalibers calibers : GunsmokeCalibers.values()) {
             roundItem(calibers.getCaliber());
         }
     }
