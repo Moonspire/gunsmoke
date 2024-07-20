@@ -1,6 +1,9 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
+import net.minecraft.resources.ResourceLocation;
+
 public class RoundProperties {
+    private final int id;
     private final double damage;
     private boolean gravity = true;
     private int life = 5;
@@ -8,9 +11,29 @@ public class RoundProperties {
     private double speed = 10.0;
     private int projectileAmount = 1;
     private boolean powder = false;
+    private ResourceLocation texture = new ResourceLocation("gunsmoke", "textures/items/rounds/default");
 
-    public RoundProperties(Double damage) {
+    public RoundProperties(int id, Double damage) {
         this.damage = damage;
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public RoundProperties setTexture(ResourceLocation texture) {
+        this.texture = texture;
+        return this;
+    }
+
+    public RoundProperties setTexture(String texture) {
+        this.texture = new ResourceLocation(texture);
+        return this;
+    }
+
+    public ResourceLocation getTexture() {
+        return this.texture;
     }
 
     public double getDamage() {

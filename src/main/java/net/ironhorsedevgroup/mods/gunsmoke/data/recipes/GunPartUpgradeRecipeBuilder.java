@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.data;
+package net.ironhorsedevgroup.mods.gunsmoke.data.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

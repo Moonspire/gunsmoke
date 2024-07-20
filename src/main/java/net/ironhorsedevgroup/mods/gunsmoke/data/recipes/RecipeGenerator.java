@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.data;
+package net.ironhorsedevgroup.mods.gunsmoke.data.recipes;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterials;

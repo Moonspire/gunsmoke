@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
-import net.ironhorsedevgroup.mods.gunsmoke.data.RecipeGenerator;
+import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
