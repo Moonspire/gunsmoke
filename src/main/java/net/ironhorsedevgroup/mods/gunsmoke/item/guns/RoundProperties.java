@@ -11,7 +11,7 @@ public class RoundProperties {
     private double speed = 10.0;
     private int projectileAmount = 1;
     private boolean powder = false;
-    private ResourceLocation texture = new ResourceLocation("gunsmoke", "textures/items/rounds/default");
+    private ResourceLocation texture = new ResourceLocation("gunsmoke", "items/rounds/default");
 
     public RoundProperties(int id, Double damage) {
         this.damage = damage;

@@ -26,4 +26,8 @@ public class RoundItem extends Item {
             }
         }
     }
+
+    public CaliberProperties getCaliber() {
+        return caliber;
+    }
 }

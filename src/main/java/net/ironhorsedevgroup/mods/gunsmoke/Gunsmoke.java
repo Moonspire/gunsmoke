@@ -1,6 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke;
 
 import com.mojang.logging.LogUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.data.models.ItemModelGenerator;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -63,7 +65,10 @@ public class Gunsmoke {
         @SubscribeEvent
         public static void gatherData(GatherDataEvent event) {
             DataGenerator generator = event.getGenerator();
+            ExistingFileHelper helper = event.getExistingFileHelper();
+
             generator.addProvider(true, new RecipeGenerator(generator));
+            generator.addProvider(true, new ItemModelGenerator(generator, MODID, helper));
         }
     }
 
