@@ -2,6 +2,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.item;
 
 import com.mrcrayfish.guns.common.Gun;
 import com.mrcrayfish.guns.item.GunItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterials;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunProperties;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -23,6 +24,15 @@ public class RifleItem extends GunItem {
 
     public void damageGun(ItemStack itemStack) {
         gunProperties.damageGun(itemStack);
+    }
+
+    public ItemStack setMaterials(GunMaterials stock, GunMaterials barrel, GunMaterials core, GunMaterials breach) {
+        ItemStack gunItem = new ItemStack(this);
+        NBT.putStringTag(gunItem, "material_1", stock.getSerializedName());
+        NBT.putStringTag(gunItem, "material_2", barrel.getSerializedName());
+        NBT.putStringTag(gunItem, "material_3", core.getSerializedName());
+        NBT.putStringTag(gunItem, "material_4", breach.getSerializedName());
+        return gunItem;
     }
 
     @Override

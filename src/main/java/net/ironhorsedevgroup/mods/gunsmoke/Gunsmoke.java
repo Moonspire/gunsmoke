@@ -7,6 +7,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeTabs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
@@ -36,6 +37,8 @@ public class Gunsmoke {
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public Gunsmoke() {
+        GunsmokeTabs.load();
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register the commonSetup method for modloading
