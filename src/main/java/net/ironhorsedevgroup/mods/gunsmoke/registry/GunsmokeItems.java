@@ -25,6 +25,8 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> WINCHESTER_1895 = REGISTRY.register("winchester1895", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS), 2));
     public static final RegistryObject<Item> DRAGOON = REGISTRY.register("dragoon", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS), 10));
 
+    public static final RegistryObject<Item> GUN_BENCH = block(GunsmokeBlocks.GUN_BENCH, GunsmokeTabs.FIREARMS);
+
     public static final RegistryObject<Item> BARREL_SHORT = REGISTRY.register("barrel_short", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> BARREL_MEDIUM = REGISTRY.register("barrel_medium", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> BARREL_LONG = REGISTRY.register("barrel_long", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
@@ -53,11 +55,8 @@ public class GunsmokeItems {
         return registryObjects;
     }
 
-    private static RegistryObject<Item> block(DeferredRegister<Item> registry, RegistryObject<Block> block, CreativeModeTab tab) {
-        return registry.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
-    }
-    private static RegistryObject<Item> block(DeferredRegister<Item> registry, RegistryObject<Block> block, CreativeModeTab tab, String id) {
-        return registry.register(id, () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
+    private static RegistryObject<Item> block(RegistryObject<Block> block, CreativeModeTab tab) {
+        return REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));
     }
 
 }

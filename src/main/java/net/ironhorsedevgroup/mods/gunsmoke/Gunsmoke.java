@@ -7,6 +7,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeBlocks;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeTabs;
 import net.minecraft.client.Minecraft;
@@ -46,6 +47,7 @@ public class Gunsmoke {
         modEventBus.addListener(this::commonSetup);
 
         // Register the Deferred Register to the mod event bus so items get registered
+        GunsmokeBlocks.REGISTRY.register(modEventBus);
         GunsmokeItems.REGISTRY.register(modEventBus);
 
         if (ModList.get().isLoaded("tconstruct")) {
@@ -110,29 +112,6 @@ public class Gunsmoke {
                     );
                 }
             }
-
-            /*
-            event.getItemColors().register(
-                    (
-                            GunColor::getColor
-                    ),
-                    GunsmokeItems.SHARPS_1874.get(),
-                    GunsmokeItems.WINCHESTER_1895.get()
-            );
-            event.getItemColors().register(
-                    (
-                        GunColor::getPartColor
-                    ),
-                    GunsmokeItems.BARREL_LONG.get(),
-                    GunsmokeItems.BARREL_MEDIUM.get(),
-                    GunsmokeItems.BARREL_SHORT.get(),
-                    GunsmokeItems.STOCK.get(),
-                    GunsmokeItems.STOCK_ADVANCED.get(),
-                    GunsmokeItems.GUN_PARTS.get(),
-                    GunsmokeItems.CHAMBER_PARTS.get()
-            );
-
-             */
         }
     }
 

@@ -23,10 +23,7 @@ import net.minecraftforge.common.crafting.ConditionalRecipe;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class VanillaShapedRecipeBuilder implements RecipeBuilder {
@@ -151,6 +148,7 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
         private final Advancement.Builder advancement;
         private final ResourceLocation advancementId;
         private final boolean requireMaterial;
+        private final List<String> reqModsList = new ArrayList<>();
 
         public Result(ResourceLocation location, Item item, GunMaterial material, List<String> modlist, String group, List<String> pattern, Map<Character, Ingredient> keys, Advancement.Builder advancement, ResourceLocation advancementId, boolean requireMaterial) {
             this.id = location;
@@ -163,6 +161,10 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
             this.advancement = advancement;
             this.advancementId = advancementId;
             this.requireMaterial = requireMaterial;
+            String namespace = material.getCraftingItemID().getNamespace();
+            if (!namespace.equals("minecraft") && !namespace.equals("gunsmoke")) {
+                reqModsList.add(namespace);
+            }
         }
 
         public void serializeRecipeData(JsonObject json) {
@@ -200,24 +202,35 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
             result.addProperty("item", Registry.ITEM.getKey(this.result).toString());
             result.add("nbt", nbt);
             
-            if (!modlist.isEmpty()) {
+            if (!modlist.isEmpty() || !reqModsList.isEmpty()) {
                 JsonArray recipes = new JsonArray();
                 JsonObject conditionalRecipe = new JsonObject();
 
                 JsonArray conditions = new JsonArray();
+                if (!modlist.isEmpty()) {
+                    for (String modid : modlist) {
+                        JsonObject condition = new JsonObject();
 
-                for (String modid : modlist) {
-                    JsonObject condition = new JsonObject();
+                        condition.addProperty("type", "forge:not");
 
-                    condition.addProperty("type", "forge:not");
+                        JsonObject modCheck = new JsonObject();
 
-                    JsonObject modCheck = new JsonObject();
+                        modCheck.addProperty("type", "forge:mod_loaded");
+                        modCheck.addProperty("modid", modid);
 
-                    modCheck.addProperty("type", "forge:mod_loaded");
-                    modCheck.addProperty("modid", modid);
+                        condition.add("value", modCheck);
+                        conditions.add(condition);
+                    }
+                } else {
+                    for (String modid : reqModsList) {
 
-                    condition.add("value", modCheck);
-                    conditions.add(condition);
+                        JsonObject modCheck = new JsonObject();
+
+                        modCheck.addProperty("type", "forge:mod_loaded");
+                        modCheck.addProperty("modid", modid);
+
+                        conditions.add(modCheck);
+                    }
                 }
 
                 conditionalRecipe.add("conditions", conditions);
@@ -253,7 +266,7 @@ public class VanillaShapedRecipeBuilder implements RecipeBuilder {
         }
 
         public RecipeSerializer<?> getType() {
-            if (modlist.isEmpty()) {
+            if (modlist.isEmpty() && reqModsList.isEmpty()) {
                 return RecipeSerializer.SHAPED_RECIPE;
             }
             return ConditionalRecipe.SERIALZIER;

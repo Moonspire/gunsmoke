@@ -1,8 +1,15 @@
 {
+  "itemGroup.gunsmoke.firearms": "Gunsmoke Firearms",
+  "itemGroup.gunsmoke.parts": "Gunsmoke Parts",
+
   "item.gunsmoke.sharps1874": "Sharps Model 1874",
   "item.gunsmoke.winchester1895": "Winchester Model 1895",
   "item.gunsmoke.parkerbrotherslifter1873": "Parker Brothers Lifter Model 1873",
   "item.gunsmoke.dragoon": "Dragoon",
+
+  "item.gunsmoke.r45_70.0": ".45-70 Pointed",
+  "item.gunsmoke.r45_70.1": ".45-100 Pointed",
+  "item.gunsmoke.r45_70.2": ".45-120 Pointed",
 
   "item.gunsmoke.cast_barrel_short": "Short Barrel Cast",
   "item.gunsmoke.cast_barrel_medium": "Medium Barrel Cast",

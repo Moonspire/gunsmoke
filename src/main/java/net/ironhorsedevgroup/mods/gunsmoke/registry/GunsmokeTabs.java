@@ -14,7 +14,7 @@ public class GunsmokeTabs {
 
     public static void load() {
 
-        FIREARMS = new CreativeModeTab("gunsmoke_firearms") {
+        FIREARMS = new CreativeModeTab("gunsmoke.firearms") {
             @Override
             public ItemStack makeIcon() {
                 if (GunsmokeItems.DRAGOON.get() instanceof RifleItem rifle) {
@@ -30,7 +30,7 @@ public class GunsmokeTabs {
             }
         };
 
-        PARTS = new CreativeModeTab("gunsmoke_parts") {
+        PARTS = new CreativeModeTab("gunsmoke.parts") {
             @Override
             public ItemStack makeIcon() {
                 return NBT.putStringTag(new ItemStack(GunsmokeItems.STOCK_ADVANCED.get()), "material", GunMaterials.OAK.getSerializedName());
