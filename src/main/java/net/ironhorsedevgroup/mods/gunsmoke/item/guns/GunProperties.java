@@ -3,19 +3,34 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 import com.mrcrayfish.guns.common.GripType;
 import com.mrcrayfish.guns.common.Gun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeCalibers;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class GunProperties {
     private final Integer reloadWait;
     private Gun result;
     private GunMakeup gunMakeup = new GunMakeup();
+    private final List<RoundProperties> loadedRounds = new ArrayList<>();
+    private RoundProperties lastRound;
 
     public GunProperties(Gun gun, Integer reload) {
         reloadWait = reload;
         result = buildGun(gun);
+        if (ForgeRegistries.ITEMS.getValue(gun.getProjectile().getItem()) instanceof RoundItem round) {
+            lastRound = round.getCaliber().getRound(0);
+        } else {
+            lastRound = GunsmokeCalibers.R45_70.getCaliber().getRound(0);
+        }
     }
 
     public Integer getPureReloadWait() {
@@ -37,15 +52,33 @@ public class GunProperties {
         gunMakeup.dealDamage();
     }
 
+    public void loadRound(RoundProperties round) {
+        loadedRounds.add(round);
+    }
+
+    public void removeRound() {
+        loadedRounds.remove(loadedRounds.size() - 1);
+    }
+
     public Gun getGun(ItemStack itemStack) {
         updateGun(itemStack);
         return result;
     }
 
+    public RoundProperties getChamberedRound() {
+        int size = loadedRounds.size();
+        if (size > 0) {
+            return loadedRounds.get(size - 1);
+        }
+        return new RoundProperties(0, 0.0);
+    }
+
     private void updateGun(ItemStack itemStack) {
         GunMakeup newGunMakeup = new GunMakeup(itemStack);
-        if (itemStack.getItem() instanceof RifleItem rifleItem && !gunMakeup.is(newGunMakeup)) {
+        RoundProperties round = getChamberedRound();
+        if (itemStack.getItem() instanceof RifleItem rifleItem && (!gunMakeup.is(newGunMakeup) || !Objects.equals(round, lastRound))) {
             gunMakeup = newGunMakeup;
+            lastRound = round;
             result = buildGun(rifleItem.getGun());
         }
     }
@@ -86,6 +119,8 @@ public class GunProperties {
             // General
             Gun.General general = gun.getGeneral();
 
+            RoundProperties round = lastRound;
+
             Boolean alwaysSpread = general.isAlwaysSpread();
             Boolean auto = general.isAuto();
             GripType gripType = general.getGripType();
@@ -96,6 +131,7 @@ public class GunProperties {
             Float recoilKick = general.getRecoilKick();
             Integer reloadAmount = general.getReloadAmount();
             Float spread = general.getSpread();
+            Integer projectileAmount = round.getProjectileAmount();
 
             // Modules
             Gun.Modules modules = gun.getModules();
@@ -110,12 +146,12 @@ public class GunProperties {
             // Projectile
             Gun.Projectile projectile = gun.getProjectile();
 
-            Float damage = projectile.getDamage();
-            Boolean gravity = projectile.isGravity();
+            Float damage = round.getDamage();
+            boolean gravity = round.getGravity();
             Item ammoItem = ForgeRegistries.ITEMS.getValue(projectile.getItem());
-            Integer life = projectile.getLife();
-            Float size = projectile.getSize();
-            Double speed = projectile.getSpeed();
+            int life = round.getLife();
+            Float size = round.getSize();
+            double speed = round.getSpeed();
 
             // Sounds
             Gun.Sounds sounds = gun.getSounds();
@@ -146,6 +182,7 @@ public class GunProperties {
                     .setRecoilKick(recoilKick)
                     .setReloadAmount(reloadAmount)
                     .setSpread(spread)
+                    .setProjectileAmount(projectileAmount)
 
                     // Modules
                     .setBarrel((float) barrel.getScale(), barrel.getXOffset(), barrel.getYOffset(), barrel.getZOffset())

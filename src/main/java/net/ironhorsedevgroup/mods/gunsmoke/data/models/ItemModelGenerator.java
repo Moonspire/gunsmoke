@@ -1,8 +1,8 @@
 package net.ironhorsedevgroup.mods.gunsmoke.data.models;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.CaliberProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeCalibers;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.RoundProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;

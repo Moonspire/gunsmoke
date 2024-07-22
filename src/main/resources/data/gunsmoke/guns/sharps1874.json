@@ -45,7 +45,7 @@
   "projectile": {
     "damage": 15.0,
     "gravity": true,
-    "item": "cgm:advanced_bullet",
+    "item": "gunsmoke:r45_70",
     "life": 30,
     "size": 0.0625,
     "speed": 20.0

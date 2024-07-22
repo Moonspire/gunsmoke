@@ -16,6 +16,9 @@ public class ShootTrackerMixins {
     public void putCooldown(ItemStack weapon, GunItem item, Gun modifiedGun, CallbackInfo ci) {
         if (item instanceof RifleItem rifleItem) {
             rifleItem.damageGun(weapon);
+            rifleItem.removeRound();
         }
     }
+
+
 }

@@ -5,7 +5,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.CaliberProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
