@@ -121,7 +121,10 @@ public class RoundItem extends Item {
 
         int breachDamage = 1;
         if (oldRound.getBreachDamage() > 0); {
-            breachDamage = (int) Math.round((oldRound.getBreachDamage() * 10000.0) / (casing.getPurity() * casing.getDensity()));
+            breachDamage = (int) Math.round((oldRound.getBreachDamage() * 1000.0) / (casing.getPurity() * casing.getDensity()));
+            if (breachDamage < 1) {
+                breachDamage = 1;
+            }
         }
         if (powder) {
             breachDamage = breachDamage * 2;
