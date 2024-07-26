@@ -21,8 +21,8 @@ public class ReloadTrackerMixins {
         if (mainItem.getItem() instanceof RifleItem rifleItem) {
             AmmoContext context = Gun.findAmmo(player, rifleItem.getGun().getProjectile().getItem());
             ItemStack ammo = context.stack();
-            if (ammo.getItem() instanceof RoundItem roundItem) {
-                rifleItem.loadRound(roundItem.getModifiedRound(ammo));
+            if (ammo.getItem() instanceof RoundItem) {
+                rifleItem.loadRound(RoundItem.getModifiedRound(ammo));
             }
         }
     }

@@ -5,6 +5,10 @@ import net.minecraft.resources.ResourceLocation;
 public class RoundProperties {
     private final int id;
     private final float damage;
+    private int barrelDamage = 1;
+    private int breachDamage = 1;
+    private int coreDamage = 1;
+    private int stockDamage = 1;
     private boolean gravity = true;
     private int life = 5;
     private float size = 1.0f;
@@ -22,6 +26,53 @@ public class RoundProperties {
         return this.id;
     }
 
+    public Float getDamage() {
+        return damage;
+    }
+
+    public RoundProperties setBarrelDamage(int barrelDamage) {
+        this.barrelDamage = barrelDamage;
+        return this;
+    }
+
+    public int getBarrelDamage() {
+        return barrelDamage;
+    }
+
+    public RoundProperties setBreachDamage(int breachDamage) {
+        this.breachDamage = breachDamage;
+        return this;
+    }
+
+    public int getBreachDamage() {
+        return breachDamage;
+    }
+
+    public RoundProperties setCoreDamage(int coreDamage) {
+        this.coreDamage = coreDamage;
+        return this;
+    }
+
+    public int getCoreDamage() {
+        return coreDamage;
+    }
+
+    public RoundProperties setStockDamage(int stockDamage) {
+        this.stockDamage = stockDamage;
+        return this;
+    }
+
+    public int getStockDamage() {
+        return stockDamage;
+    }
+
+    public RoundProperties setGunDamage(int damage) {
+        return this.setBarrelDamage(damage)
+                .setBreachDamage(damage)
+                .setCoreDamage(damage)
+                .setStockDamage(damage);
+    }
+
     public RoundProperties setTexture(ResourceLocation texture) {
         this.texture = texture;
         return this;
@@ -34,10 +85,6 @@ public class RoundProperties {
 
     public ResourceLocation getTexture() {
         return this.texture;
-    }
-
-    public Float getDamage() {
-        return damage;
     }
 
     public RoundProperties setPowder(Boolean value) {

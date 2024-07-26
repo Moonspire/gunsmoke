@@ -91,4 +91,9 @@ public class RifleItem extends GunItem {
         gunProperties.removeRound();
         return this;
     }
+
+    public RifleItem fireRound(ItemStack gunItem) {
+        gunProperties.fireRound(gunItem);
+        return this;
+    }
 }

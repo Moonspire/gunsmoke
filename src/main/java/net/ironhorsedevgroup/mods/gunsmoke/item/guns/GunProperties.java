@@ -52,8 +52,19 @@ public class GunProperties {
         gunMakeup.dealDamage();
     }
 
+    public void damageGun(ItemStack itemStack, RoundProperties round) {
+        updateGun(itemStack);
+        gunMakeup.dealDamage(round);
+    }
+
     public void loadRound(RoundProperties round) {
         loadedRounds.add(round);
+    }
+
+    public void fireRound(ItemStack gunItem) {
+        RoundProperties round = loadedRounds.get(loadedRounds.size() - 1);
+        damageGun(gunItem, round);
+        removeRound();
     }
 
     public void removeRound() {

@@ -15,8 +15,7 @@ public class ShootTrackerMixins {
     @Inject(at = @At("HEAD"), method = "putCooldown(Lnet/minecraft/world/item/ItemStack;Lcom/mrcrayfish/guns/item/GunItem;Lcom/mrcrayfish/guns/common/Gun;)V", remap = false)
     public void putCooldown(ItemStack weapon, GunItem item, Gun modifiedGun, CallbackInfo ci) {
         if (item instanceof RifleItem rifleItem) {
-            rifleItem.damageGun(weapon);
-            rifleItem.removeRound();
+            rifleItem.fireRound(weapon);
         }
     }
 
