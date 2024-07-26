@@ -7,9 +7,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeBlocks;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeTabs;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
@@ -48,11 +46,14 @@ public class Gunsmoke {
 
         // Register the Deferred Register to the mod event bus so items get registered
         GunsmokeBlocks.REGISTRY.register(modEventBus);
+        GunsmokeBlockEntities.REGISTRY.register(modEventBus);
         GunsmokeItems.REGISTRY.register(modEventBus);
 
         if (ModList.get().isLoaded("tconstruct")) {
             GunsmokeItems.TCONSTRUCT.register(modEventBus);
         }
+
+        GunsmokeRecipes.SERIALIZERS.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

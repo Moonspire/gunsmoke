@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.world.item.ItemStack;
 
@@ -18,10 +19,10 @@ public class GunMakeup {
     private GunMaterial stock;
     private ItemStack stack;
     public GunMakeup(ItemStack itemStack) {
-        stock = GunMaterials.getMaterial(NBT.getStringTag(itemStack, "material_1"));
-        barrel = GunMaterials.getMaterial(NBT.getStringTag(itemStack, "material_2"));
-        core = GunMaterials.getMaterial(NBT.getStringTag(itemStack, "material_3"));
-        breach = GunMaterials.getMaterial(NBT.getStringTag(itemStack, "material_4"));
+        stock = GunsmokeMaterials.getMaterial(NBT.getStringTag(itemStack, "material_1"));
+        barrel = GunsmokeMaterials.getMaterial(NBT.getStringTag(itemStack, "material_2"));
+        core = GunsmokeMaterials.getMaterial(NBT.getStringTag(itemStack, "material_3"));
+        breach = GunsmokeMaterials.getMaterial(NBT.getStringTag(itemStack, "material_4"));
         barrelDamage = NBT.getIntTag(itemStack, "barrelDamage");
         barrelDamagePermanent = NBT.getIntTag(itemStack, "barrelDamagePermanent");
         breachDamage = NBT.getIntTag(itemStack, "breachDamage");
@@ -34,10 +35,10 @@ public class GunMakeup {
     }
 
     public GunMakeup() {
-        stock = GunMaterials.NULL.getMaterial();
-        barrel = GunMaterials.NULL.getMaterial();
-        core = GunMaterials.NULL.getMaterial();
-        breach = GunMaterials.NULL.getMaterial();
+        stock = GunsmokeMaterials.NULL.getMaterial();
+        barrel = GunsmokeMaterials.NULL.getMaterial();
+        core = GunsmokeMaterials.NULL.getMaterial();
+        breach = GunsmokeMaterials.NULL.getMaterial();
     }
 
     public Integer getBarrelDamage() {
@@ -233,10 +234,10 @@ public class GunMakeup {
     }
 
     private void syncValues() {
-        stock = GunMaterials.getMaterial(NBT.getStringTag(stack, "material_1"));
-        barrel = GunMaterials.getMaterial(NBT.getStringTag(stack, "material_2"));
-        core = GunMaterials.getMaterial(NBT.getStringTag(stack, "material_3"));
-        breach = GunMaterials.getMaterial(NBT.getStringTag(stack, "material_4"));
+        stock = GunsmokeMaterials.getMaterial(NBT.getStringTag(stack, "material_1"));
+        barrel = GunsmokeMaterials.getMaterial(NBT.getStringTag(stack, "material_2"));
+        core = GunsmokeMaterials.getMaterial(NBT.getStringTag(stack, "material_3"));
+        breach = GunsmokeMaterials.getMaterial(NBT.getStringTag(stack, "material_4"));
         barrelDamage = NBT.getIntTag(stack, "barrelDamage");
         barrelDamagePermanent = NBT.getIntTag(stack, "barrelDamagePermanent");
         breachDamage = NBT.getIntTag(stack, "breachDamage");

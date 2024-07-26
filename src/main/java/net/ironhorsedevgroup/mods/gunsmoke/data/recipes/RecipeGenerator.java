@@ -1,7 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.data.recipes;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterials;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.data.DataGenerator;
@@ -33,9 +33,9 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
         castRecipe(GunsmokeItems.CAST_BARREL_SHORT.get(), GunsmokeItems.BARREL_SHORT.get(), consumer);
         castRecipe(GunsmokeItems.CAST_BARREL_MEDIUM.get(), GunsmokeItems.BARREL_MEDIUM.get(), consumer);
         castRecipe(GunsmokeItems.CAST_BARREL_LONG.get(), GunsmokeItems.BARREL_LONG.get(), consumer);
-        for (GunMaterials object : GunMaterials.values()) {
+        for (GunsmokeMaterials object : GunsmokeMaterials.values()) {
             GunMaterial material = object.getMaterial();
-            if (material != GunMaterials.NULL.getMaterial()) {
+            if (material != GunsmokeMaterials.NULL.getMaterial()) {
                 // Casting recipes
                 if (material.isCastable() && material.getCastingFluid() != null) {
                     castingRecipe(GunsmokeItems.CAST_BARREL_SHORT.get(), material, 90 * 2, 40 * 2, addMaterial(GunsmokeItems.BARREL_SHORT.get(), material), consumer);

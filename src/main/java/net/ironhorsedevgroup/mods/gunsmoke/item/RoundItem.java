@@ -1,6 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterials;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -24,8 +24,8 @@ public class RoundItem extends Item {
             for (RoundProperties round : this.caliber.getRounds()) {
                 ItemStack roundItem = new ItemStack(this);
                 NBT.putIntTag(roundItem, "CustomModelData", round.getId());
-                NBT.putStringTag(roundItem, "material_0", GunMaterials.LEAD.getSerializedName());
-                NBT.putStringTag(roundItem, "material_1", GunMaterials.BRASS.getSerializedName());
+                NBT.putStringTag(roundItem, "material_0", GunsmokeMaterials.LEAD.getSerializedName());
+                NBT.putStringTag(roundItem, "material_1", GunsmokeMaterials.BRASS.getSerializedName());
                 itemStack.add(roundItem);
             }
         }

@@ -1,0 +1,8 @@
+{
+  "type": "simple_gun_smithing",
+  "barrel": "gunsmoke:barrel_long",
+  "breach": "gunsmoke:chamber_parts",
+  "core": "gunsmoke:gun_parts",
+  "stock": "gunsmoke:stock",
+  "result": "gunsmoke:sharps1874"
+}

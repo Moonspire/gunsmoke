@@ -2,7 +2,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.item;
 
 import com.mrcrayfish.guns.common.Gun;
 import com.mrcrayfish.guns.item.GunItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterials;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -28,7 +28,7 @@ public class RifleItem extends GunItem {
         gunProperties.damageGun(itemStack);
     }
 
-    public ItemStack setMaterials(GunMaterials stock, GunMaterials barrel, GunMaterials core, GunMaterials breach) {
+    public ItemStack setMaterials(GunsmokeMaterials stock, GunsmokeMaterials barrel, GunsmokeMaterials core, GunsmokeMaterials breach) {
         ItemStack gunItem = new ItemStack(this);
         NBT.putStringTag(gunItem, "material_1", stock.getSerializedName());
         NBT.putStringTag(gunItem, "material_2", barrel.getSerializedName());
@@ -41,26 +41,26 @@ public class RifleItem extends GunItem {
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemStack) {
         if (this.allowedIn(tab)) {
             ItemStack gunItem = new ItemStack(this);
-            NBT.putStringTag(gunItem, "material_1", GunMaterials.SPRUCE.getSerializedName());
-            NBT.putStringTag(gunItem, "material_2", GunMaterials.WROUGHT_IRON.getSerializedName());
-            NBT.putStringTag(gunItem, "material_3", GunMaterials.BRASS.getSerializedName());
-            NBT.putStringTag(gunItem, "material_4", GunMaterials.WROUGHT_IRON.getSerializedName());
+            NBT.putStringTag(gunItem, "material_1", GunsmokeMaterials.SPRUCE.getSerializedName());
+            NBT.putStringTag(gunItem, "material_2", GunsmokeMaterials.WROUGHT_IRON.getSerializedName());
+            NBT.putStringTag(gunItem, "material_3", GunsmokeMaterials.BRASS.getSerializedName());
+            NBT.putStringTag(gunItem, "material_4", GunsmokeMaterials.WROUGHT_IRON.getSerializedName());
             loadRound(gunItem);
             itemStack.add(gunItem);
 
             gunItem = new ItemStack(this);
-            NBT.putStringTag(gunItem, "material_1", GunMaterials.SMOGSTEM.getSerializedName());
-            NBT.putStringTag(gunItem, "material_2", GunMaterials.CLOGGRUM.getSerializedName());
-            NBT.putStringTag(gunItem, "material_3", GunMaterials.RAW_IRON.getSerializedName());
-            NBT.putStringTag(gunItem, "material_4", GunMaterials.CLOGGRUM.getSerializedName());
+            NBT.putStringTag(gunItem, "material_1", GunsmokeMaterials.SMOGSTEM.getSerializedName());
+            NBT.putStringTag(gunItem, "material_2", GunsmokeMaterials.CLOGGRUM.getSerializedName());
+            NBT.putStringTag(gunItem, "material_3", GunsmokeMaterials.RAW_IRON.getSerializedName());
+            NBT.putStringTag(gunItem, "material_4", GunsmokeMaterials.CLOGGRUM.getSerializedName());
             loadRound(gunItem);
             itemStack.add(gunItem);
 
             gunItem = new ItemStack(this);
-            NBT.putStringTag(gunItem, "material_1", GunMaterials.CRIMSON.getSerializedName());
-            NBT.putStringTag(gunItem, "material_2", GunMaterials.PIGSTEEL.getSerializedName());
-            NBT.putStringTag(gunItem, "material_3", GunMaterials.HOGSGOLD.getSerializedName());
-            NBT.putStringTag(gunItem, "material_4", GunMaterials.PIGSTEEL.getSerializedName());
+            NBT.putStringTag(gunItem, "material_1", GunsmokeMaterials.CRIMSON.getSerializedName());
+            NBT.putStringTag(gunItem, "material_2", GunsmokeMaterials.PIGSTEEL.getSerializedName());
+            NBT.putStringTag(gunItem, "material_3", GunsmokeMaterials.HOGSGOLD.getSerializedName());
+            NBT.putStringTag(gunItem, "material_4", GunsmokeMaterials.PIGSTEEL.getSerializedName());
             loadRound(gunItem);
             itemStack.add(gunItem);
         }

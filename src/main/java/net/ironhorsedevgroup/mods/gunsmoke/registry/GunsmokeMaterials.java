@@ -1,10 +1,11 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
+package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
 
-public enum GunMaterials implements StringRepresentable {
+public enum GunsmokeMaterials implements StringRepresentable {
     NULL(new GunMaterial("null")),
 
     //Overworld Woods
@@ -357,7 +358,7 @@ public enum GunMaterials implements StringRepresentable {
 
     private final GunMaterial material;
 
-    private GunMaterials(GunMaterial Material) {
+    private GunsmokeMaterials(GunMaterial Material) {
         material = Material;
     }
 
@@ -371,12 +372,12 @@ public enum GunMaterials implements StringRepresentable {
     }
 
     public static GunMaterial getMaterial(String name) {
-        for (GunMaterials material : GunMaterials.values()) {
+        for (GunsmokeMaterials material : GunsmokeMaterials.values()) {
             if (material.getMaterial().isMaterial(name)) {
                 return material.getMaterial();
             }
         }
-        return GunMaterials.NULL.getMaterial();
+        return GunsmokeMaterials.NULL.getMaterial();
     }
 
     public static GunMaterial getMaterial(ItemStack stack) {
