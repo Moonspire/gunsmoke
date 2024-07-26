@@ -4,7 +4,6 @@ import com.mrcrayfish.guns.common.GripType;
 import com.mrcrayfish.guns.common.Gun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeCalibers;
 import net.minecraft.sounds.SoundEvent;
@@ -18,14 +17,12 @@ import java.util.Objects;
 
 public class GunProperties {
     private final Integer reloadWait;
-    private Gun result;
     private GunMakeup gunMakeup = new GunMakeup();
     private final List<RoundProperties> loadedRounds = new ArrayList<>();
     private RoundProperties lastRound;
 
     public GunProperties(Gun gun, Integer reload) {
         reloadWait = reload;
-        result = buildGun(gun);
         if (ForgeRegistries.ITEMS.getValue(gun.getProjectile().getItem()) instanceof RoundItem round) {
             lastRound = round.getCaliber().getRound(0);
         } else {
@@ -72,8 +69,7 @@ public class GunProperties {
     }
 
     public Gun getGun(ItemStack itemStack) {
-        updateGun(itemStack);
-        return result;
+        return updateGun(itemStack);
     }
 
     public RoundProperties getChamberedRound() {
@@ -84,14 +80,15 @@ public class GunProperties {
         return new RoundProperties(0, 0.0);
     }
 
-    private void updateGun(ItemStack itemStack) {
+    private Gun updateGun(ItemStack itemStack) {
         GunMakeup newGunMakeup = new GunMakeup(itemStack);
         RoundProperties round = getChamberedRound();
         if (itemStack.getItem() instanceof RifleItem rifleItem && (!gunMakeup.is(newGunMakeup) || !Objects.equals(round, lastRound))) {
             gunMakeup = newGunMakeup;
             lastRound = round;
-            result = buildGun(rifleItem.getGun());
+            return buildGun(rifleItem.getGun());
         }
+        return null;
     }
 
     private Float calcSpread(Float initSpread) {

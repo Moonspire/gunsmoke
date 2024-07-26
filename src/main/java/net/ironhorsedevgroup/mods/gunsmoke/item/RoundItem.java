@@ -113,12 +113,15 @@ public class RoundItem extends Item {
 
         int barrelDamage = 1;
         if (oldRound.getBarrelDamage() > 0) {
-            barrelDamage = (int) Math.round(((float) oldRound.getBarrelDamage() / (float) bullet.getPurity() * 100.0));
+            barrelDamage = (int) Math.round(Math.pow(1.1, bullet.getHardness()) / (float) (bullet.getPurity() * 10));
+            if (barrelDamage < 1) {
+                barrelDamage = 1;
+            }
         }
 
         int breachDamage = 1;
         if (oldRound.getBreachDamage() > 0); {
-            breachDamage = (int) Math.round((oldRound.getBreachDamage() * 100.0) / ((casing.getPurity() + casing.getDensity()) / 100.0));
+            breachDamage = (int) Math.round((oldRound.getBreachDamage() * 10000.0) / (casing.getPurity() * casing.getDensity()));
         }
         if (powder) {
             breachDamage = breachDamage * 2;
