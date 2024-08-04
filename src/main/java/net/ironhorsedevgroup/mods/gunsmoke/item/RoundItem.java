@@ -30,18 +30,6 @@ public class RoundItem extends Item {
                                 .casing(GunsmokeMaterials.BRASS)
                                 .getItem(this)
                 );
-                itemStack.add(
-                        new NewRound(round.getId())
-                                .bullet(GunsmokeMaterials.SHULKER)
-                                .casing(GunsmokeMaterials.SPRUCE)
-                                .getItem(this)
-                );
-                itemStack.add(
-                        new NewRound(round.getId())
-                                .bullet(GunsmokeMaterials.NETHERSTEEL)
-                                .casing(GunsmokeMaterials.HOGSGOLD)
-                                .getItem(this)
-                );
             }
         }
     }

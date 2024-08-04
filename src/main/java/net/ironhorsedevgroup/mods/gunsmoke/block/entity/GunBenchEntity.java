@@ -1,17 +1,21 @@
 package net.ironhorsedevgroup.mods.gunsmoke.block.entity;
 
+import io.netty.buffer.Unpooled;
+import net.ironhorsedevgroup.mods.gunsmoke.gui.inventory.GunBenchMenu;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -21,7 +25,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class GunBenchEntity extends BlockEntity implements MenuProvider {
+public class GunBenchEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private final ItemStackHandler handler = new ItemStackHandler(5) {
         @Override
         protected void onContentsChanged(int slot) {
@@ -40,10 +44,36 @@ public class GunBenchEntity extends BlockEntity implements MenuProvider {
         return null;
     }
 
+    @Override
+    protected Component getDefaultName() {
+        return null;
+    }
+
+    @Override
+    protected NonNullList<ItemStack> getItems() {
+        NonNullList<ItemStack> stacks = NonNullList.create();
+        for (int i = 0; i < 5; i++) {
+            stacks.add(handler.getStackInSlot(i));
+        }
+        return stacks;
+    }
+
+    @Override
+    protected void setItems(NonNullList<ItemStack> stacks) {
+        for (int i = 0; i < 5; i++) {
+            handler.setStackInSlot(i, stacks.get(i));
+        }
+    }
+
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return null;
+        return new GunBenchMenu(id, inventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition));
+    }
+
+    @Override
+    protected AbstractContainerMenu createMenu(int i, Inventory inventory) {
+        return new GunBenchMenu(i, inventory, new FriendlyByteBuf(Unpooled.buffer()).writeBlockPos(this.worldPosition));
     }
 
     @Override
@@ -88,5 +118,25 @@ public class GunBenchEntity extends BlockEntity implements MenuProvider {
         }
 
         Containers.dropContents(this.level, this.worldPosition, inventory);
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction direction) {
+        return new int[0];
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int i, ItemStack itemStack, @Nullable Direction direction) {
+        return false;
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int i, ItemStack itemStack, Direction direction) {
+        return false;
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 5;
     }
 }
