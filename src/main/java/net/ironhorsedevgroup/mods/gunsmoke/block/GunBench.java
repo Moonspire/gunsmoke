@@ -3,6 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.block;
 import io.netty.buffer.Unpooled;
 import net.ironhorsedevgroup.mods.gunsmoke.block.entity.GunBenchEntity;
 import net.ironhorsedevgroup.mods.gunsmoke.gui.inventory.GunBenchMenu;
+import net.ironhorsedevgroup.mods.gunsmoke.recipes.GunBenchRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -15,6 +16,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -35,6 +37,12 @@ public class GunBench extends BaseEntityBlock {
     }
 
     @Override
+    public void onPlace(BlockState blockstate, Level world, BlockPos pos, BlockState oldState, boolean moving) {
+        super.onPlace(blockstate, world, pos, oldState, moving);
+        world.scheduleTick(pos, this, 1);
+    }
+
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean b) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity entity = level.getBlockEntity(pos);
@@ -48,10 +56,11 @@ public class GunBench extends BaseEntityBlock {
     @Override
     public void tick(BlockState blockstate, ServerLevel world, BlockPos pos, RandomSource random) {
         super.tick(blockstate, world, pos, random);
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-        //recipeGoesHere
+
+        if (world.getBlockEntity(pos) instanceof GunBenchEntity bench) {
+            GunBenchEntity.serverTick(world, bench);
+        }
+
         world.scheduleTick(pos, this, 1);
     }
 

@@ -2,11 +2,13 @@ package net.ironhorsedevgroup.mods.gunsmoke.recipes;
 
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -22,7 +24,10 @@ import java.util.List;
 public class GunBenchRecipe implements Recipe<SimpleContainer> {
     private final ResourceLocation id;
     private final Item result;
-    private List<Ingredient> ingredients = new ArrayList<>();
+    private Ingredient stock = Ingredient.of(Items.AIR);
+    private Ingredient breach = Ingredient.of(Items.AIR);
+    private Ingredient core = Ingredient.of(Items.AIR);
+    private Ingredient barrel = Ingredient.of(Items.AIR);
 
     public GunBenchRecipe(ResourceLocation id, Item result) {
         this.id = id;
@@ -32,26 +37,29 @@ public class GunBenchRecipe implements Recipe<SimpleContainer> {
     public GunBenchRecipe(ResourceLocation id, Item result, List<Ingredient> ingredients) {
         this.id = id;
         this.result = result;
-        this.ingredients = ingredients;
+        this.stock = ingredients.get(0);
+        this.breach = ingredients.get(1);
+        this.core = ingredients.get(2);
+        this.barrel = ingredients.get(3);
     }
 
     public GunBenchRecipe addStock(String item) {
-        ingredients.add(0, getIngredient(item));
+        stock = getIngredient(item);
         return this;
     }
 
     public GunBenchRecipe addBarrel(String item) {
-        ingredients.add(1, getIngredient(item));
+        barrel = getIngredient(item);
         return this;
     }
 
     public GunBenchRecipe addCore(String item) {
-        ingredients.add(2, getIngredient(item));
+        core = getIngredient(item);
         return this;
     }
 
     public GunBenchRecipe addBreach(String item) {
-        ingredients.add(3, getIngredient(item));
+        breach = getIngredient(item);
         return this;
     }
 
@@ -61,15 +69,20 @@ public class GunBenchRecipe implements Recipe<SimpleContainer> {
             return false;
         }
         return
-                        ingredients.get(0).test(simpleContainer.getItem(1)) &&
-                        ingredients.get(1).test(simpleContainer.getItem(2)) &&
-                        ingredients.get(2).test(simpleContainer.getItem(3)) &&
-                        ingredients.get(3).test(simpleContainer.getItem(4));
+                stock.test(simpleContainer.getItem(0)) &&
+                breach.test(simpleContainer.getItem(1)) &&
+                core.test(simpleContainer.getItem(2)) &&
+                barrel.test(simpleContainer.getItem(3));
     }
 
     @Override
     public ItemStack assemble(SimpleContainer simpleContainer) {
-        return new ItemStack(result);
+        ItemStack gunItem = new ItemStack(result);
+        NBT.putStringTag(gunItem, "material_1", NBT.getStringTag(simpleContainer.getItem(0), "material"));
+        NBT.putStringTag(gunItem, "material_2", NBT.getStringTag(simpleContainer.getItem(3), "material"));
+        NBT.putStringTag(gunItem, "material_3", NBT.getStringTag(simpleContainer.getItem(2), "material"));
+        NBT.putStringTag(gunItem, "material_4", NBT.getStringTag(simpleContainer.getItem(1), "material"));
+        return gunItem;
     }
 
     @Override

@@ -2,6 +2,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.block.entity;
 
 import io.netty.buffer.Unpooled;
 import net.ironhorsedevgroup.mods.gunsmoke.gui.inventory.GunBenchMenu;
+import net.ironhorsedevgroup.mods.gunsmoke.recipes.GunBenchRecipe;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -9,12 +10,13 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -24,6 +26,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class GunBenchEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
     private final ItemStackHandler handler = new ItemStackHandler(5) {
@@ -35,13 +39,13 @@ public class GunBenchEntity extends RandomizableContainerBlockEntity implements 
 
     private LazyOptional<IItemHandler> lazyHandler = LazyOptional.empty();
 
-    public GunBenchEntity(BlockPos pos, BlockState state) {
-        super(GunsmokeBlockEntities.GUN_BENCH.get(), pos, state);
-    }
-
     @Override
     public Component getDisplayName() {
         return null;
+    }
+
+    public GunBenchEntity(BlockPos pos, BlockState state) {
+        super(GunsmokeBlockEntities.GUN_BENCH.get(), pos, state);
     }
 
     @Override
@@ -137,6 +141,24 @@ public class GunBenchEntity extends RandomizableContainerBlockEntity implements 
 
     @Override
     public int getContainerSize() {
-        return 5;
+        return handler.getSlots();
+    }
+
+    public SimpleContainer getContainer() {
+        SimpleContainer container = new SimpleContainer(this.handler.getSlots());
+        for (int i = 0; i < getContainerSize(); i++) {
+            container.setItem(i, this.handler.getStackInSlot(i));
+        }
+        return container;
+    }
+
+    public static void serverTick(ServerLevel level, GunBenchEntity entity) {
+        Optional<GunBenchRecipe> recipe = level.getRecipeManager().getRecipeFor(GunBenchRecipe.Type.INSTANCE, entity.getContainer(), level);
+
+        if (recipe.isPresent()) {
+            entity.handler.setStackInSlot(4, recipe.get().assemble(entity.getContainer()));
+        } else {
+            entity.handler.setStackInSlot(4, ItemStack.EMPTY);
+        }
     }
 }

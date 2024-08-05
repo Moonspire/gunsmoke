@@ -1,5 +1,5 @@
 {
-  "type": "simple_gun_smithing",
+  "type": "gunsmoke:simple_gun_smithing",
   "barrel": "gunsmoke:barrel_long",
   "breach": "gunsmoke:chamber_parts",
   "core": "gunsmoke:gun_parts",

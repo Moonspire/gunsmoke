@@ -76,7 +76,7 @@ public class BenchUiSlotPacket {
 			blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, null).ifPresent(capability -> {
 				if (capability instanceof IItemHandlerModifiable) {
 					for (int i = 0; i < 4; i++) {
-						capability.getStackInSlot(0).shrink(1);
+						capability.getStackInSlot(i).shrink(1);
 					}
 				}
 			});
