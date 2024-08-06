@@ -7,7 +7,7 @@
   "item.gunsmoke.parkerbrotherslifter1873": "Parker Brothers Lifter Model 1873",
   "item.gunsmoke.dragoon": "Dragoon",
 
-  "item.gunsmoke.r45_70.0": ".45-70 Pointed",
+  "item.gunsmoke.r45_70": ".45-70 Pointed",
   "item.gunsmoke.r45_70.1": ".45-100 Pointed",
   "item.gunsmoke.r45_70.2": ".45-120 Pointed",
 
@@ -16,6 +16,8 @@
   "item.gunsmoke.cast_barrel_long": "Long Barrel Cast",
   "item.gunsmoke.cast_stock": "Stock Cast",
   "item.gunsmoke.cast_gun_parts": "Gun Parts Cast",
+
+  "item.gunsmoke.prints": "Prints",
 
   "item.gunsmoke.barrel_short.null": "Short Barrel",
   "item.gunsmoke.barrel_short.acacia": "Acacia Short Barrel",

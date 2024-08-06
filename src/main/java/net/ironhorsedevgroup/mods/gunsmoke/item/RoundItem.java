@@ -64,7 +64,11 @@ public class RoundItem extends Item {
 
     @Override
     public String getDescriptionId(ItemStack itemStack) {
-        return this.getDescriptionId() + "." + NBT.getIntTag(itemStack, "CustomModelData");
+        int id = NBT.getIntTag(itemStack, "CustomModelData");
+        if (id == 0) {
+            return super.getDescriptionId(itemStack);
+        }
+        return this.getDescriptionId() + "." + id;
     }
 
     public static RoundProperties getRound(ItemStack itemStack) {
