@@ -15,6 +15,10 @@ public class RoundProperties {
     private double speed = 10.0;
     private int projectileAmount = 1;
     private boolean powder = false;
+    private boolean caseless = false;
+    private boolean round = true;
+    private boolean accessories = false;
+    private int specialColor = 0;
     private ResourceLocation texture = new ResourceLocation("gunsmoke", "items/rounds/default");
 
     public RoundProperties(int id, Double damage) {
@@ -87,6 +91,27 @@ public class RoundProperties {
         return this.texture;
     }
 
+    public void setAccessories(boolean accessories) {
+        this.accessories = accessories;
+    }
+
+    public boolean hasAccessories() {
+        return accessories;
+    }
+
+    public RoundProperties setColor(int color) {
+        this.specialColor = color;
+        return this;
+    }
+
+    public int getColor() {
+        return specialColor;
+    }
+
+    public boolean hasColor() {
+        return !(specialColor == 0);
+    }
+
     public RoundProperties setPowder(Boolean value) {
         this.powder = value;
         return this;
@@ -95,6 +120,25 @@ public class RoundProperties {
     public Boolean getPowder() {
         return powder;
     }
+
+    public RoundProperties setRoundRender(boolean round) {
+        this.round = round;
+        return this;
+    }
+
+    public boolean isRoundRendered() {
+        return round;
+    }
+
+    public RoundProperties setCaseless(boolean caseless) {
+        this.caseless = caseless;
+        return this;
+    }
+
+    public boolean isCaseless() {
+        return caseless;
+    }
+
     public RoundProperties setGravity(boolean gravity) {
         this.gravity = gravity;
         return this;

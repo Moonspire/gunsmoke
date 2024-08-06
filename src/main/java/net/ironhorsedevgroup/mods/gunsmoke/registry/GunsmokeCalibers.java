@@ -1,8 +1,11 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
+import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.ItemStack;
 
 public enum GunsmokeCalibers implements StringRepresentable {
     G12 (
@@ -12,8 +15,10 @@ public enum GunsmokeCalibers implements StringRepresentable {
                     .addRound(
                             new RoundProperties(0, 12.0)
                                     .setLife(30)
-                                    .setGravity(true)
                                     .setSize(0.1)
+                                    .setTexture("gunsmoke:items/rounds/shotgun_shell")
+                                    .setColor(Color.getIntFromRGB(65, 105, 179))
+                                    .setRoundRender(false)
                     )
 
                     //buckshot
@@ -23,6 +28,9 @@ public enum GunsmokeCalibers implements StringRepresentable {
                                     .setGravity(false)
                                     .setProjectileAmount(8)
                                     .setSize(0.0625)
+                                    .setTexture("gunsmoke:items/rounds/shotgun_shell")
+                                    .setColor(Color.getIntFromRGB(182, 32, 32))
+                                    .setRoundRender(false)
                     )
 
                     //birdshot
@@ -32,6 +40,20 @@ public enum GunsmokeCalibers implements StringRepresentable {
                                     .setGravity(false)
                                     .setProjectileAmount(20)
                                     .setSize(0.0625)
+                                    .setTexture("gunsmoke:items/rounds/shotgun_shell")
+                                    .setColor(Color.getIntFromRGB(29, 185, 154))
+                                    .setRoundRender(false)
+                    )
+    ),
+    R44_POWDER (
+            new CaliberProperties("r44_powder")
+
+                    .addRound(
+                            new RoundProperties(0, 4.0)
+                                    .setLife(30)
+                                    .setPowder(true)
+                                    .setTexture("gunsmoke:items/rounds/powder_ball")
+                                    .setCaseless(true)
                     )
     ),
     R45_70 (
@@ -64,7 +86,7 @@ public enum GunsmokeCalibers implements StringRepresentable {
 
     private final CaliberProperties properties;
 
-    private GunsmokeCalibers(CaliberProperties properties) {
+    GunsmokeCalibers(CaliberProperties properties) {
         this.properties = properties;
     }
 
@@ -75,5 +97,9 @@ public enum GunsmokeCalibers implements StringRepresentable {
 
     public CaliberProperties getCaliber() {
         return this.properties;
+    }
+
+    public static RoundProperties getRound(ItemStack itemStack) {
+        return RoundItem.getRound(itemStack);
     }
 }

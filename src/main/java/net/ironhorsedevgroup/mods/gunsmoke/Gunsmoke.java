@@ -124,10 +124,17 @@ public class Gunsmoke {
                             ),
                             item
                     );
-                } else if (item instanceof RifleItem || item instanceof RoundItem) {
+                } else if (item instanceof RifleItem) {
                     event.getItemColors().register(
                             (
                                     GunColor::getColor
+                            ),
+                            item
+                    );
+                } else if (item instanceof RoundItem) {
+                    event.getItemColors().register(
+                            (
+                                    GunColor::getRoundColor
                             ),
                             item
                     );
