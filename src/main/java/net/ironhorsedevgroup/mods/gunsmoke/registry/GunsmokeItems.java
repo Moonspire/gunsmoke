@@ -20,7 +20,7 @@ import java.util.Map;
 public class GunsmokeItems {
     public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Gunsmoke.MODID);
 
-    public static final RegistryObject<Item> PARKER_BROTHERS_LIFTER_1873 = REGISTRY.register("parkerbrotherslifter1873", () -> new GunItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS)));
+    public static final RegistryObject<Item> LIFTER_1873 = REGISTRY.register("lifter1873", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS), 10));
     public static final RegistryObject<Item> SHARPS_1874 = REGISTRY.register("sharps1874", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS), 10));
     public static final RegistryObject<Item> WINCHESTER_1895 = REGISTRY.register("winchester1895", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS), 2));
     public static final RegistryObject<Item> DRAGOON = REGISTRY.register("dragoon", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS), 10));
@@ -30,11 +30,15 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> BARREL_SHORT = REGISTRY.register("barrel_short", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> BARREL_MEDIUM = REGISTRY.register("barrel_medium", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> BARREL_LONG = REGISTRY.register("barrel_long", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
+    public static final RegistryObject<Item> BARREL_DOUBLE_SHORT = REGISTRY.register("barrel_double_short", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
+    public static final RegistryObject<Item> BARREL_DOUBLE_LONG = REGISTRY.register("barrel_double_long", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> STOCK = REGISTRY.register("stock", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> STOCK_ADVANCED = REGISTRY.register("stock_advanced", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> GRIP = REGISTRY.register("grip", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> GUN_PARTS = REGISTRY.register("gun_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CHAMBER_PARTS = REGISTRY.register("chamber_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
+    public static final RegistryObject<Item> CHAMBER_DOUBLE_PARTS = REGISTRY.register("chamber_double_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
+    public static final RegistryObject<Item> CYLINDER_PARTS = REGISTRY.register("cylinder_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 
     public static final Map<String, RegistryObject<Item>> CALIBERS = registerCalibers(REGISTRY);
 
@@ -45,6 +49,7 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> CAST_BARREL_LONG = TCONSTRUCT.register("cast_barrel_long", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CAST_STOCK = TCONSTRUCT.register("cast_stock", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CAST_GUN_PARTS = TCONSTRUCT.register("cast_gun_parts", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
+    public static final RegistryObject<Item> CAST_CYLINDER_PARTS = TCONSTRUCT.register("cast_cylinder_parts", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 
     private static Map<String, RegistryObject<Item>> registerCalibers(DeferredRegister<Item> registry) {
         Map<String, RegistryObject<Item>> registryObjects = new HashMap<>();

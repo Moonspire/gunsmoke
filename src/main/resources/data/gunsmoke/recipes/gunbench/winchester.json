@@ -1,0 +1,8 @@
+{
+  "type": "gunsmoke:simple_gun_smithing",
+  "barrel": "gunsmoke:barrel_medium",
+  "breach": "gunsmoke:chamber_parts",
+  "core": "gunsmoke:gun_parts",
+  "stock": "gunsmoke:stock",
+  "result": "gunsmoke:winchester1895"
+}

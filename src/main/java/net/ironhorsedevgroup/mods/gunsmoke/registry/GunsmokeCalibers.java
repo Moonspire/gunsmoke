@@ -5,11 +5,33 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.minecraft.util.StringRepresentable;
 
 public enum GunsmokeCalibers implements StringRepresentable {
-    R11_3X36MMR (
-            new CaliberProperties("r11_3x36mmr")
+    G12 (
+            new CaliberProperties("g12")
+
+                    //slug
                     .addRound(
-                            new RoundProperties(0,6.7)
-                                    .setPowder(true)
+                            new RoundProperties(0, 12.0)
+                                    .setLife(30)
+                                    .setGravity(true)
+                                    .setSize(0.1)
+                    )
+
+                    //buckshot
+                    .addRound(
+                            new RoundProperties(1, 4.0)
+                                    .setLife(10)
+                                    .setGravity(false)
+                                    .setProjectileAmount(8)
+                                    .setSize(0.0625)
+                    )
+
+                    //birdshot
+                    .addRound(
+                            new RoundProperties(2, 1.0)
+                                    .setLife(5)
+                                    .setGravity(false)
+                                    .setProjectileAmount(20)
+                                    .setSize(0.0625)
                     )
     ),
     R45_70 (
@@ -37,16 +59,6 @@ public enum GunsmokeCalibers implements StringRepresentable {
                                     .setLife(40)
                                     .setSize(0.0625)
                                     .setSpeed(30.0)
-                    )
-
-                    // .45-Birdshot (Purely for testing)
-                    .addRound(
-                            new RoundProperties(3, 1.0)
-                                    .setLife(10)
-                                    .setGravity(false)
-                                    .setSize(0.0625)
-                                    .setProjectileAmount(20)
-                                    .setSpeed(10.0)
                     )
     );
 

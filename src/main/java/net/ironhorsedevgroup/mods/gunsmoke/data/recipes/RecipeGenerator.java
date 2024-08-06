@@ -33,6 +33,7 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
         castRecipe(GunsmokeItems.CAST_BARREL_SHORT.get(), GunsmokeItems.BARREL_SHORT.get(), consumer);
         castRecipe(GunsmokeItems.CAST_BARREL_MEDIUM.get(), GunsmokeItems.BARREL_MEDIUM.get(), consumer);
         castRecipe(GunsmokeItems.CAST_BARREL_LONG.get(), GunsmokeItems.BARREL_LONG.get(), consumer);
+        castRecipe(GunsmokeItems.CAST_CYLINDER_PARTS.get(), GunsmokeItems.CYLINDER_PARTS.get(), consumer);
         for (GunsmokeMaterials object : GunsmokeMaterials.values()) {
             GunMaterial material = object.getMaterial();
             if (material != GunsmokeMaterials.NULL.getMaterial()) {
@@ -43,11 +44,13 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                     castingRecipe(GunsmokeItems.CAST_BARREL_LONG.get(), material, 90 * 4, 40 * 4, addMaterial(GunsmokeItems.BARREL_LONG.get(), material), consumer);
                     castingRecipe(GunsmokeItems.CAST_STOCK.get(), material, 90 * 3, 40 * 3, addMaterial(GunsmokeItems.STOCK.get(), material), consumer);
                     castingRecipe(GunsmokeItems.CAST_GUN_PARTS.get(), material, 100 * 2, 40 * 2, addMaterial(GunsmokeItems.GUN_PARTS.get(), material), consumer);
+                    castingRecipe(GunsmokeItems.CAST_CYLINDER_PARTS.get(), material, 100 * 3, 40 * 3, addMaterial(GunsmokeItems.CYLINDER_PARTS.get(), material), consumer);
                 }
                 // Upgrade recipes
                 try {
                     upgradeRecipe(GunsmokeItems.STOCK_ADVANCED.get(), GunsmokeItems.STOCK.get(), material, consumer);
                     upgradeRecipe(GunsmokeItems.CHAMBER_PARTS.get(), GunsmokeItems.BARREL_SHORT.get(), material, consumer);
+                    upgradeRecipe(GunsmokeItems.CHAMBER_DOUBLE_PARTS.get(), GunsmokeItems.BARREL_DOUBLE_SHORT.get(), material, consumer);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -125,12 +128,31 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                     .requireMaterial()
                     .unlockedBy("haveiron", has(Items.IRON_INGOT));
 
+            VanillaShapedRecipeBuilder shortDoubleBarrelRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.BARREL_DOUBLE_SHORT.get(), material)
+                    .pattern("YY")
+                    .define('Y', GunsmokeItems.BARREL_SHORT.get())
+                    .requireMaterial()
+                    .unlockedBy("haveiron", has(Items.IRON_INGOT));
+
+            VanillaShapedRecipeBuilder longDoubleBarrelRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.BARREL_DOUBLE_LONG.get(), material)
+                    .pattern("YY")
+                    .define('Y', GunsmokeItems.BARREL_LONG.get())
+                    .requireMaterial()
+                    .unlockedBy("haveiron", has(Items.IRON_INGOT));
+
+            VanillaShapedRecipeBuilder cylinderPartsRecipe = new VanillaShapedRecipeBuilder(GunsmokeItems.CYLINDER_PARTS.get(), material)
+                    .pattern("XYX")
+                    .define('Y', GunsmokeItems.GUN_PARTS.get())
+                    .requireMaterial()
+                    .unlockedBy("haveiron", has(Items.IRON_INGOT));
+
             if (material.isCastable()) {
                 partsRecipe.addMod("tconstruct");
                 stockRecipe.addMod("tconstruct");
                 shortBarrelRecipe.addMod("tconstruct");
                 mediumBarrelRecipe.addMod("tconstruct");
                 longBarrelRecipe.addMod("tconstruct");
+                cylinderPartsRecipe.addMod("tconstruct");
             }
 
             partsRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.GUN_PARTS.get(), material).getDescriptionId()));
@@ -139,6 +161,9 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
             shortBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.BARREL_SHORT.get(), material).getDescriptionId()));
             mediumBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.BARREL_MEDIUM.get(), material).getDescriptionId()));
             longBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.BARREL_LONG.get(), material).getDescriptionId()));
+            shortDoubleBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/" + addMaterial(GunsmokeItems.BARREL_DOUBLE_SHORT.get(), material).getDescriptionId()));
+            longDoubleBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/" + addMaterial(GunsmokeItems.BARREL_DOUBLE_LONG.get(), material).getDescriptionId()));
+            cylinderPartsRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.CYLINDER_PARTS.get(), material).getDescriptionId()));
         }
     }
 }
