@@ -3,6 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.registry;
 import com.mrcrayfish.guns.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.PrintItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
@@ -37,6 +38,8 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> CHAMBER_PARTS = REGISTRY.register("chamber_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 
     public static final Map<String, RegistryObject<Item>> CALIBERS = registerCalibers(REGISTRY);
+
+    public static final RegistryObject<Item> PRINTS = REGISTRY.register("prints", () -> new PrintItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 
     public static final DeferredRegister<Item> TCONSTRUCT = DeferredRegister.create(ForgeRegistries.ITEMS, Gunsmoke.MODID);
 

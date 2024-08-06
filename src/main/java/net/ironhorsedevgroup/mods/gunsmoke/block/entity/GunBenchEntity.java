@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class GunBenchEntity extends RandomizableContainerBlockEntity implements WorldlyContainer {
-    private final ItemStackHandler handler = new ItemStackHandler(5) {
+    private final ItemStackHandler handler = new ItemStackHandler(6) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -56,7 +56,7 @@ public class GunBenchEntity extends RandomizableContainerBlockEntity implements 
     @Override
     protected NonNullList<ItemStack> getItems() {
         NonNullList<ItemStack> stacks = NonNullList.create();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             stacks.add(handler.getStackInSlot(i));
         }
         return stacks;
@@ -64,7 +64,7 @@ public class GunBenchEntity extends RandomizableContainerBlockEntity implements 
 
     @Override
     protected void setItems(NonNullList<ItemStack> stacks) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             handler.setStackInSlot(i, stacks.get(i));
         }
     }

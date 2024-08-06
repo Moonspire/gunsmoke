@@ -1,0 +1,9 @@
+{
+  "parent": "item/generated",
+  "overrides": [
+    { "predicate": { "custom_model_data": 1}, "model": "gunsmoke:item/prints1" }
+  ],
+  "textures": {
+    "layer0": "gunsmoke:items/print"
+  }
+}

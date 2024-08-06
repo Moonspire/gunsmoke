@@ -26,6 +26,6 @@ public class GunPartItem extends Item {
 
     @Override
     public String getDescriptionId(ItemStack itemStack) {
-        return I18n.get(this.getDescriptionId() + "." + GunsmokeMaterials.getMaterial(itemStack).getName());
+        return this.getDescriptionId() + "." + GunsmokeMaterials.getMaterial(itemStack).getName();
     }
 }

@@ -72,7 +72,9 @@ public class GunBenchRecipe implements Recipe<SimpleContainer> {
                 stock.test(simpleContainer.getItem(0)) &&
                 breach.test(simpleContainer.getItem(1)) &&
                 core.test(simpleContainer.getItem(2)) &&
-                barrel.test(simpleContainer.getItem(3));
+                barrel.test(simpleContainer.getItem(3)) &&
+
+                result.getDescriptionId().replace("item.gunsmoke.", "").equals(NBT.getStringTag(simpleContainer.getItem(5), "printType"));
     }
 
     @Override

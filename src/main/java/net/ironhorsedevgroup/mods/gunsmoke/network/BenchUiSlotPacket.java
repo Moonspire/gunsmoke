@@ -66,7 +66,6 @@ public class BenchUiSlotPacket {
 
 	public static void handleSlotAction(Player entity, int slot, int changeType, int meta, int x, int y, int z) {
 		Level world = entity.level;
-		HashMap guistate = GunBenchMenu.guistate;
 		// security measure to prevent arbitrary chunk generation
 		if (!world.hasChunkAt(new BlockPos(x, y, z)))
 			return;

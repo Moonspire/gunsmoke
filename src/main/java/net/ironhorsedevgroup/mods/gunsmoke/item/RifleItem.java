@@ -13,10 +13,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class RifleItem extends GunItem {
+    private boolean prints = true;
     private final GunProperties gunProperties;
     public RifleItem(Properties properties, Integer reloadWait) {
         super(properties);
         gunProperties = new GunProperties(super.getGun(), reloadWait);
+    }
+
+    public RifleItem(Properties properties, Integer reloadWait, Boolean prints) {
+        super(properties);
+        gunProperties = new GunProperties(super.getGun(), reloadWait);
+        this.prints = prints;
+    }
+
+    public Boolean hasPrints() {
+        return prints;
     }
 
     @Override

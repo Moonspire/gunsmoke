@@ -56,8 +56,8 @@ public class Gunsmoke {
         // Register the Deferred Register to the mod event bus so items get registered
         GunsmokeBlocks.REGISTRY.register(modEventBus);
         GunsmokeBlockEntities.REGISTRY.register(modEventBus);
-        GunsmokeItems.REGISTRY.register(modEventBus);
 
+        GunsmokeItems.REGISTRY.register(modEventBus);
         if (ModList.get().isLoaded("tconstruct")) {
             GunsmokeItems.TCONSTRUCT.register(modEventBus);
         }
