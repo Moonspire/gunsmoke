@@ -104,6 +104,7 @@ public class Gunsmoke {
 
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+
         }
 
         @SubscribeEvent

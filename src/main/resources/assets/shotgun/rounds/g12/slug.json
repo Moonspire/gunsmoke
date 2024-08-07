@@ -1,0 +1,27 @@
+{
+  "caliber": "g12",
+  "id": 0,
+  "textures": {
+    "casing": "gunsmoke:items/rounds/shotgun_shell/casing",
+    "color": [
+      "gunsmoke:items/rounds/shotgun_shell/color",
+      255, 255, 255
+    ]
+  },
+  "properties": {
+    "damage": 18.0,
+    "powder": false,
+    "gravity": true,
+    "life": 5,
+    "size": 1.0,
+    "speed": 10.0,
+    "projectile_amount": 1
+  },
+  "gun_impacts": {
+    "spread_multiplier": 1.0,
+    "barrel_damage": 1,
+    "breach_damage": 1,
+    "core_damage": 1,
+    "stock_damage": 1
+  }
+}

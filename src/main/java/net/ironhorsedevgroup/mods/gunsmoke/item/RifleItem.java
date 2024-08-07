@@ -79,7 +79,7 @@ public class RifleItem extends GunItem {
         Item projectile = ForgeRegistries.ITEMS.getValue(this.getGun().getProjectile().getItem());
         int ammo = this.getGun().getGeneral().getMaxAmmo();
         if (projectile instanceof RoundItem roundItem) {
-            RoundProperties round = roundItem.getCaliber().getRound(0);
+            RoundProperties round = roundItem.getCaliber().get(0);
             for (int i = 0; i < ammo; i++) {
                 loadRound(round);
             }

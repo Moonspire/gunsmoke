@@ -1,7 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeCalibers;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -20,9 +20,13 @@ public class GunColor {
         if (tintIndex < 2) {
             return getColor(itemStack, tintIndex);
         }
-        RoundProperties round = GunsmokeCalibers.getRound(itemStack);
-        if (round.hasColor()) {
-            return round.getColor();
+        if (tintIndex == 2) {
+            if (itemStack.getItem() instanceof RoundItem) {
+                RoundProperties round = RoundItem.getRound(itemStack);
+                if (round != null && round.getTexture() != null && round.getTexture().renderColor()) {
+                    return round.getTexture().getRGB();
+                }
+            }
         }
         return Color.getIntFromRGB(255, 255, 255);
     }

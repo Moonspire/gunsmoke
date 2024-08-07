@@ -1,20 +1,22 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundTextureSources;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class RoundItem extends Item {
-    private final CaliberProperties caliber;
+import java.util.List;
 
-    public RoundItem(Properties properties, CaliberProperties caliber) {
+public class RoundItem extends Item {
+    private final List<RoundProperties> caliber;
+
+    public RoundItem(Properties properties, List<RoundProperties> caliber) {
         super(properties);
         this.caliber = caliber;
     }
@@ -22,7 +24,7 @@ public class RoundItem extends Item {
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemStack) {
         if (this.allowedIn(tab)) {
-            for (RoundProperties round : this.caliber.getRounds()) {
+            for (RoundProperties round : this.caliber) {
                 itemStack.add(
                         new NewRound(round.getId())
                                 .bullet(GunsmokeMaterials.LEAD)
@@ -70,9 +72,29 @@ public class RoundItem extends Item {
         return this.getDescriptionId() + "." + id;
     }
 
+    public List<RoundProperties> getCaliber() {
+        return this.caliber;
+    }
+
+    public static List<RoundProperties> getCaliber(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof RoundItem round) {
+            return round.getCaliber();
+        }
+        return null;
+    }
+
+    public static List<RoundProperties> getCaliber(String name) {
+        if (GunsmokeItems.CALIBERS.containsKey(name)) {
+            if (GunsmokeItems.CALIBERS.get(name).get() instanceof RoundItem round) {
+                return round.getCaliber();
+            }
+        }
+        return null;
+    }
+
     public static RoundProperties getRound(ItemStack itemStack) {
         if (itemStack.getItem() instanceof RoundItem roundItem) {
-            return roundItem.getCaliber().getRound(NBT.getIntTag(itemStack, "CustomModelData"));
+            return roundItem.caliber.get(NBT.getIntTag(itemStack, "CustomModelData"));
         }
         return null;
     }
@@ -86,7 +108,7 @@ public class RoundItem extends Item {
         int id = oldRound.getId();
 
         Double damage = oldRound.getDamage().doubleValue();
-        ResourceLocation texture = oldRound.getTexture();
+        RoundTextureSources texture = oldRound.getTexture();
         boolean gravity = oldRound.getGravity() && bullet.getDensity() > 0;
         int life = oldRound.getLife();
         Double size = oldRound.getSize().doubleValue();
@@ -135,9 +157,5 @@ public class RoundItem extends Item {
                 .setBreachDamage(breachDamage)
                 .setCoreDamage(coreDamage)
                 .setStockDamage(stockDamage);
-    }
-
-    public CaliberProperties getCaliber() {
-        return caliber;
     }
 }

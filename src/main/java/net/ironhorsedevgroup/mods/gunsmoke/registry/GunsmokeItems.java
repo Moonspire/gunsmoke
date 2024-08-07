@@ -1,11 +1,14 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
-import com.mrcrayfish.guns.item.GunItem;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
+import net.ironhorsedevgroup.mods.toolshed.tools.Data;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -14,7 +17,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GunsmokeItems {
@@ -52,11 +57,32 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> CAST_CYLINDER_PARTS = TCONSTRUCT.register("cast_cylinder_parts", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 
     private static Map<String, RegistryObject<Item>> registerCalibers(DeferredRegister<Item> registry) {
+        Map<String, List<RoundProperties>> calibers = new HashMap<>();
+        for (String namespace : Minecraft.getInstance().getResourceManager().getNamespaces()) {
+            JsonObject roundRegistry = Data.readAssets(new ResourceLocation(namespace, "rounds/rounds.json"));
+            if (roundRegistry.has("rounds")) {
+                for (JsonElement element : roundRegistry.getAsJsonArray("rounds")) {
+                    JsonObject roundJson = Data.readAssets(new ResourceLocation(element.getAsString()));
+                    if (roundJson.has("caliber")) {
+                        String caliber = roundJson.get("caliber").getAsString();
+                        if (!calibers.containsKey(caliber)) {
+                            calibers.put(caliber, new ArrayList<>());
+                        }
+                        List<RoundProperties> roundList = calibers.get(caliber);
+
+                    }
+                }
+            }
+        }
+
         Map<String, RegistryObject<Item>> registryObjects = new HashMap<>();
+        /*
         for (GunsmokeCalibers round : GunsmokeCalibers.values()) {
             CaliberProperties caliber = round.getCaliber();
             registryObjects.put(round.getSerializedName(), registry.register(round.getSerializedName(), () -> new RoundItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS), caliber)));
         }
+        */
+
         return registryObjects;
     }
 

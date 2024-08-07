@@ -5,7 +5,6 @@ import com.mrcrayfish.guns.common.Gun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeCalibers;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,9 +23,9 @@ public class GunProperties {
     public GunProperties(Gun gun, Integer reload) {
         reloadWait = reload;
         if (ForgeRegistries.ITEMS.getValue(gun.getProjectile().getItem()) instanceof RoundItem round) {
-            lastRound = round.getCaliber().getRound(0);
+            lastRound = round.getCaliber().get(0);
         } else {
-            lastRound = GunsmokeCalibers.R45_70.getCaliber().getRound(0);
+            lastRound = new RoundProperties(0, 1.0);
         }
     }
 
@@ -104,16 +103,16 @@ public class GunProperties {
     }
 
     private Float calcRecoilAngle(Float initRecoilAngle) {
-        Integer front = gunMakeup.getBarrel().getDensity();
+        int front = gunMakeup.getBarrel().getDensity();
         if (front == 0) {
             front = 1;
         }
-        Integer rear = gunMakeup.getCore().getDensity() + gunMakeup.getStock().getDensity() + gunMakeup.getBreach().getDensity();
+        int rear = gunMakeup.getCore().getDensity() + gunMakeup.getStock().getDensity() + gunMakeup.getBreach().getDensity();
         return ((rear / front) - 1) * (initRecoilAngle / 3);
     }
 
     private Float calcRecoilKick(Float initRecoilKick) {
-        Integer density = gunMakeup.getBarrel().getDensity() + gunMakeup.getCore().getDensity() + gunMakeup.getStock().getDensity() + gunMakeup.getBreach().getDensity();
+        int density = gunMakeup.getBarrel().getDensity() + gunMakeup.getCore().getDensity() + gunMakeup.getStock().getDensity() + gunMakeup.getBreach().getDensity();
         return (float)((681.0 + gunMakeup.getStockTotalDamage()) / (density + 81)) * initRecoilKick;
     }
     
@@ -129,17 +128,17 @@ public class GunProperties {
 
             RoundProperties round = lastRound;
 
-            Boolean alwaysSpread = general.isAlwaysSpread();
-            Boolean auto = general.isAuto();
+            boolean alwaysSpread = general.isAlwaysSpread();
+            boolean auto = general.isAuto();
             GripType gripType = general.getGripType();
-            Integer maxAmmo = general.getMaxAmmo();
+            int maxAmmo = general.getMaxAmmo();
             Integer rate = general.getRate();
-            Float recoilAdsReduction = general.getRecoilAdsReduction();
-            Float recoilAngle = general.getRecoilAngle();
-            Float recoilKick = general.getRecoilKick();
-            Integer reloadAmount = general.getReloadAmount();
-            Float spread = general.getSpread();
-            Integer projectileAmount = round.getProjectileAmount();
+            float recoilAdsReduction = general.getRecoilAdsReduction();
+            float recoilAngle = general.getRecoilAngle();
+            float recoilKick = general.getRecoilKick();
+            int reloadAmount = general.getReloadAmount();
+            float spread = general.getSpread();
+            int projectileAmount = round.getProjectileAmount();
 
             // Modules
             Gun.Modules modules = gun.getModules();

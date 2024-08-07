@@ -1,29 +1,93 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.rounds;
 
-import net.minecraft.resources.ResourceLocation;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 
 public class RoundProperties {
     private final int id;
+
     private final float damage;
-    private int barrelDamage = 1;
-    private int breachDamage = 1;
-    private int coreDamage = 1;
-    private int stockDamage = 1;
+    private boolean powder = false;
     private boolean gravity = true;
     private int life = 5;
     private float size = 1.0f;
     private double speed = 10.0;
     private int projectileAmount = 1;
-    private boolean powder = false;
-    private boolean caseless = false;
-    private boolean round = true;
-    private boolean accessories = false;
-    private int specialColor = 0;
-    private ResourceLocation texture = new ResourceLocation("gunsmoke", "items/rounds/default");
+
+    private float spreadMultiplier = 1;
+    private int barrelDamage = 1;
+    private int breachDamage = 1;
+    private int coreDamage = 1;
+    private int stockDamage = 1;
+
+    private RoundTextureSources texture = null;
 
     public RoundProperties(int id, Double damage) {
         this.damage = damage.floatValue();
         this.id = id;
+    }
+
+    public RoundProperties(JsonObject json) {
+        this.id = json.get("id").getAsInt();
+
+        JsonObject properties = json.getAsJsonObject("properties");
+        this.damage = properties.get("damage").getAsFloat();
+        if (properties.has("powder")) {
+            this.powder = properties.get("powder").getAsBoolean();
+        }
+        if (properties.has("gravity")) {
+            this.gravity = properties.get("gravity").getAsBoolean();
+        }
+        if (properties.has("life")) {
+            this.life = properties.get("life").getAsInt();
+        }
+        if (properties.has("size")) {
+            this.size = properties.get("size").getAsFloat();
+        }
+        if (properties.has("speed")) {
+            this.speed = properties.get("speed").getAsDouble();
+        }
+        if (properties.has("projectile_amount")) {
+            this.projectileAmount = properties.get("projectile_amount").getAsInt();
+        }
+
+        if (json.has("gun_impacts")) {
+            JsonObject impacts = json.getAsJsonObject("gun_impacts");
+            if (impacts.has("spread_multiplier")) {
+                this.spreadMultiplier = properties.get("spread_multiplier").getAsFloat();
+            }
+            if (impacts.has("barrel_damage")) {
+                this.barrelDamage = properties.get("barrel_damage").getAsInt();
+            }
+            if (impacts.has("breach_damage")) {
+                this.barrelDamage = properties.get("breach_damage").getAsInt();
+            }
+            if (impacts.has("core_damage")) {
+                this.barrelDamage = properties.get("core_damage").getAsInt();
+            }
+            if (impacts.has("stock_damage")) {
+                this.barrelDamage = properties.get("stock_damage").getAsInt();
+            }
+        }
+
+        if (json.has("textures")) {
+            JsonObject textures = json.getAsJsonObject("textures");
+            texture = new RoundTextureSources();
+            if (textures.has("round")) {
+                texture.addRound(textures.get("round").getAsString());
+            }
+            if (textures.has("casing")) {
+                texture.addCasing(textures.get("casing").getAsString());
+            }
+            if (textures.has("color")) {
+                JsonArray color = textures.getAsJsonArray("color");
+                texture.addColor(color.get(0).getAsString(), Color.getIntFromRGB(color.get(1).getAsInt(), color.get(2).getAsInt(), color.get(3).getAsInt()));
+            }
+            if (textures.has("accessory")) {
+                texture.addAccessory(textures.get("accessory").getAsString());
+            }
+        }
     }
 
     public int getId() {
@@ -77,39 +141,13 @@ public class RoundProperties {
                 .setStockDamage(damage);
     }
 
-    public RoundProperties setTexture(ResourceLocation texture) {
+    public RoundProperties setTexture(RoundTextureSources texture) {
         this.texture = texture;
         return this;
     }
 
-    public RoundProperties setTexture(String texture) {
-        this.texture = new ResourceLocation(texture);
-        return this;
-    }
-
-    public ResourceLocation getTexture() {
+    public RoundTextureSources getTexture() {
         return this.texture;
-    }
-
-    public void setAccessories(boolean accessories) {
-        this.accessories = accessories;
-    }
-
-    public boolean hasAccessories() {
-        return accessories;
-    }
-
-    public RoundProperties setColor(int color) {
-        this.specialColor = color;
-        return this;
-    }
-
-    public int getColor() {
-        return specialColor;
-    }
-
-    public boolean hasColor() {
-        return !(specialColor == 0);
     }
 
     public RoundProperties setPowder(Boolean value) {
@@ -119,24 +157,6 @@ public class RoundProperties {
 
     public Boolean getPowder() {
         return powder;
-    }
-
-    public RoundProperties setRoundRender(boolean round) {
-        this.round = round;
-        return this;
-    }
-
-    public boolean isRoundRendered() {
-        return round;
-    }
-
-    public RoundProperties setCaseless(boolean caseless) {
-        this.caseless = caseless;
-        return this;
-    }
-
-    public boolean isCaseless() {
-        return caseless;
     }
 
     public RoundProperties setGravity(boolean gravity) {
