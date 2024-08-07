@@ -55,19 +55,19 @@ public class RoundProperties {
         if (json.has("gun_impacts")) {
             JsonObject impacts = json.getAsJsonObject("gun_impacts");
             if (impacts.has("spread_multiplier")) {
-                this.spreadMultiplier = properties.get("spread_multiplier").getAsFloat();
+                this.spreadMultiplier = impacts.get("spread_multiplier").getAsFloat();
             }
             if (impacts.has("barrel_damage")) {
-                this.barrelDamage = properties.get("barrel_damage").getAsInt();
+                this.barrelDamage = impacts.get("barrel_damage").getAsInt();
             }
             if (impacts.has("breach_damage")) {
-                this.barrelDamage = properties.get("breach_damage").getAsInt();
+                this.barrelDamage = impacts.get("breach_damage").getAsInt();
             }
             if (impacts.has("core_damage")) {
-                this.barrelDamage = properties.get("core_damage").getAsInt();
+                this.barrelDamage = impacts.get("core_damage").getAsInt();
             }
             if (impacts.has("stock_damage")) {
-                this.barrelDamage = properties.get("stock_damage").getAsInt();
+                this.barrelDamage = impacts.get("stock_damage").getAsInt();
             }
         }
 

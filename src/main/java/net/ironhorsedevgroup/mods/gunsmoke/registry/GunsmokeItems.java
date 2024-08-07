@@ -5,14 +5,17 @@ import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -45,7 +48,9 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> CHAMBER_DOUBLE_PARTS = REGISTRY.register("chamber_double_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CYLINDER_PARTS = REGISTRY.register("cylinder_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 
-    public static final Map<String, RegistryObject<Item>> CALIBERS = registerCalibers(REGISTRY);
+    public static final DeferredRegister<Item> CALIBER_REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, Gunsmoke.MODID);
+
+    public static Map<String, RegistryObject<Item>> CALIBERS = new HashMap<>();
 
     public static final DeferredRegister<Item> TCONSTRUCT = DeferredRegister.create(ForgeRegistries.ITEMS, Gunsmoke.MODID);
 
@@ -56,34 +61,50 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> CAST_GUN_PARTS = TCONSTRUCT.register("cast_gun_parts", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CAST_CYLINDER_PARTS = TCONSTRUCT.register("cast_cylinder_parts", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 
-    private static Map<String, RegistryObject<Item>> registerCalibers(DeferredRegister<Item> registry) {
+    public static void registerCalibers(IEventBus bus) {
+        System.out.println("REGISTERING ROUND ITEMS");
         Map<String, List<RoundProperties>> calibers = new HashMap<>();
         for (String namespace : Minecraft.getInstance().getResourceManager().getNamespaces()) {
+            System.out.println("Looking in namespace: " + namespace);
             JsonObject roundRegistry = Data.readAssets(new ResourceLocation(namespace, "rounds/rounds.json"));
             if (roundRegistry.has("rounds")) {
                 for (JsonElement element : roundRegistry.getAsJsonArray("rounds")) {
+                    System.out.println("Located Round At Location: " + element.getAsString());
                     JsonObject roundJson = Data.readAssets(new ResourceLocation(element.getAsString()));
                     if (roundJson.has("caliber")) {
                         String caliber = roundJson.get("caliber").getAsString();
                         if (!calibers.containsKey(caliber)) {
                             calibers.put(caliber, new ArrayList<>());
                         }
-                        List<RoundProperties> roundList = calibers.get(caliber);
-
+                        RoundProperties round = new RoundProperties(roundJson);
+                        calibers.get(caliber).add(round.getId(), round);
                     }
                 }
             }
         }
 
-        Map<String, RegistryObject<Item>> registryObjects = new HashMap<>();
+        for (String id : calibers.keySet()) {
+            System.out.println("Registered caliber " + id + " with " + calibers.get(id).size() + " rounds");
+            CALIBERS.put(id, CALIBER_REGISTRY.register(id, () -> new RoundItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS), calibers.get(id))));
+        }
+        CALIBER_REGISTRY.register(bus);
+
+
+        for (String id : calibers.keySet()) {
+            if (ForgeRegistries.ITEMS.containsKey(new ResourceLocation("gunsmoke", id))) {
+                System.out.println("Caliber " + id + " registered properly");
+            } else {
+                System.out.println("Caliber " + id + " FAILED to register!!!");
+            }
+        }
+
         /*
         for (GunsmokeCalibers round : GunsmokeCalibers.values()) {
             CaliberProperties caliber = round.getCaliber();
             registryObjects.put(round.getSerializedName(), registry.register(round.getSerializedName(), () -> new RoundItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS), caliber)));
         }
-        */
-
         return registryObjects;
+        */
     }
 
     private static RegistryObject<Item> block(RegistryObject<Block> block, CreativeModeTab tab) {

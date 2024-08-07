@@ -67,6 +67,8 @@ public class Gunsmoke {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+        GunsmokeItems.registerCalibers(modEventBus);
     }
 
     private static final String PROTOCOL_VERSION = "1";
@@ -79,6 +81,7 @@ public class Gunsmoke {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
