@@ -13,7 +13,7 @@ public enum GunsmokeCalibers implements StringRepresentable {
 
                     //slug
                     .addRound(
-                            new RoundProperties(0, 12.0)
+                            new RoundProperties(0, 18.0)
                                     .setLife(30)
                                     .setSize(0.1)
                                     .setTexture("gunsmoke:items/rounds/shotgun_shell")

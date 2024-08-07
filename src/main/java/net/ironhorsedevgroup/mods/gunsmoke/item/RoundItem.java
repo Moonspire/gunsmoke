@@ -5,7 +5,6 @@ import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -88,14 +87,11 @@ public class RoundItem extends Item {
 
         Double damage = oldRound.getDamage().doubleValue();
         ResourceLocation texture = oldRound.getTexture();
-        boolean gravity = oldRound.getGravity() || bullet.getDensity() <= 0;
+        boolean gravity = oldRound.getGravity() && bullet.getDensity() > 0;
         int life = oldRound.getLife();
         Double size = oldRound.getSize().doubleValue();
 
-        int projectiles = 1;
-        if (oldRound.getProjectileAmount() > 0) {
-            projectiles = (int) Math.round(100.0 / (float) oldRound.getProjectileAmount());
-        }
+        int projectiles = oldRound.getProjectileAmount();
         if (projectiles > 30) {
             projectiles = 30;
         }
