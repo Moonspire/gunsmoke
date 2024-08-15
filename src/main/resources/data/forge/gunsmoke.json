@@ -1,0 +1,10 @@
+{
+  "materials": [
+    "materials/metals/brass",
+    "materials/metals/electrum",
+    "materials/metals/lead",
+    "materials/metals/silver",
+    "materials/metals/steel",
+    "materials/metals/aluminum"
+  ]
+}

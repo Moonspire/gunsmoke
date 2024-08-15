@@ -28,8 +28,8 @@ public class RoundItem extends Item {
             for (RoundProperties round : this.caliber.getRounds()) {
                 itemStack.add(
                         new NewRound(round.getId())
-                                .bullet(new ResourceLocation(Gunsmoke.MODID, "lead"))
-                                .casing(new ResourceLocation(Gunsmoke.MODID, "brass"))
+                                .bullet(new ResourceLocation("forge:lead"))
+                                .casing(new ResourceLocation("forge:brass"))
                                 .getItem(this)
                 );
             }

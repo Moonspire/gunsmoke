@@ -1,0 +1,21 @@
+{
+  "materials": [
+    "materials/metals/copper",
+    "materials/metals/gold",
+    "materials/metals/iron",
+
+    "materials/misc/bone",
+    "materials/misc/shulker",
+
+    "materials/woods/nether/crimson",
+    "materials/woods/nether/warped",
+
+    "materials/woods/overworld/acacia",
+    "materials/woods/overworld/birch",
+    "materials/woods/overworld/dark_oak",
+    "materials/woods/overworld/jungle",
+    "materials/woods/overworld/mangrove",
+    "materials/woods/overworld/oak",
+    "materials/woods/overworld/spruce"
+  ]
+}

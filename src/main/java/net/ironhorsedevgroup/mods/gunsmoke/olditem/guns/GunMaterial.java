@@ -13,7 +13,7 @@ public class GunMaterial {
     private final String name;
     private int color = Color.getIntFromRGB(255, 0, 255);
     private boolean flammable = false;
-    private short density = 0; // kg/m3 / 1000
+    private short density = 0; // kg/m3 / 100
     private short hardness = 0; // Rough Mohs Hardness * 10
     private short purity = 0; // Just vibes man
     private ResourceLocation casting_fluid = null;

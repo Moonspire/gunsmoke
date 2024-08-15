@@ -21,8 +21,9 @@ public class MaterialUtils {
     public static void loadMaterials(String namespace, JsonArray paths, ResourceManager manager) {
         for (JsonElement entry : paths) {
             String path = entry.getAsString();
-            ResourceLocation location = new ResourceLocation(namespace, path);
-            ResourceLocation completeLocation = new ResourceLocation(namespace, "materials/" + path);
+            String[] strippedPath = path.split("/");
+            ResourceLocation location = new ResourceLocation(namespace, strippedPath[strippedPath.length - 1]);
+            ResourceLocation completeLocation = new ResourceLocation(namespace, path);
             Gunsmoke.LOGGER.info("Registering material from {}.json as {}", completeLocation, location);
             updateMaterial(location, Material.fromJson(Data.readJson(completeLocation, manager)));
         }
