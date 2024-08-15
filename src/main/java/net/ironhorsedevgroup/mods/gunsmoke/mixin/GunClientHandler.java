@@ -5,7 +5,7 @@ import com.mrcrayfish.guns.client.handler.GunRenderingHandler;
 import com.mrcrayfish.guns.client.util.PropertyHelper;
 import com.mrcrayfish.guns.item.IColored;
 import com.mrcrayfish.guns.item.attachment.IAttachment;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.world.item.ItemStack;

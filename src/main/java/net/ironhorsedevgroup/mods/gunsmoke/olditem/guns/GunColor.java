@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
+package net.ironhorsedevgroup.mods.gunsmoke.olditem.guns;
 
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;

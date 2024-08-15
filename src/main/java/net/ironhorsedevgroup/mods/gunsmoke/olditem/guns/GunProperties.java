@@ -1,10 +1,10 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
+package net.ironhorsedevgroup.mods.gunsmoke.olditem.guns;
 
 import com.mrcrayfish.guns.common.GripType;
 import com.mrcrayfish.guns.common.Gun;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeCalibers;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;

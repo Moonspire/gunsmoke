@@ -2,10 +2,10 @@ package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
 import com.mrcrayfish.guns.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
-import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.GunPartItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds.CaliberProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;

@@ -1,10 +1,10 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item;
+package net.ironhorsedevgroup.mods.gunsmoke.olditem;
 
 import com.mrcrayfish.guns.common.Gun;
 import com.mrcrayfish.guns.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunProperties;
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.guns.GunProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;

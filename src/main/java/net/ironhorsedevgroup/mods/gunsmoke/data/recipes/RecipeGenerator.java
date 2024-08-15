@@ -1,6 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.data.recipes;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;

@@ -1,6 +1,6 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
+package net.ironhorsedevgroup.mods.gunsmoke.olditem.guns;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.world.item.ItemStack;
@@ -128,7 +128,7 @@ public class GunMakeup {
 
         public static Damage newBarrel(GunMaterial material) {
             int barrelHealth = 1;
-            if (!material.isFlamable()) {
+            if (!material.isFlammable()) {
                 barrelHealth = material.getHardness() * (material.getPurity() / 10);
             }
             return new Damage(barrelHealth);
@@ -136,7 +136,7 @@ public class GunMakeup {
 
         public static Damage newBreach(GunMaterial material) {
             int breachHealth = 1;
-            if (!material.isFlamable()) {
+            if (!material.isFlammable()) {
                 breachHealth = material.getHardness() * (material.getPurity() / 15);
             }
             return new Damage(breachHealth);
@@ -144,7 +144,7 @@ public class GunMakeup {
 
         public static Damage newCore(GunMaterial material) {
             int coreHealth = 1;
-            if (!material.isFlamable()) {
+            if (!material.isFlammable()) {
                 coreHealth = material.getHardness() * (material.getPurity() / 10);
             }
             return new Damage(coreHealth);
@@ -152,7 +152,7 @@ public class GunMakeup {
 
         public static Damage newStock(GunMaterial material) {
             int stockHealth = material.getHardness() * material.getPurity() * 10;
-            if (material.isFlamable()) {
+            if (material.isFlammable()) {
                 stockHealth = (int)(stockHealth / 1.25);
             }
             return new Damage(stockHealth);

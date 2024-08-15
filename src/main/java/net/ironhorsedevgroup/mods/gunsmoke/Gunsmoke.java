@@ -1,11 +1,12 @@
 package net.ironhorsedevgroup.mods.gunsmoke;
 
 import com.mojang.logging.LogUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.data.DataLoader;
 import net.ironhorsedevgroup.mods.gunsmoke.data.models.ItemModelGenerator;
-import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.GunPartItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.guns.GunColor;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.*;
 import net.minecraft.client.Minecraft;
@@ -85,6 +86,7 @@ public class Gunsmoke {
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
+        DataLoader.loadData(event.getServer().getResourceManager());
     }
 
     @Mod.EventBusSubscriber(modid = Gunsmoke.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

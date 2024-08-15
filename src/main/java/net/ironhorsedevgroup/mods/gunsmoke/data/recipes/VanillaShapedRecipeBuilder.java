@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.guns.GunMaterial;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;

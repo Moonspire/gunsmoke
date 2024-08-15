@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item;
+package net.ironhorsedevgroup.mods.gunsmoke.olditem;
 
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -7,6 +7,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class GunPartItem extends Item {
     public GunPartItem(Properties properties) {
@@ -14,7 +15,7 @@ public class GunPartItem extends Item {
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemStack) {
+    public void fillItemCategory(@NotNull CreativeModeTab tab, @NotNull NonNullList<ItemStack> itemStack) {
         if (this.allowedIn(tab)) {
             for (GunsmokeMaterials material : GunsmokeMaterials.values()) {
                 if (material != GunsmokeMaterials.NULL) {
@@ -25,7 +26,7 @@ public class GunPartItem extends Item {
     }
 
     @Override
-    public String getDescriptionId(ItemStack itemStack) {
+    public @NotNull String getDescriptionId(@NotNull ItemStack itemStack) {
         return I18n.get(this.getDescriptionId() + "." + GunsmokeMaterials.getMaterial(itemStack).getName());
     }
 }

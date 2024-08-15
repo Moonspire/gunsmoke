@@ -3,7 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.mixin;
 import com.mrcrayfish.guns.common.Gun;
 import com.mrcrayfish.guns.common.ShootTracker;
 import com.mrcrayfish.guns.item.GunItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

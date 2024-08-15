@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "color": [88, 89, 93],
+    "flammable": false,
+    "density": 77,
+    "hardness": 80,
+    "purity": 70
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "tag",
+      "ingredient": "immersiveengineeing:ingot_steel"
+    },
+    "castable": true,
+    "casting_fluid": "tconstruct:molten_steel"
+  }
+}

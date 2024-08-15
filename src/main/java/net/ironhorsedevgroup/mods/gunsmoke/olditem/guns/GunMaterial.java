@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
+package net.ironhorsedevgroup.mods.gunsmoke.olditem.guns;
 
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +12,7 @@ import java.util.Objects;
 public class GunMaterial {
     private final String name;
     private int color = Color.getIntFromRGB(255, 0, 255);
-    private boolean flamable = false;
+    private boolean flammable = false;
     private short density = 0; // kg/m3 / 1000
     private short hardness = 0; // Rough Mohs Hardness * 10
     private short purity = 0; // Just vibes man
@@ -41,13 +41,13 @@ public class GunMaterial {
         return color;
     }
 
-    public GunMaterial setFlamable(Boolean flamable) {
-        this.flamable = flamable;
+    public GunMaterial setFlammable(Boolean flammable) {
+        this.flammable = flammable;
         return this;
     }
 
-    public Boolean isFlamable() {
-        return flamable;
+    public Boolean isFlammable() {
+        return flammable;
     }
 
     public GunMaterial setDensity(Integer density) {

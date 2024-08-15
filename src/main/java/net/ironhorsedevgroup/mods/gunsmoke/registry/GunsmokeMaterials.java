@@ -1,6 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
+import net.ironhorsedevgroup.mods.gunsmoke.olditem.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
@@ -12,7 +12,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     ACACIA(
             new GunMaterial("acacia")
                     .setColor(219, 117, 62)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(10)
                     .setHardness(10)
                     .setPurity(10)
@@ -21,7 +21,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     BIRCH(
             new GunMaterial("birch")
                     .setColor(233, 218, 139)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(8)
                     .setHardness(8)
                     .setPurity(5)
@@ -30,7 +30,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     DARK_OAK(
             new GunMaterial("dark_oak")
                     .setColor(99, 68, 34)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(9)
                     .setHardness(8)
                     .setPurity(5)
@@ -39,7 +39,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     JUNGLE(
             new GunMaterial("jungle")
                     .setColor(218, 155, 111)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(3)
                     .setHardness(5)
                     .setPurity(5)
@@ -48,7 +48,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     MANGROVE(
             new GunMaterial("mangrove")
                     .setColor(173, 69, 76)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(5)
                     .setHardness(7)
                     .setPurity(5)
@@ -57,7 +57,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     OAK(
             new GunMaterial("oak")
                     .setColor(224, 175, 96)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(9)
                     .setHardness(8)
                     .setPurity(5)
@@ -66,7 +66,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     SPRUCE(
             new GunMaterial("spruce")
                     .setColor(142, 102, 51)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(6)
                     .setHardness(7)
                     .setPurity(5)
@@ -95,7 +95,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     ANCIENT(
             new GunMaterial("ancient")
                     .setColor(255, 255, 255)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(6)
                     .setHardness(7)
                     .setPurity(5)
@@ -104,7 +104,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     AZALEA(
             new GunMaterial("azalea")
                     .setColor(221, 227, 122)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(9)
                     .setHardness(8)
                     .setPurity(5)
@@ -113,7 +113,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     BLOSSOM(
             new GunMaterial("blossom")
                     .setColor(131, 55, 35)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(9)
                     .setHardness(8)
                     .setPurity(5)
@@ -134,7 +134,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     GRONGLE(
             new GunMaterial("grongle")
                     .setColor(108, 120, 67)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(10)
                     .setHardness(10)
                     .setPurity(5)
@@ -143,7 +143,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     SMOGSTEM(
             new GunMaterial("smogstem")
                     .setColor(93, 121, 114)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(15)
                     .setHardness(15)
                     .setPurity(5)
@@ -152,7 +152,7 @@ public enum GunsmokeMaterials implements StringRepresentable {
     WIGGLEWOOD(
             new GunMaterial("wigglewood")
                     .setColor(126, 95, 59)
-                    .setFlamable(true)
+                    .setFlammable(true)
                     .setDensity(9)
                     .setHardness(10)
                     .setPurity(5)
