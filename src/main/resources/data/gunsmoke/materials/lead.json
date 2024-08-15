@@ -1,0 +1,17 @@
+{
+  "properties": {
+    "color": [68, 75, 91],
+    "flammable": false,
+    "density": 114,
+    "hardness": 25,
+    "purity": 50
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "immersiveengineeing:ingot_lead"
+    },
+    "castable": true,
+    "casting_fluid": "tconstruct:molten_lead"
+  }
+}

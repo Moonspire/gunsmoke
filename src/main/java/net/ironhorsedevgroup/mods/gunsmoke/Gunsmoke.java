@@ -3,6 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke;
 import com.mojang.logging.LogUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.data.DataLoader;
 import net.ironhorsedevgroup.mods.gunsmoke.data.models.ItemModelGenerator;
+import net.ironhorsedevgroup.mods.gunsmoke.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.olditem.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.olditem.RoundItem;
@@ -19,6 +20,7 @@ import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -44,7 +46,7 @@ public class Gunsmoke {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "gunsmoke";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public Gunsmoke() {
         GunsmokeTabs.load();
@@ -108,7 +110,6 @@ public class Gunsmoke {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
@@ -126,10 +127,17 @@ public class Gunsmoke {
                             ),
                             item
                     );
-                } else if (item instanceof RifleItem || item instanceof RoundItem) {
+                } else if (item instanceof RifleItem) {
                     event.getItemColors().register(
                             (
                                     GunColor::getColor
+                            ),
+                            item
+                    );
+                } else if (item instanceof RoundItem) {
+                    event.getItemColors().register(
+                            (
+                                    MaterialUtils::getRoundColor
                             ),
                             item
                     );

@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.olditem;
 
+import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.olditem.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
@@ -27,6 +28,8 @@ public class RoundItem extends Item {
             for (RoundProperties round : this.caliber.getRounds()) {
                 itemStack.add(
                         new NewRound(round.getId())
+                                .bullet(new ResourceLocation(Gunsmoke.MODID, "lead"))
+                                .casing(new ResourceLocation(Gunsmoke.MODID, "brass"))
                                 .getItem(this)
                 );
             }
