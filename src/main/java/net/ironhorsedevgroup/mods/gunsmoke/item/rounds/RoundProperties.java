@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds;
+package net.ironhorsedevgroup.mods.gunsmoke.item.rounds;
 
 import net.minecraft.resources.ResourceLocation;
 

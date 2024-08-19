@@ -3,8 +3,8 @@ package net.ironhorsedevgroup.mods.gunsmoke.mixin;
 import com.mrcrayfish.guns.common.AmmoContext;
 import com.mrcrayfish.guns.common.Gun;
 import com.mrcrayfish.guns.common.ReloadTracker;
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +22,7 @@ public class ReloadTrackerMixins {
             AmmoContext context = Gun.findAmmo(player, rifleItem.getGun().getProjectile().getItem());
             ItemStack ammo = context.stack();
             if (ammo.getItem() instanceof RoundItem) {
-                rifleItem.loadRound(RoundItem.getModifiedRound(ammo));
+                //rifleItem.loadRound(RoundItem.getRound(ammo));
             }
         }
     }

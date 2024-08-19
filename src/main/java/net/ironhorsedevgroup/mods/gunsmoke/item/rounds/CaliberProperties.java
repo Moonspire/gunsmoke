@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds;
+package net.ironhorsedevgroup.mods.gunsmoke.item.rounds;
 
 import java.util.ArrayList;
 import java.util.List;

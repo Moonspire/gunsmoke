@@ -1,6 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.guns.GunMaterial;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;

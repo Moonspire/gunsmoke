@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.materials;
+package net.ironhorsedevgroup.mods.gunsmoke.item.materials;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class MaterialUtils {
     private static final Map<ResourceLocation, Material> materials = new HashMap<>();
@@ -47,9 +48,7 @@ public class MaterialUtils {
     }
 
     public static void updateMaterial(ResourceLocation location, Material material) {
-        if (materials.containsKey(location)) {
-            materials.remove(location);
-        }
+        materials.remove(location);
         materials.put(location, material);
     }
 
@@ -61,12 +60,28 @@ public class MaterialUtils {
         return getMaterial(new ResourceLocation(namespace, path));
     }
 
-    public static Material getMaterial(ResourceLocation location) {
-        if (materials.containsKey(location)) {
-            return materials.get(location);
+    public static Material getMaterial(String location) {
+        if (!Objects.equals(location, null)) {
+            return getMaterial(new ResourceLocation(location));
         }
-        Gunsmoke.LOGGER.warn("Could not locate material: {}", location);
         return getNull();
+    }
+
+    public static Material getMaterial(ResourceLocation location) {
+        if (!Objects.equals(location, null)) {
+            if (materials.containsKey(location)) {
+               return materials.get(location);
+            }
+            Gunsmoke.LOGGER.warn("Could not locate material: {}", location);
+        }
+        return getNull();
+    }
+
+    public static String getMaterialLang(ResourceLocation location) {
+        if (!Objects.equals(location, null) && materials.containsKey(location)) {
+            return "gun_material." + location.getNamespace() + "." + location.getPath();
+        }
+        return "gun_material.null";
     }
 
     public static int getRoundColor(ItemStack itemStack, int tintIndex) {

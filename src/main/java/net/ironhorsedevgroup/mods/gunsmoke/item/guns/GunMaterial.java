@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.olditem.guns;
+package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.minecraft.resources.ResourceLocation;

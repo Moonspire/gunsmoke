@@ -2,10 +2,10 @@ package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
 import com.mrcrayfish.guns.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.GunPartItem;
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds.CaliberProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -36,7 +36,7 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> GUN_PARTS = REGISTRY.register("gun_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CHAMBER_PARTS = REGISTRY.register("chamber_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 
-    public static final Map<String, RegistryObject<Item>> CALIBERS = registerCalibers(REGISTRY);
+    public static final RegistryObject<Item> ROUND_ITEM = REGISTRY.register("round_item", () -> new RoundItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS)));
 
     public static final DeferredRegister<Item> TCONSTRUCT = DeferredRegister.create(ForgeRegistries.ITEMS, Gunsmoke.MODID);
 
@@ -45,15 +45,6 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> CAST_BARREL_LONG = TCONSTRUCT.register("cast_barrel_long", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CAST_STOCK = TCONSTRUCT.register("cast_stock", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CAST_GUN_PARTS = TCONSTRUCT.register("cast_gun_parts", () -> new Item(new Item.Properties().tab(GunsmokeTabs.PARTS)));
-
-    private static Map<String, RegistryObject<Item>> registerCalibers(DeferredRegister<Item> registry) {
-        Map<String, RegistryObject<Item>> registryObjects = new HashMap<>();
-        for (GunsmokeCalibers round : GunsmokeCalibers.values()) {
-            CaliberProperties caliber = round.getCaliber();
-            registryObjects.put(round.getSerializedName(), registry.register(round.getSerializedName(), () -> new RoundItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS), caliber)));
-        }
-        return registryObjects;
-    }
 
     private static RegistryObject<Item> block(RegistryObject<Block> block, CreativeModeTab tab) {
         return REGISTRY.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(tab)));

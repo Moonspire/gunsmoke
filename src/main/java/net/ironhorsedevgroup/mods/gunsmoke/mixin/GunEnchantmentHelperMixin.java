@@ -2,7 +2,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.mixin;
 
 import com.mrcrayfish.guns.init.ModEnchantments;
 import com.mrcrayfish.guns.util.GunEnchantmentHelper;
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;

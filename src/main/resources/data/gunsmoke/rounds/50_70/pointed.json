@@ -1,0 +1,28 @@
+{
+  "caliber": ".50-70",
+  "damage": {
+    "entity_damage": 19.0,
+    "barrel_damage": 1,
+    "breach_damage": 1,
+    "core_damage": 1,
+    "stock_damage": 1
+  },
+  "properties": {
+    "damage_drop": true,
+    "has_gravity": true,
+    "life": 10,
+    "projectiles": 1,
+    "size": 1.0,
+    "speed": 10.0,
+    "trail_color": [255, 210, 137],
+    "trail_length": 1.0,
+    "visible": true
+  },
+  "render": {
+    "color": [255, 255, 255],
+    "layers": {
+      "round": "gunsmoke:items/rounds/default/round",
+      "casing": "gunsmoke:items/rounds/default/casing"
+    }
+  }
+}

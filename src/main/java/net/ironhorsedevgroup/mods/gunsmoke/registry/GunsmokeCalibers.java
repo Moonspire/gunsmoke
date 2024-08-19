@@ -1,7 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds.CaliberProperties;
-import net.ironhorsedevgroup.mods.gunsmoke.olditem.rounds.RoundProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.minecraft.util.StringRepresentable;
 
 public enum GunsmokeCalibers implements StringRepresentable {
