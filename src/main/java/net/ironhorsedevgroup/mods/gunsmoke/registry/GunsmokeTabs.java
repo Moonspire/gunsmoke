@@ -32,6 +32,7 @@ public class GunsmokeTabs {
         };
 
         PARTS = new CreativeModeTab("gunsmoke.parts") {
+
             @Override
             public @NotNull ItemStack makeIcon() {
                 return NBT.putStringTag(new ItemStack(GunsmokeItems.STOCK_ADVANCED.get()), "material", GunsmokeMaterials.OAK.getSerializedName());

@@ -102,7 +102,7 @@ public class GunPartUpgradeRecipeBuilder implements RecipeBuilder {
             part.add("nbt", nbt);
             ingredients.add(part);
 
-            part = Ingredient.of(GunsmokeItems.GUN_PARTS.get()).toJson().getAsJsonObject();
+            //part = Ingredient.of(GunsmokeItems.GUN_PARTS.get()).toJson().getAsJsonObject();
             part.addProperty("type", "forge:partial_nbt");
             part.add("nbt", nbt);
             ingredients.add(part);

@@ -8,12 +8,18 @@ import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RoundUtils {
     private static final Map<String, Map<String, Round>> rounds = new HashMap<>();
+    private static final Map<ResourceLocation, List<String>> roundItems = new HashMap<>();
 
     public static void loadRounds(String namespace, JsonArray paths, ResourceManager manager) {
         for (JsonElement entry : paths) {
@@ -54,55 +60,40 @@ public class RoundUtils {
         return null;
     }
 
-    public static class Round {
-        private final String caliber;
-        private final Damage damage;
-        private final Properties properties;
-        private final Render render;
+    public static void clearRounds() {
+        rounds.clear();
+        roundItems.clear();
+    }
 
-        private Round(String caliber, Damage damage, Properties properties, Render render) {
-            this.caliber = caliber;
-            this.damage = damage;
-            this.properties = properties;
-            this.render = render;
+    public static boolean isItemRound(ResourceLocation location) {
+        return roundItems.containsKey(location);
+    }
+
+    public static List<String> getCalibers(Item item) {
+        ResourceLocation location = ForgeRegistries.ITEMS.getKey(item);
+        if (isItemRound(location)) {
+            return roundItems.get(location);
         }
+        return new ArrayList<>();
+    }
 
-        public static Round fromJson(JsonObject json) {
-            String caliber = json.get("caliber").getAsString();
-            Damage damage = new Damage();
-            Properties properties = new Properties();
-            Render render = new Render();
-
-            if (json.has("damage")) {
-                damage = Damage.fromJson(json.getAsJsonObject("damage"));
+    public interface Round {
+        static Round fromJson(JsonObject json) {
+            if (json.has("item")) {
+                return ItemRound.fromJson(json);
             }
-            if (json.has("properties")) {
-                properties = Properties.fromJson(json.getAsJsonObject("properties"));
-            }
-            if (json.has("render")) {
-                render = Render.fromJson(json.getAsJsonObject("render"));
-            }
+            return DynamicRound.fromJson(json);
+        };
 
-            return new Round(caliber, damage, properties, render);
-        }
+        String getCaliber();
 
-        public String getCaliber() {
-            return caliber;
-        }
+        Damage getDamage();
 
-        public Damage getDamage() {
-            return damage;
-        }
+        Properties getProperties();
 
-        public Properties getProperties() {
-            return properties;
-        }
+        boolean hasRenderer();
 
-        public Render getRender() {
-            return render;
-        }
-
-        public static class Damage {
+        class Damage {
             private final float entityDamage;
             private final int barrelDamage;
             private final int breachDamage;
@@ -172,7 +163,7 @@ public class RoundUtils {
             }
         }
 
-        public static class Properties {
+        class Properties {
             private final boolean damageDropoff;
             private final boolean hasGravity;
             private final int life;
@@ -286,6 +277,63 @@ public class RoundUtils {
                 return visible;
             }
         }
+    }
+
+    public static class DynamicRound implements Round {
+        private final String caliber;
+        private final Damage damage;
+        private final Properties properties;
+        private final Render render;
+
+        private DynamicRound(String caliber, Damage damage, Properties properties, Render render) {
+            this.caliber = caliber;
+            this.damage = damage;
+            this.properties = properties;
+            this.render = render;
+        }
+
+        public static Round fromJson(JsonObject json) {
+            String caliber = json.get("caliber").getAsString();
+            Damage damage = new Damage();
+            Properties properties = new Properties();
+            Render render = new Render();
+
+            if (json.has("damage")) {
+                damage = Damage.fromJson(json.getAsJsonObject("damage"));
+            }
+            if (json.has("properties")) {
+                properties = Properties.fromJson(json.getAsJsonObject("properties"));
+            }
+            if (json.has("render")) {
+                render = Render.fromJson(json.getAsJsonObject("render"));
+            }
+
+            return new DynamicRound(caliber, damage, properties, render);
+        }
+
+        @Override
+        public String getCaliber() {
+            return caliber;
+        }
+
+        @Override
+        public Damage getDamage() {
+            return damage;
+        }
+
+        @Override
+        public Properties getProperties() {
+            return properties;
+        }
+
+        @Override
+        public boolean hasRenderer() {
+            return true;
+        }
+
+        public Render getRender() {
+            return render;
+        }
 
         public static class Render {
             private final int roundColor;
@@ -359,6 +407,74 @@ public class RoundUtils {
 
             public ResourceLocation getColor() {
                 return color;
+            }
+        }
+    }
+
+    public static class ItemRound implements Round {
+        private final String caliber;
+        private final ResourceLocation item;
+        private final Damage damage;
+        private final Properties properties;
+
+        private ItemRound(String caliber, ResourceLocation item, Damage damage, Properties properties) {
+            this.caliber = caliber;
+            this.item = item;
+            this.damage = damage;
+            this.properties = properties;
+        }
+
+        public static ItemRound fromJson(JsonObject json) {
+            String caliber = json.get("caliber").getAsString();
+            ResourceLocation item = new ResourceLocation(json.get("item").getAsString());
+            if (!roundItems.containsKey(item)) {
+                roundItems.put(item, new ArrayList<>());
+            }
+            if (!roundItems.get(item).contains(caliber)) {
+                roundItems.get(item).add(caliber);
+            }
+            Damage damage = new Damage();
+            Properties properties = new Properties();
+
+            if (json.has("damage")) {
+                damage = Damage.fromJson(json.getAsJsonObject("damage"));
+            }
+            if (json.has("properties")) {
+                properties = Properties.fromJson(json.getAsJsonObject("properties"));
+            }
+
+            return new ItemRound(caliber, item, damage, properties);
+        }
+
+        @Override
+        public String getCaliber() {
+            return caliber;
+        }
+
+        @Override
+        public Damage getDamage() {
+            return damage;
+        }
+
+        @Override
+        public Properties getProperties() {
+            return properties;
+        }
+
+        @Override
+        public boolean hasRenderer() {
+            return false;
+        }
+
+        public ResourceLocation getItemLocation() {
+            return item;
+        }
+
+        public Item getItem() {
+            try {
+                return ForgeRegistries.ITEMS.getValue(item);
+            } catch (Exception e) {
+                return Items.AIR;
             }
         }
     }

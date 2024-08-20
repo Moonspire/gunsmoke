@@ -28,6 +28,7 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+        /*
         castRecipe(GunsmokeItems.CAST_GUN_PARTS.get(), GunsmokeItems.GUN_PARTS.get(), consumer);
         castRecipe(GunsmokeItems.CAST_STOCK.get(), GunsmokeItems.STOCK.get(), consumer);
         castRecipe(GunsmokeItems.CAST_BARREL_SHORT.get(), GunsmokeItems.BARREL_SHORT.get(), consumer);
@@ -55,8 +56,10 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
                 vanillaRecipes(material, consumer);
             }
         }
+         */
     }
 
+    /*
     public ItemStack addMaterial(Item item, GunMaterial material) {
         ItemStack retStack = new ItemStack(item);
         return NBT.putStringTag(retStack, "material", material.getName());
@@ -141,4 +144,5 @@ public class RecipeGenerator extends RecipeProvider implements IConditionBuilder
             longBarrelRecipe.save(consumer, new ResourceLocation("gunsmoke", "crafting/defaults/" + addMaterial(GunsmokeItems.BARREL_LONG.get(), material).getDescriptionId()));
         }
     }
+     */
 }

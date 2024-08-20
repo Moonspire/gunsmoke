@@ -2,6 +2,9 @@
   "itemGroup.gunsmoke.firearms": "Gunsmoke Firearms",
   "itemGroup.gunsmoke.parts": "Gunsmoke Parts",
 
+  "caliber..50-70": ".50-70",
+  "caliber.arrow": "Arrow Projectile",
+
   "round..50-70.gunsmoke.pointed": ".50-70 Pointed",
 
   "gun_material.null": "Null",
@@ -27,6 +30,14 @@
   "gun_material.forge.steel": "Steel",
 
 
+  "tooltip.gunsmoke.accepted_calibers": "Accepted Calibers:",
+  "tooltip.gunsmoke.material": "Material",
+  "tooltip.gunsmoke.barrel_material": "Barrel",
+  "tooltip.gunsmoke.breach_material": "Chamber",
+  "tooltip.gunsmoke.breach_material_alt": "Cylinder",
+  "tooltip.gunsmoke.core_material": "Core",
+  "tooltip.gunsmoke.stock_material": "Stock",
+  "tooltip.gunsmoke.stock_material_alt": "Grip",
   "tooltip.gunsmoke.round_material": "Round",
   "tooltip.gunsmoke.casing_material": "Casing",
 

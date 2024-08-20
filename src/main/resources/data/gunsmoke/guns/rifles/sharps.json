@@ -1,0 +1,107 @@
+{
+  "properties": {
+    "general": {
+      "zoom": [
+        0.6,
+        0.0,
+        4.6223,
+        6.0
+      ],
+      "barrel_end": [
+        0,
+        0.5,
+        -8.25
+      ],
+      "grip_type": "cgm:two_handed"
+    },
+    "fire": {
+      "jam_chance": 1,
+      "fire_cooldown": 10,
+      "spread": 0.1,
+      "muzzle_flash_size": 1.0,
+      "recoil": {
+        "angle": 10.0,
+        "kick": 1,
+        "ads_reduction": 0.5
+      }
+    },
+    "attachments": {
+      "barrel": {
+        "translation": [8.0, 3.8365, -2.2],
+        "scale": [0.45, 0.45, 0.45]
+      },
+      "scope": {
+        "translation": [8.0, 4.3, 11.3]
+      },
+      "stock": {
+        "translation": [8.0, 3.1294, 16.3]
+      },
+      "underBarrel": {
+        "translation": [8.0, 2.63, 7.5]
+      }
+    }
+  },
+  "composition": {
+    "barrel": "gunsmoke:long_barrel",
+    "breach": "gunsmoke:breach_parts",
+    "core": "gunsmoke:lever_action_core",
+    "stock": "gunsmoke:simple_stock"
+  },
+  "magazine": {
+    "capacity": 1,
+    "rounds": [
+      {
+        "type": "caliber",
+        "caliber": ".50-70",
+        "reload_quantity": 1,
+        "reload_time": 10,
+        "reload_sound": "cgm:item.pistol.reload"
+      },
+      {
+        "type": "caliber",
+        "caliber": "arrow",
+        "reload_quantity": 1,
+        "reload_time": 20
+      }
+    ]
+  },
+  "sounds": {
+    "cock": "cgm:item.rifle.cock",
+    "enchantedFire": "cgm:item.heavy_rifle.enchanted_fire",
+    "fire": "cgm:item.rifle.fire",
+    "reload": "cgm:item.pistol.reload",
+    "silencedFire": "cgm:item.rifle.silenced_fire"
+  },
+  "render": {
+    "model": "gunsmoke:models/item/guns/sharps1874.json",
+    "tool_tip": {
+      "barrel": "tooltip.gunsmoke.barrel_material",
+      "breach": "tooltip.gunsmoke.breach_material",
+      "core": "tooltip.gunsmoke.core_material",
+      "stock": "tooltip.gunsmoke.stock_material"
+    },
+    "attachments": {
+      "barrel": {
+        "translation": [8.0, 3.8365, -2.2],
+        "scale": [0.45, 0.45, 0.45]
+      },
+      "scope": {
+        "translation": [8.0, 4.3, 11.3]
+      },
+      "stock": {
+        "translation": [8.0, 3.1294, 16.3]
+      },
+      "underBarrel": {
+        "translation": [8.0, 2.63, 7.5]
+      }
+    },
+    "ironSight": {
+      "camera": [8.0, 1.5, 18.0],
+      "viewportFov": 60.0
+    },
+    "muzzleFlash": {
+      "translation": [8.0, 0.5, -8.25],
+      "scale": [0.5, 0.5, 0.5]
+    }
+  }
+}

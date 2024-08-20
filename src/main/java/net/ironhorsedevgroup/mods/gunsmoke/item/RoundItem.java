@@ -40,9 +40,13 @@ public class RoundItem extends Item {
     }
 
     public static ItemStack getFromRound(ResourceLocation location) {
-        ItemStack round = new ItemStack(GunsmokeItems.ROUND_ITEM.get());
-        NBT.putStringTag(round, "round", location.toString());
-        return round;
+        RoundUtils.Round round = RoundUtils.getRound(location);
+        if (round instanceof RoundUtils.ItemRound itemRound) {
+            return new ItemStack(itemRound.getItem());
+        }
+        ItemStack roundItem = new ItemStack(GunsmokeItems.ROUND_ITEM.get());
+        NBT.putStringTag(roundItem, "round", location.toString());
+        return roundItem;
     }
 
     public static ItemStack addMaterials(ItemStack roundItem, String round, String casing) {
@@ -50,8 +54,10 @@ public class RoundItem extends Item {
     }
 
     public static ItemStack addMaterials(ItemStack roundItem, ResourceLocation round, ResourceLocation casing) {
-        NBT.putStringTag(roundItem, "material_0", round.toString());
-        NBT.putStringTag(roundItem, "material_1", casing.toString());
+        if (roundItem.getItem() instanceof RoundItem) {
+            NBT.putStringTag(roundItem, "material_0", round.toString());
+            NBT.putStringTag(roundItem, "material_1", casing.toString());
+        }
         return roundItem;
     }
 

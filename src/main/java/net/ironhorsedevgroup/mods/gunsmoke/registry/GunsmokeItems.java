@@ -3,6 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.registry;
 import com.mrcrayfish.guns.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.PartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.CaliberProperties;
@@ -27,14 +28,18 @@ public class GunsmokeItems {
 
     public static final RegistryObject<Item> GUN_BENCH = block(GunsmokeBlocks.GUN_BENCH, GunsmokeTabs.FIREARMS);
 
+    public static final RegistryObject<Item> PART_ITEM = REGISTRY.register("part_item", () -> new PartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
+
+    public static final RegistryObject<Item> STOCK_ADVANCED = REGISTRY.register("stock_advanced", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
+    /*
     public static final RegistryObject<Item> BARREL_SHORT = REGISTRY.register("barrel_short", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> BARREL_MEDIUM = REGISTRY.register("barrel_medium", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> BARREL_LONG = REGISTRY.register("barrel_long", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> STOCK = REGISTRY.register("stock", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
-    public static final RegistryObject<Item> STOCK_ADVANCED = REGISTRY.register("stock_advanced", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> GRIP = REGISTRY.register("grip", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> GUN_PARTS = REGISTRY.register("gun_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
     public static final RegistryObject<Item> CHAMBER_PARTS = REGISTRY.register("chamber_parts", () -> new GunPartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
+     */
 
     public static final RegistryObject<Item> ROUND_ITEM = REGISTRY.register("round_item", () -> new RoundItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS)));
 

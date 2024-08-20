@@ -1,5 +1,11 @@
 {
   "rounds": [
-    "rounds/50_70/pointed"
+    "rounds/50_70/pointed",
+    "rounds/arrow/arrow"
+  ],
+  "parts": [
+    "parts/barrels/barrel_long",
+    "parts/barrels/barrel_short",
+    "parts/barrels/barrel_medium"
   ]
 }
