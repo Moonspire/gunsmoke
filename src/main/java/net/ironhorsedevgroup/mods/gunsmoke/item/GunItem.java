@@ -1,7 +1,16 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
 import com.mrcrayfish.guns.common.Gun;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
+import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 public class GunItem extends com.mrcrayfish.guns.item.GunItem {
     public GunItem(Properties properties) {
@@ -9,7 +18,30 @@ public class GunItem extends com.mrcrayfish.guns.item.GunItem {
     }
 
     @Override
+    public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemStack) {
+        if (this.allowedIn(tab)) {
+            Map<ResourceLocation, GunUtils.Gun> allGuns = GunUtils.getAllGuns();
+            for (ResourceLocation gun : allGuns.keySet()) {
+                itemStack.add(getDefaultInstance(gun));
+            }
+        }
+    }
+
+    @Override
+    public @NotNull ItemStack getDefaultInstance() {
+        ItemStack stack = super.getDefaultInstance();
+        NBT.putStringTag(stack, "gun", "gunsmoke:sharps");
+        return stack;
+    }
+
+    public @NotNull ItemStack getDefaultInstance(ResourceLocation location) {
+        ItemStack stack = super.getDefaultInstance();
+        NBT.putStringTag(stack, "gun", location.toString());
+        return stack;
+    }
+
+    @Override
     public Gun getModifiedGun(ItemStack stack) {
-        return super.getModifiedGun(stack);
+        return GunUtils.Gun.asGun(stack);
     }
 }

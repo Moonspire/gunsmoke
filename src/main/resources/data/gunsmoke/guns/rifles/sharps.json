@@ -36,14 +36,14 @@
       "stock": {
         "translation": [8.0, 3.1294, 16.3]
       },
-      "underBarrel": {
+      "under_barrel": {
         "translation": [8.0, 2.63, 7.5]
       }
     }
   },
   "composition": {
-    "barrel": "gunsmoke:long_barrel",
-    "breach": "gunsmoke:breach_parts",
+    "barrel": "gunsmoke:barrel_long",
+    "breach": "gunsmoke:chamber_parts",
     "core": "gunsmoke:lever_action_core",
     "stock": "gunsmoke:simple_stock"
   },
@@ -58,19 +58,19 @@
         "reload_sound": "cgm:item.pistol.reload"
       },
       {
-        "type": "caliber",
-        "caliber": "arrow",
+        "type": "magazine",
+        "magazine": "gunsmoke:test_magazine",
         "reload_quantity": 1,
-        "reload_time": 20
+        "reload_time": 10,
+        "reload_sound": "cgm:item.pistol.reload"
       }
     ]
   },
   "sounds": {
     "cock": "cgm:item.rifle.cock",
-    "enchantedFire": "cgm:item.heavy_rifle.enchanted_fire",
+    "enchanted_fire": "cgm:item.heavy_rifle.enchanted_fire",
     "fire": "cgm:item.rifle.fire",
-    "reload": "cgm:item.pistol.reload",
-    "silencedFire": "cgm:item.rifle.silenced_fire"
+    "silenced_fire": "cgm:item.rifle.silenced_fire"
   },
   "render": {
     "model": "gunsmoke:models/item/guns/sharps1874.json",
@@ -91,15 +91,15 @@
       "stock": {
         "translation": [8.0, 3.1294, 16.3]
       },
-      "underBarrel": {
+      "under_barrel": {
         "translation": [8.0, 2.63, 7.5]
       }
     },
-    "ironSight": {
+    "iron_sight": {
       "camera": [8.0, 1.5, 18.0],
       "viewportFov": 60.0
     },
-    "muzzleFlash": {
+    "muzzle_flash": {
       "translation": [8.0, 0.5, -8.25],
       "scale": [0.5, 0.5, 0.5]
     }

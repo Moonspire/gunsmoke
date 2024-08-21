@@ -1,4 +1,7 @@
 {
+  "guns": [
+    "guns/rifles/sharps"
+  ],
   "rounds": [
     "rounds/50_70/pointed",
     "rounds/arrow/arrow"

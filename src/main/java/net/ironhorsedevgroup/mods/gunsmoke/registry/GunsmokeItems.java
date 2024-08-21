@@ -26,6 +26,8 @@ public class GunsmokeItems {
     public static final RegistryObject<Item> WINCHESTER_1895 = REGISTRY.register("winchester1895", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS), 2));
     public static final RegistryObject<Item> DRAGOON = REGISTRY.register("dragoon", () -> new RifleItem(new Item.Properties().stacksTo(1).tab(GunsmokeTabs.FIREARMS), 10));
 
+    public static final RegistryObject<Item> GUN_ITEM = REGISTRY.register("gun_item", () -> new net.ironhorsedevgroup.mods.gunsmoke.item.GunItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS)));
+
     public static final RegistryObject<Item> GUN_BENCH = block(GunsmokeBlocks.GUN_BENCH, GunsmokeTabs.FIREARMS);
 
     public static final RegistryObject<Item> PART_ITEM = REGISTRY.register("part_item", () -> new PartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));

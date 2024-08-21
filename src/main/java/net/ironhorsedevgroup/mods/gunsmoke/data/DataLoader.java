@@ -2,6 +2,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.data;
 
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
@@ -27,6 +28,10 @@ public class DataLoader {
             if (gunsmokeFile.has("parts")) {
                 Gunsmoke.LOGGER.info("Registering Parts from {}", namespace);
                 PartUtils.loadParts(namespace, gunsmokeFile.getAsJsonArray("parts"), manager);
+            }
+            if (gunsmokeFile.has("guns")) {
+                Gunsmoke.LOGGER.info("Registering Guns from {}", namespace);
+                GunUtils.loadGuns(namespace, gunsmokeFile.getAsJsonArray("guns"), manager);
             }
         }
     }
