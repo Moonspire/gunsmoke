@@ -42,10 +42,22 @@
     }
   },
   "composition": {
-    "barrel": "gunsmoke:barrel_long",
-    "breach": "gunsmoke:chamber_parts",
-    "core": "gunsmoke:lever_action_core",
-    "stock": "gunsmoke:simple_stock"
+    "barrel": {
+      "part": "gunsmoke:barrel_long",
+      "default_material": "forge:steel"
+    },
+    "breach": {
+      "part": "gunsmoke:chamber_parts",
+      "default_material": "forge:steel"
+    },
+    "core": {
+      "part": "gunsmoke:lever_action_core",
+      "default_material": "forge:brass"
+    },
+    "stock": {
+      "part": "gunsmoke:simple_stock",
+      "default_material": "minecraft:spruce"
+    }
   },
   "magazine": {
     "capacity": 1,

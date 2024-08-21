@@ -4,11 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mrcrayfish.guns.common.GripType;
-import com.mrcrayfish.guns.common.Gun;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -441,19 +438,19 @@ public class GunUtils {
         }
 
         public static class Composition {
-            private final ResourceLocation barrel;
-            private final ResourceLocation breach;
-            private final ResourceLocation core;
-            private final ResourceLocation stock;
+            private final Part barrel;
+            private final Part breach;
+            private final Part core;
+            private final Part stock;
 
             public Composition() {
-                barrel = new ResourceLocation("gunsmoke:barrel_medium");
-                breach = new ResourceLocation("gunsmoke:chamber_parts");
-                core = new ResourceLocation("gunsmoke:gun_parts");
-                stock = new ResourceLocation("gunsmoke:simple_stock");
+                barrel = new Part();
+                breach = new Part();
+                core = new Part();
+                stock = new Part();
             }
 
-            private Composition(ResourceLocation barrel, ResourceLocation breach, ResourceLocation core, ResourceLocation stock) {
+            private Composition(Part barrel, Part breach, Part core, Part stock) {
                 this.barrel = barrel;
                 this.breach = breach;
                 this.core = core;
@@ -461,48 +458,89 @@ public class GunUtils {
             }
 
             public static Composition fromJson(JsonObject json) {
-                ResourceLocation barrel;
-                ResourceLocation breach;
-                ResourceLocation core;
-                ResourceLocation stock;
+                Part barrel;
+                Part breach;
+                Part core;
+                Part stock;
 
                 if (json.has("barrel")) {
-                    barrel = new ResourceLocation(json.get("barrel").getAsString());
+                    barrel = Part.fromJson(json.getAsJsonObject("barrel"));
                 } else {
-                    barrel = new ResourceLocation("gunsmoke:barrel_medium");
+                    barrel = new Part();
                 }
                 if (json.has("breach")) {
-                    breach = new ResourceLocation(json.get("breach").getAsString());
+                    breach = Part.fromJson(json.getAsJsonObject("breach"));
                 } else {
-                    breach = new ResourceLocation("gunsmoke:chamber_parts");
+                    breach = new Part();
                 }
                 if (json.has("core")) {
-                    core = new ResourceLocation(json.get("core").getAsString());
+                    core = Part.fromJson(json.getAsJsonObject("core"));
                 } else {
-                    core = new ResourceLocation("gunsmoke:gun_parts");
+                    core = new Part();
                 }
                 if (json.has("stock")) {
-                    stock = new ResourceLocation(json.get("stock").getAsString());
+                    stock = Part.fromJson(json.getAsJsonObject("stock"));
                 } else {
-                    stock = new ResourceLocation("gunsmoke:simple_stock");
+                    stock = new Part();
                 }
 
                 return new Composition(barrel, breach, core, stock);
             }
 
-            public ResourceLocation getBarrel() {
+            public static class Part {
+                private final ResourceLocation part;
+                private final ResourceLocation material;
+
+                public Part() {
+                    part = new ResourceLocation("gunsmoke:parts");
+                    material = new ResourceLocation("minecraft:iron");
+                }
+
+                private Part(ResourceLocation part, ResourceLocation material) {
+                    this.part = part;
+                    this.material = material;
+                }
+
+                public static Part fromJson(JsonObject json) {
+                    ResourceLocation part;
+                    ResourceLocation material;
+
+                    if (json.has("part")) {
+                        part = new ResourceLocation(json.get("part").getAsString());
+                    } else {
+                        part = new ResourceLocation("gunsmoke:parts");
+                    }
+                    if (json.has("default_material")) {
+                        material = new ResourceLocation(json.get("default_material").getAsString());
+                    } else {
+                        material = new ResourceLocation("minecraft:iron");
+                    }
+
+                    return new Part(part, material);
+                }
+
+                public ResourceLocation getPart() {
+                    return part;
+                }
+
+                public ResourceLocation getMaterial() {
+                    return material;
+                }
+            }
+
+            public Part getBarrel() {
                 return barrel;
             }
 
-            public ResourceLocation getBreach() {
+            public Part getBreach() {
                 return breach;
             }
 
-            public ResourceLocation getCore() {
+            public Part getCore() {
                 return core;
             }
 
-            public ResourceLocation getStock() {
+            public Part getStock() {
                 return stock;
             }
         }
