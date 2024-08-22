@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mrcrayfish.guns.common.GripType;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.gunsmoke.data.DataLoader;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
@@ -18,6 +19,7 @@ import java.util.*;
 
 public class GunUtils {
     private static final Map<ResourceLocation, Gun> guns = new HashMap<>();
+    private static final Gun NULL = new Gun();
 
     public static void loadGuns(String namespace, JsonArray paths, ResourceManager manager) {
         for (JsonElement entry : paths) {
@@ -40,11 +42,23 @@ public class GunUtils {
         if (guns.containsKey(location)) {
             return guns.get(location);
         }
-        return new Gun();
+        return NULL;
+    }
+
+    public static Gun getNull() {
+        return NULL;
     }
 
     public static Map<ResourceLocation, Gun> getAllGuns() {
         return guns;
+    }
+
+    public static boolean hasGun(String location) {
+        return hasGun(new ResourceLocation(location));
+    }
+
+    public static boolean hasGun(ResourceLocation location) {
+        return guns.containsKey(location);
     }
 
     public static class Gun {
@@ -746,7 +760,7 @@ public class GunUtils {
             private final IronSights ironSights;
 
             public Render() {
-                model = new ResourceLocation("gunsmoke:models/item/missing_asset.json");
+                model = new ResourceLocation("gunsmoke:special/error");
                 toolTip = new ToolTip();
                 attachments = new Attachments();
                 muzzleFlash = new Attachments.Attachment();
@@ -771,7 +785,7 @@ public class GunUtils {
                 if (json.has("model")) {
                     model = new ResourceLocation(json.get("model").getAsString());
                 } else {
-                    model = new ResourceLocation("gunsmoke:models/item/missing_asset.json");
+                    model = new ResourceLocation("gunsmoke:special/error");
                 }
                 if (json.has("tool_tip")) {
                     toolTip = ToolTip.fromJson(json.getAsJsonObject("tool_tip"));

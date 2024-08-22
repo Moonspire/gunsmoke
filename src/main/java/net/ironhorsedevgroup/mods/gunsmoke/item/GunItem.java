@@ -1,7 +1,9 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
 import com.mrcrayfish.guns.common.Gun;
+import net.ironhorsedevgroup.mods.gunsmoke.data.DataLoader;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.ItemModelOverrides;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +16,7 @@ import java.util.Map;
 public class GunItem extends com.mrcrayfish.guns.item.GunItem {
     public GunItem(Properties properties) {
         super(properties);
+        ItemModelOverrides.registerItem(this, DataLoader.gunModels);
     }
 
     @Override

@@ -172,13 +172,13 @@ dependencies {
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    //implementation('net.ironhorsedevgroup.mods:toolshed') {
-    //    version {
-    //        branch = 'master'
-    //    }
-    //}
+    implementation('net.ironhorsedevgroup.mods:toolshed') {
+        version {
+            branch = 'master'
+        }
+    }
 
-    implementation fg.deobf('curse.maven:toolshed-1056101:5630819')
+    //implementation fg.deobf('curse.maven:toolshed-1056101:5630819')
 
     implementation fg.deobf('curse.maven:framework-549225:4718247')
     implementation fg.deobf('curse.maven:mrcrayfishs-gun-mod-289479:4718583')

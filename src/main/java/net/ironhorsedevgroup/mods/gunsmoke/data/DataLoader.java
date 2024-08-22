@@ -2,6 +2,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.data;
 
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunModelOverride;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
@@ -11,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 public class DataLoader {
+    public static GunModelOverride gunModels = new GunModelOverride();
     public static void loadData(ResourceManager manager) {
         MaterialUtils.clearMaterials();
         RoundUtils.clearRounds();
