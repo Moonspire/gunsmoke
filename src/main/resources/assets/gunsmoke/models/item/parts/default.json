@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "gunsmoke:items/casts/barrel_short"
+    "layer0": "gunsmoke:items/parts/gun_parts"
   }
 }

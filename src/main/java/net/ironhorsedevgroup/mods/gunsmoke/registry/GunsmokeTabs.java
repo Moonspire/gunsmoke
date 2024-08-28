@@ -1,8 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,11 +16,8 @@ public class GunsmokeTabs {
         FIREARMS = new CreativeModeTab("gunsmoke.firearms") {
             @Override
             public @NotNull ItemStack makeIcon() {
-                ItemStack rifleItem = new ItemStack(GunsmokeItems.DRAGOON.get());
-                if (GunsmokeItems.DRAGOON.get() instanceof RifleItem rifle) {
-                    rifleItem = rifle.setMaterials(new ResourceLocation("minecraft:spruce"), new ResourceLocation("forge:steel"), new ResourceLocation("forge:brass"), new ResourceLocation("forge:steel"));
-                }
-                return NBT.putIntTag(rifleItem, "AmmoCount", 1);
+                ItemStack gunItem = new ItemStack(GunsmokeItems.GUN_ITEM.get());
+                return NBT.putIntTag(gunItem, "AmmoCount", 1);
             }
 
             @OnlyIn(Dist.CLIENT)
@@ -35,7 +30,7 @@ public class GunsmokeTabs {
 
             @Override
             public @NotNull ItemStack makeIcon() {
-                return NBT.putStringTag(new ItemStack(GunsmokeItems.STOCK_ADVANCED.get()), "material", GunsmokeMaterials.OAK.getSerializedName());
+                return new ItemStack(GunsmokeItems.PART_ITEM.get());
             }
 
             @OnlyIn(Dist.CLIENT)

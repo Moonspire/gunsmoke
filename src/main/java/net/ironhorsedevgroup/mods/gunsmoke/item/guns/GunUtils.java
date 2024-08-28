@@ -1,17 +1,15 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mrcrayfish.guns.common.GripType;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
-import net.ironhorsedevgroup.mods.gunsmoke.data.DataLoader;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
-import net.ironhorsedevgroup.mods.toolshed.tools.Data;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -21,16 +19,24 @@ public class GunUtils {
     private static final Map<ResourceLocation, Gun> guns = new HashMap<>();
     private static final Gun NULL = new Gun();
 
-    public static void loadGuns(String namespace, JsonArray paths, ResourceManager manager) {
-        for (JsonElement entry : paths) {
-            String path = entry.getAsString();
-            String[] strippedPath = path.split("/");
-            ResourceLocation completeLocation = new ResourceLocation(namespace, path);
-            ResourceLocation location = new ResourceLocation(namespace, strippedPath[strippedPath.length - 1]);
-            Gun gun = Gun.fromJson(Data.readJson(completeLocation, manager));
-            Gunsmoke.LOGGER.info("Registering gun from {}.json as {}", completeLocation, location);
-            updateGun(location, gun);
+    private GunUtils() {}
+
+    public static GunUtils getEmpty() {
+        return new GunUtils();
+    }
+
+    public static void loadGuns(List<ResourceLocation> guns, MinecraftServer server) {
+        for (ResourceLocation gun : guns) {
+            loadGun(gun, server);
         }
+    }
+
+    public static void loadGun(ResourceLocation location, MinecraftServer server) {
+        Gun gun = Gun.fromJson(DataLoader.loadJson(location, server));
+        String[] strippedPath = location.getPath().split("/");
+        location = new ResourceLocation(location.getNamespace(), strippedPath[strippedPath.length - 1]);
+        Gunsmoke.LOGGER.info("Registering server gun: {}", location);
+        updateGun(location, gun);
     }
 
     public static void updateGun(ResourceLocation location, Gun gun) {
@@ -760,7 +766,7 @@ public class GunUtils {
             private final IronSights ironSights;
 
             public Render() {
-                model = new ResourceLocation("gunsmoke:special/error");
+                model = new ResourceLocation("toolshed:error");
                 toolTip = new ToolTip();
                 attachments = new Attachments();
                 muzzleFlash = new Attachments.Attachment();

@@ -1,5 +1,5 @@
 {
   "render": {
-    "material": "gunsmoke:items/parts/barrel_short"
+    "model": "gunsmoke:parts/barrel_short"
   }
 }

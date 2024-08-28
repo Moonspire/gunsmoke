@@ -1,10 +1,11 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
-import net.ironhorsedevgroup.mods.toolshed.content_packs.ItemModelOverride;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.SimpleItemModelOverride;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverride;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,16 +20,18 @@ public class GunModelOverride implements ItemModelOverride {
         this.models = new HashMap<>();
     }
 
-    public void addModel(ResourceLocation location) {
-        ResourceLocation model = GunUtils.getGun(location).getRender().getModel();
-        models.put(location, SimpleItemModelOverride.fromLocation(model).getModel());
+    public void addModel(ResourceLocation gun) {
+        ModelManager manager = Minecraft.getInstance().getModelManager();
+        ResourceLocation location = GunUtils.getGun(gun).getRender().getModel();
+        location = new ModelResourceLocation(location, "inventory");
+        models.put(gun, manager.getModel(location));
     }
 
     public BakedModel getModel(ResourceLocation location) {
         if (models.containsKey(location)) {
             return models.get(location);
         }
-        return Minecraft.getInstance().getModelManager().getMissingModel();
+        return getModel();
     }
 
     @Override
@@ -38,11 +41,12 @@ public class GunModelOverride implements ItemModelOverride {
 
     @Override
     public BakedModel getModel(Item item) {
-        return Minecraft.getInstance().getModelManager().getMissingModel();
+        return getModel();
     }
 
     @Override
     public BakedModel getModel() {
-        return Minecraft.getInstance().getModelManager().getMissingModel();
+        ModelManager manager = Minecraft.getInstance().getModelManager();
+        return manager.getModel(new ModelResourceLocation("toolshed:error#inventory"));
     }
 }

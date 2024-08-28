@@ -5,7 +5,7 @@ import com.mrcrayfish.guns.client.handler.GunRenderingHandler;
 import com.mrcrayfish.guns.client.util.PropertyHelper;
 import com.mrcrayfish.guns.item.IColored;
 import com.mrcrayfish.guns.item.attachment.IAttachment;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.world.item.ItemStack;
@@ -41,7 +41,7 @@ public class GunClientHandler {
             }
         };
         ForgeRegistries.ITEMS.forEach((item) -> {
-            if (item instanceof IColored && !(item instanceof RifleItem)) {
+            if (item instanceof IColored && !(item instanceof GunItem)) {
                 Minecraft.getInstance().getItemColors().register(color, new ItemLike[]{item});
             }
         });

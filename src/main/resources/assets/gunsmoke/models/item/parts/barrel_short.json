@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "gunsmoke:items/barrel_long"
+    "layer0": "gunsmoke:items/parts/barrel_short"
   }
 }

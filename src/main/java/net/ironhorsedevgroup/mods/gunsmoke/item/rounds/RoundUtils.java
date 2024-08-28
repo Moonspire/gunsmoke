@@ -4,9 +4,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -21,16 +23,18 @@ public class RoundUtils {
     private static final Map<String, Map<String, Round>> rounds = new HashMap<>();
     private static final Map<ResourceLocation, List<String>> roundItems = new HashMap<>();
 
-    public static void loadRounds(String namespace, JsonArray paths, ResourceManager manager) {
-        for (JsonElement entry : paths) {
-            String path = entry.getAsString();
-            String[] strippedPath = path.split("/");
-            ResourceLocation completeLocation = new ResourceLocation(namespace, path);
-            Round round = Round.fromJson(Data.readJson(completeLocation, manager));
-            ResourceLocation location = new ResourceLocation(round.getCaliber(), namespace + "." + strippedPath[strippedPath.length - 1]);
-            Gunsmoke.LOGGER.info("Registering round from {}.json as {}", completeLocation, location);
-            updateRound(location, round);
+    public static void loadRounds(List<ResourceLocation> rounds, MinecraftServer server) {
+        for (ResourceLocation round : rounds) {
+            loadRound(round, server);
         }
+    }
+
+    public static void loadRound(ResourceLocation location, MinecraftServer server) {
+        Round round = Round.fromJson(DataLoader.loadJson(location, server));
+        String[] strippedPath = location.getPath().split("/");
+        location = new ResourceLocation(location.getNamespace(), strippedPath[strippedPath.length - 1]);
+        Gunsmoke.LOGGER.info("Registering server round: {}", location);
+        updateRound(location, round);
     }
 
     public static void updateRound(ResourceLocation location, Round round) {

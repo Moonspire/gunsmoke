@@ -1,14 +1,37 @@
 {
   "guns": [
-    "guns/rifles/sharps"
+    "gunsmoke:guns/rifles/sharps"
   ],
   "rounds": [
-    "rounds/50_70/pointed",
-    "rounds/arrow/arrow"
+    "gunsmoke:rounds/50_70/pointed",
+    "gunsmoke:rounds/arrow/arrow"
   ],
   "parts": [
-    "parts/barrels/barrel_long",
-    "parts/barrels/barrel_short",
-    "parts/barrels/barrel_medium"
+    "gunsmoke:parts/barrels/barrel_long",
+    "gunsmoke:parts/barrels/barrel_short",
+    "gunsmoke:parts/barrels/barrel_medium"
+  ],
+  "materials": [
+    "minecraft:materials/metals/copper",
+    "minecraft:materials/metals/gold",
+    "minecraft:materials/metals/iron",
+    "minecraft:materials/misc/bone",
+    "minecraft:materials/misc/shulker",
+    "minecraft:materials/woods/nether/crimson",
+    "minecraft:materials/woods/nether/warped",
+    "minecraft:materials/woods/overworld/acacia",
+    "minecraft:materials/woods/overworld/birch",
+    "minecraft:materials/woods/overworld/dark_oak",
+    "minecraft:materials/woods/overworld/jungle",
+    "minecraft:materials/woods/overworld/mangrove",
+    "minecraft:materials/woods/overworld/oak",
+    "minecraft:materials/woods/overworld/spruce",
+
+    "forge:materials/metals/brass",
+    "forge:materials/metals/electrum",
+    "forge:materials/metals/lead",
+    "forge:materials/metals/silver",
+    "forge:materials/metals/steel",
+    "forge:materials/metals/aluminum"
   ]
 }

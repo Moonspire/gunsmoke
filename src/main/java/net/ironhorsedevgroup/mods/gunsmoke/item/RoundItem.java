@@ -3,6 +3,8 @@ package net.ironhorsedevgroup.mods.gunsmoke.item;
 import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverrides;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.SimpleItemModelOverride;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.NonNullList;

@@ -1,25 +1,25 @@
 package net.ironhorsedevgroup.mods.gunsmoke;
 
 import com.mojang.logging.LogUtils;
-import net.ironhorsedevgroup.mods.gunsmoke.data.DataLoader;
-import net.ironhorsedevgroup.mods.gunsmoke.data.models.ItemModelGenerator;
+import net.ironhorsedevgroup.mods.gunsmoke.data.GunsmokeDataHandler;
 import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
-import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
+import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.*;
-import net.minecraft.client.Minecraft;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -49,6 +49,7 @@ public class Gunsmoke {
 
     public Gunsmoke() {
         GunsmokeTabs.load();
+        DataLoader.addPackDataFile("gunsmoke", new GunsmokeDataHandler());
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -61,7 +62,7 @@ public class Gunsmoke {
         GunsmokeItems.REGISTRY.register(modEventBus);
 
         if (ModList.get().isLoaded("tconstruct")) {
-            GunsmokeItems.TCONSTRUCT.register(modEventBus);
+            //GunsmokeItems.TCONSTRUCT.register(modEventBus);
         }
 
         GunsmokeRecipes.SERIALIZERS.register(modEventBus);
@@ -82,12 +83,19 @@ public class Gunsmoke {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(GunsmokeMessages::register);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        DataLoader.loadData(event.getServer().getResourceManager());
+    }
+
+    @SubscribeEvent
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        ServerPlayer player = event.getEntity().getServer().getPlayerList().getPlayer(event.getEntity().getUUID());
+        MaterialUtils.sendMaterials(player);
+        PartUtils.sendParts(player);
     }
 
     @Mod.EventBusSubscriber(modid = Gunsmoke.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -98,7 +106,6 @@ public class Gunsmoke {
             ExistingFileHelper helper = event.getExistingFileHelper();
 
             generator.addProvider(true, new RecipeGenerator(generator));
-            generator.addProvider(true, new ItemModelGenerator(generator, MODID, helper));
         }
     }
 
@@ -109,9 +116,7 @@ public class Gunsmoke {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
         }
 
         @SubscribeEvent
@@ -119,21 +124,7 @@ public class Gunsmoke {
         {
             for (RegistryObject<Item> regItem : GunsmokeItems.REGISTRY.getEntries()) {
                 Item item = regItem.get();
-                if (item instanceof GunPartItem) {
-                    event.getItemColors().register(
-                            (
-                                    GunColor::getPartColor
-                            ),
-                            item
-                    );
-                } else if (item instanceof RifleItem) {
-                    event.getItemColors().register(
-                            (
-                                    GunColor::getColor
-                            ),
-                            item
-                    );
-                } else if (item instanceof RoundItem) {
+                if (item instanceof RoundItem) {
                     event.getItemColors().register(
                             (
                                     MaterialUtils::getRoundColor

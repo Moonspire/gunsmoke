@@ -1,14 +1,17 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.materials;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
+import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.MaterialColorPacket;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.HashMap;
@@ -19,20 +22,25 @@ import java.util.Objects;
 public class MaterialUtils {
     private static final Map<ResourceLocation, Material> materials = new HashMap<>();
 
-    public static void loadMaterials(String namespace, JsonArray paths, ResourceManager manager) {
-        for (JsonElement entry : paths) {
-            String path = entry.getAsString();
-            String[] strippedPath = path.split("/");
-            ResourceLocation location = new ResourceLocation(namespace, strippedPath[strippedPath.length - 1]);
-            ResourceLocation completeLocation = new ResourceLocation(namespace, path);
-            Gunsmoke.LOGGER.info("Registering material from {}.json as {}", completeLocation, location);
-            updateMaterial(location, Material.fromJson(Data.readJson(completeLocation, manager)));
+    public static void loadMaterials(List<ResourceLocation> materials, MinecraftServer server) {
+        clearMaterials();
+        for (ResourceLocation material : materials) {
+            loadMaterial(material, server);
         }
     }
 
-    public static void loadMaterial(ResourceLocation location, Material material) {
-        Gunsmoke.LOGGER.info("Registering material from packet as {}", location);
+    public static void loadMaterial(ResourceLocation location, MinecraftServer server) {
+        Material material = Material.fromJson(DataLoader.loadJson(location, server));
+        String[] strippedPath = location.getPath().split("/");
+        location = new ResourceLocation(location.getNamespace(), strippedPath[strippedPath.length - 1]);
+        Gunsmoke.LOGGER.info("Registering server material: {}", location);
         updateMaterial(location, material);
+    }
+
+    public static void loadMaterial(MaterialColorPacket packet) {
+        ResourceLocation location = packet.location;
+        Gunsmoke.LOGGER.info("Registering client material: {}", location);
+        updateMaterial(location, Material.fromPacket(packet));
     }
 
     public static List<ResourceLocation> getMaterials() {
@@ -50,6 +58,12 @@ public class MaterialUtils {
     public static void updateMaterial(ResourceLocation location, Material material) {
         materials.remove(location);
         materials.put(location, material);
+    }
+
+    public static void sendMaterials(ServerPlayer player) {
+        for (ResourceLocation material : materials.keySet()) {
+            GunsmokeMessages.sendToPlayer(new MaterialColorPacket(material, materials.get(material)), player);
+        }
     }
 
     public static Material getNull() {
@@ -123,14 +137,12 @@ public class MaterialUtils {
             return new Material(properties, crafting);
         }
 
-        /*
-        public static Material fromPacket(MaterialPacket packet) {
+        public static Material fromPacket(MaterialColorPacket packet) {
             Properties properties = Properties.fromPacket(packet);
             Crafting crafting = new Crafting();
 
             return new Material(properties, crafting);
         }
-        */
 
         public Properties getProperties() {
             return properties;
@@ -194,17 +206,16 @@ public class MaterialUtils {
                 return fromJson(data.get().getAsJsonObject());
             }
 
-            /*
-            public static Properties fromPacket(MaterialPacket packet) {
+
+            public static Properties fromPacket(MaterialColorPacket packet) {
                 return new Properties(
                         packet.color,
-                        packet.flammable,
-                        packet.density,
-                        packet.hardness,
-                        packet.purity
-                        );
+                        false,
+                        1,
+                        (byte) 1,
+                        (byte) 1
+                );
             }
-            */
 
             public int getColor() {
                 return color;

@@ -85,7 +85,7 @@
     "silenced_fire": "cgm:item.rifle.silenced_fire"
   },
   "render": {
-    "model": "gunsmoke:special/guns/sharps1874",
+    "model": "gunsmoke:sharps",
     "tool_tip": {
       "barrel": "tooltip.gunsmoke.barrel_material",
       "breach": "tooltip.gunsmoke.breach_material",

@@ -1,24 +1,9 @@
 package net.ironhorsedevgroup.mods.gunsmoke.data.recipes;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunMaterial;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
-import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 
-import java.io.*;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public class RecipeGenerator extends RecipeProvider implements IConditionBuilder {
