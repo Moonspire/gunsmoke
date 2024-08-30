@@ -6,6 +6,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.*;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
@@ -96,6 +97,7 @@ public class Gunsmoke {
         ServerPlayer player = event.getEntity().getServer().getPlayerList().getPlayer(event.getEntity().getUUID());
         MaterialUtils.sendMaterials(player);
         PartUtils.sendParts(player);
+        RoundUtils.sendRounds(player);
     }
 
     @Mod.EventBusSubscriber(modid = Gunsmoke.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

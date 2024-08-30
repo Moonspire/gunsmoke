@@ -1,16 +1,20 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.rounds;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
+import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.RoundItemPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.RoundRenderPacket;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
-import net.ironhorsedevgroup.mods.toolshed.tools.Data;
+import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -32,9 +36,21 @@ public class RoundUtils {
     public static void loadRound(ResourceLocation location, MinecraftServer server) {
         Round round = Round.fromJson(DataLoader.loadJson(location, server));
         String[] strippedPath = location.getPath().split("/");
-        location = new ResourceLocation(location.getNamespace(), strippedPath[strippedPath.length - 1]);
+        location = new ResourceLocation(round.getCaliber(), strippedPath[strippedPath.length - 1]);
         Gunsmoke.LOGGER.info("Registering server round: {}", location);
         updateRound(location, round);
+    }
+
+    public static void loadRound(RoundItemPacket packet) {
+        ResourceLocation location = packet.location;
+        Gunsmoke.LOGGER.info("Registering client item round: {}", location);
+        updateRound(location, ItemRound.fromPacket(packet));
+    }
+
+    public static void loadRound(RoundRenderPacket packet) {
+        ResourceLocation location = packet.location;
+        Gunsmoke.LOGGER.info("Registering client dynamic round: {}", location);
+        updateRound(location, DynamicRound.fromPacket(packet));
     }
 
     public static void updateRound(ResourceLocation location, Round round) {
@@ -64,9 +80,30 @@ public class RoundUtils {
         return null;
     }
 
+    public static Round getRound(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof RoundItem) {
+            return getRound(NBT.getLocationTag(itemStack, "round"));
+        }
+        return null;
+    }
+
     public static void clearRounds() {
         rounds.clear();
         roundItems.clear();
+    }
+
+    public static void sendRounds(ServerPlayer player) {
+        for (String caliberId : rounds.keySet()) {
+            for (String roundId : rounds.get(caliberId).keySet()) {
+                ResourceLocation location = new ResourceLocation(caliberId, roundId);
+                Round round = getRound(location);
+                if (round instanceof ItemRound itemRound) {
+                    GunsmokeMessages.sendToPlayer(new RoundItemPacket(location, itemRound), player);
+                } else if (round instanceof DynamicRound dynamRound) {
+                    GunsmokeMessages.sendToPlayer(new RoundRenderPacket(location, dynamRound), player);
+                }
+            }
+        }
     }
 
     public static boolean isItemRound(ResourceLocation location) {
@@ -298,19 +335,34 @@ public class RoundUtils {
 
         public static Round fromJson(JsonObject json) {
             String caliber = json.get("caliber").getAsString();
-            Damage damage = new Damage();
-            Properties properties = new Properties();
-            Render render = new Render();
+            Damage damage;
+            Properties properties;
+            Render render;
 
             if (json.has("damage")) {
                 damage = Damage.fromJson(json.getAsJsonObject("damage"));
+            } else {
+                damage = new Damage();
             }
             if (json.has("properties")) {
                 properties = Properties.fromJson(json.getAsJsonObject("properties"));
+            } else {
+                properties = new Properties();
             }
             if (json.has("render")) {
                 render = Render.fromJson(json.getAsJsonObject("render"));
+            } else {
+                render = new Render();
             }
+
+            return new DynamicRound(caliber, damage, properties, render);
+        }
+
+        public static Round fromPacket(RoundRenderPacket packet) {
+            String caliber = packet.location.getNamespace();
+            Damage damage = new Damage();
+            Properties properties = new Properties();
+            Render render = Render.fromPacket(packet);
 
             return new DynamicRound(caliber, damage, properties, render);
         }
@@ -341,76 +393,46 @@ public class RoundUtils {
 
         public static class Render {
             private final int roundColor;
-            private final ResourceLocation round;
-            private final ResourceLocation casing;
-            private final ResourceLocation accessories;
-            private final ResourceLocation color;
+            private final ResourceLocation model;
 
             public Render() {
                 this.roundColor = Color.getIntFromRGB(255, 255, 255);
-                this.round = new ResourceLocation(Gunsmoke.MODID, "items/rounds/default/round");
-                this.casing = new ResourceLocation(Gunsmoke.MODID, "items/rounds/default/casing");
-                this.accessories = null;
-                this.color = null;
+                this.model = new ResourceLocation(Gunsmoke.MODID, "gunsmoke:rounds/simple_pointed");
             }
 
-            private Render(int roundColor, ResourceLocation round, ResourceLocation casing, ResourceLocation accessories, ResourceLocation color) {
+            private Render(int roundColor, ResourceLocation model) {
                 this.roundColor = roundColor;
-                this.round = round;
-                this.casing = casing;
-                this.accessories = accessories;
-                this.color = color;
+                this.model = model;
             }
 
             public static Render fromJson(JsonObject json) {
                 int roundColor = Color.getIntFromRGB(255, 255, 255);
-                ResourceLocation round = null;
-                ResourceLocation casing = null;
-                ResourceLocation accessories = null;
-                ResourceLocation color = null;
+                ResourceLocation model = null;
 
                 if (json.has("color")) {
                     JsonArray colorArray = json.getAsJsonArray("color");
                     roundColor = Color.getIntFromRGB(colorArray.get(0).getAsInt(), colorArray.get(1).getAsInt(), colorArray.get(2).getAsInt());
                 }
-                if (json.has("layers")) {
-                    JsonObject layers = json.getAsJsonObject("layers");
-
-                    if (layers.has("round")) {
-                        round = new ResourceLocation(layers.get("round").getAsString());
-                    }
-                    if (layers.has("casing")) {
-                        casing = new ResourceLocation(layers.get("casing").getAsString());
-                    }
-                    if (layers.has("accessories")) {
-                        accessories = new ResourceLocation(layers.get("accessories").getAsString());
-                    }
-                    if (layers.has("color")) {
-                        color = new ResourceLocation(layers.get("color").getAsString());
-                    }
+                if (json.has("model")) {
+                    model = new ResourceLocation(json.get("model").getAsString());
                 }
 
-                return new Render(roundColor, round, casing, accessories, color);
+                return new Render(roundColor, model);
             }
 
-            public int getRoundColor() {
+            public static Render fromPacket(RoundRenderPacket packet) {
+                ResourceLocation model = packet.model;
+                int color = packet.color;
+
+                return new Render(color, model);
+            }
+
+            public int getColor() {
                 return roundColor;
             }
 
-            public ResourceLocation getRound() {
-                return round;
-            }
-
-            public ResourceLocation getCasing() {
-                return casing;
-            }
-
-            public ResourceLocation getAccessories() {
-                return accessories;
-            }
-
-            public ResourceLocation getColor() {
-                return color;
+            public ResourceLocation getModel() {
+                return model;
             }
         }
     }
@@ -437,15 +459,28 @@ public class RoundUtils {
             if (!roundItems.get(item).contains(caliber)) {
                 roundItems.get(item).add(caliber);
             }
-            Damage damage = new Damage();
-            Properties properties = new Properties();
+            Damage damage;
+            Properties properties;
 
             if (json.has("damage")) {
                 damage = Damage.fromJson(json.getAsJsonObject("damage"));
+            } else {
+                damage = new Damage();
             }
             if (json.has("properties")) {
                 properties = Properties.fromJson(json.getAsJsonObject("properties"));
+            } else {
+                properties = new Properties();
             }
+
+            return new ItemRound(caliber, item, damage, properties);
+        }
+
+        public static ItemRound fromPacket(RoundItemPacket packet) {
+            String caliber = packet.location.getNamespace();
+            ResourceLocation item = packet.item;
+            Damage damage = new Damage();
+            Properties properties = new Properties();
 
             return new ItemRound(caliber, item, damage, properties);
         }

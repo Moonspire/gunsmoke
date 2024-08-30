@@ -1,8 +1,12 @@
 {
   "models": [
+    "gunsmoke:parts/parts",
     "gunsmoke:parts/barrel_long",
     "gunsmoke:parts/barrel_medium",
     "gunsmoke:parts/barrel_short",
+
+    "gunsmoke:rounds/simple_pointed",
+
     "gunsmoke:guns/sharps1874"
   ]
 }

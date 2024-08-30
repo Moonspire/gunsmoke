@@ -1,41 +1,41 @@
 package net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class PartRenderPacket {
+public class RoundItemPacket {
     public ResourceLocation location;
-    public ResourceLocation model;
+    public ResourceLocation item;
 
-    public PartRenderPacket(ResourceLocation location, PartUtils.Part part) {
+    public RoundItemPacket(ResourceLocation location, RoundUtils.ItemRound round) {
         this.location = location;
-        model = part.getRender().getModel();
+        item = round.getItemLocation();
     }
 
-    public PartRenderPacket(ResourceLocation location, ResourceLocation model) {
+    public RoundItemPacket(ResourceLocation location, ResourceLocation item) {
         this.location = location;
-        this.model = model;
+        this.item = item;
     }
 
-    public static PartRenderPacket decode(FriendlyByteBuf buf) {
+    public static RoundItemPacket decode(FriendlyByteBuf buf) {
         ResourceLocation location = buf.readResourceLocation();
-        ResourceLocation model = buf.readResourceLocation();
-        return new PartRenderPacket(location, model);
+        ResourceLocation item = buf.readResourceLocation();
+        return new RoundItemPacket(location, item);
     }
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeResourceLocation(location);
-        buf.writeResourceLocation(model);
+        buf.writeResourceLocation(item);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            PartUtils.loadPart(this);
+            RoundUtils.loadRound(this);
         });
         return true;
     }

@@ -2,6 +2,8 @@ package net.ironhorsedevgroup.mods.gunsmoke.network;
 
 import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.MaterialColorPacket;
 import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.PartRenderPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.RoundItemPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.RoundRenderPacket;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,6 +40,18 @@ public class GunsmokeMessages {
                 .decoder(PartRenderPacket::decode)
                 .encoder(PartRenderPacket::encode)
                 .consumerMainThread(PartRenderPacket::handle)
+                .add();
+
+        net.messageBuilder(RoundRenderPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(RoundRenderPacket::decode)
+                .encoder(RoundRenderPacket::encode)
+                .consumerMainThread(RoundRenderPacket::handle)
+                .add();
+
+        net.messageBuilder(RoundItemPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(RoundItemPacket::decode)
+                .encoder(RoundItemPacket::encode)
+                .consumerMainThread(RoundItemPacket::handle)
                 .add();
     }
 

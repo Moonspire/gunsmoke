@@ -7,9 +7,10 @@
     "gunsmoke:rounds/arrow/arrow"
   ],
   "parts": [
+    "gunsmoke:parts/gun_parts",
     "gunsmoke:parts/barrels/barrel_long",
-    "gunsmoke:parts/barrels/barrel_short",
-    "gunsmoke:parts/barrels/barrel_medium"
+    "gunsmoke:parts/barrels/barrel_medium",
+    "gunsmoke:parts/barrels/barrel_short"
   ],
   "materials": [
     "minecraft:materials/metals/copper",

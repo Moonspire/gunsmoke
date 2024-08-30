@@ -3,11 +3,9 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.parts;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
-import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.MaterialColorPacket;
 import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.PartRenderPacket;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -97,7 +95,7 @@ public class PartUtils {
             private final ResourceLocation model;
 
             public Render() {
-                model = new ResourceLocation("gunsmoke:part_item");
+                model = new ResourceLocation("gunsmoke:parts/parts");
             }
 
             private Render(ResourceLocation model) {
@@ -110,7 +108,7 @@ public class PartUtils {
                 if (json.has("model")) {
                     model = new ResourceLocation(json.get("model").getAsString());
                 } else {
-                    model = new ResourceLocation("gunsmoke:part_item");
+                    model = new ResourceLocation("gunsmoke:parts/parts");
                 }
 
                 return new Render(model);

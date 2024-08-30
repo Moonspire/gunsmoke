@@ -47,7 +47,7 @@ public class RoundItem extends Item {
             return new ItemStack(itemRound.getItem());
         }
         ItemStack roundItem = new ItemStack(GunsmokeItems.ROUND_ITEM.get());
-        NBT.putStringTag(roundItem, "round", location.toString());
+        NBT.putLocationTag(roundItem, "round", location);
         return roundItem;
     }
 

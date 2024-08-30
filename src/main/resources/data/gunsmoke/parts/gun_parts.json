@@ -1,5 +1,5 @@
 {
   "render": {
-    "model": "gunsmoke:part_item"
+    "model": "gunsmoke:parts/parts"
   }
 }

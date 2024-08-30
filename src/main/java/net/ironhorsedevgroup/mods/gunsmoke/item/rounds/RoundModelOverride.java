@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.item.parts;
+package net.ironhorsedevgroup.mods.gunsmoke.item.rounds;
 
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverride;
@@ -9,14 +9,17 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class PartModelOverride implements ItemModelOverride {
-    public PartModelOverride() {}
+public class RoundModelOverride implements ItemModelOverride {
+    public RoundModelOverride() {}
 
     @Override
     public BakedModel getModel(ItemStack itemStack) {
         ModelManager manager = Minecraft.getInstance().getModelManager();
-        ModelResourceLocation location = new ModelResourceLocation(PartUtils.getPart(itemStack).getRender().getModel(), "inventory");
-        return manager.getModel(location);
+        if (RoundUtils.getRound(itemStack) instanceof RoundUtils.DynamicRound round) {
+            ModelResourceLocation location = new ModelResourceLocation(round.getRender().getModel(), "inventory");
+            return manager.getModel(location);
+        }
+        return getModel();
     }
 
     @Override
@@ -27,8 +30,6 @@ public class PartModelOverride implements ItemModelOverride {
     @Override
     public BakedModel getModel() {
         ModelManager manager = Minecraft.getInstance().getModelManager();
-        ModelResourceLocation location = new ModelResourceLocation("gunsmoke:parts/parts#inventory");
-        Gunsmoke.LOGGER.info("Fetching model: {}", location);
-        return manager.getModel(location);
+        return manager.getModel(new ModelResourceLocation("gunsmoke:rounds/simple_pointed#inventory"));
     }
 }

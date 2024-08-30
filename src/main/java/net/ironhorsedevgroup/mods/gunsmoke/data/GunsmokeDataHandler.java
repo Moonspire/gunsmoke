@@ -5,10 +5,11 @@ import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartModelOverride;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundModelOverride;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataFileHandler;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverrides;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.SimpleItemModelOverride;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -53,8 +54,10 @@ public class GunsmokeDataHandler implements DataFileHandler {
         MinecraftServer server = event.getServer();
 
         ItemModelOverrides.registerItem(GunsmokeItems.PART_ITEM.get(), new PartModelOverride());
+        ItemModelOverrides.registerItem(GunsmokeItems.ROUND_ITEM.get(), new RoundModelOverride());
 
         MaterialUtils.loadMaterials(materials, server);
         PartUtils.loadParts(parts, server);
+        RoundUtils.loadRounds(rounds, server);
     }
 }

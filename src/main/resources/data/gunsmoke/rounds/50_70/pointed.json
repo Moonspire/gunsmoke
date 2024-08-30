@@ -19,10 +19,6 @@
     "visible": true
   },
   "render": {
-    "color": [255, 255, 255],
-    "layers": {
-      "round": "gunsmoke:items/rounds/default/round",
-      "casing": "gunsmoke:items/rounds/default/casing"
-    }
+    "model": "gunsmoke:rounds/simple_pointed"
   }
 }
