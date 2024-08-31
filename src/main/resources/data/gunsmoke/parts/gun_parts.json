@@ -1,5 +1,12 @@
 {
   "render": {
-    "model": "gunsmoke:parts/parts"
+    "model": "gunsmoke:parts/parts",
+    "materials": [
+      "minecraft:iron",
+      "minecraft:gold",
+      "minecraft:copper",
+      "forge:brass",
+      "forge:steel"
+    ]
   }
 }

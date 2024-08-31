@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
+import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -18,7 +19,11 @@ public class PartItem extends Item {
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemStack) {
         if (this.allowedIn(tab)) {
             for (ResourceLocation part : PartUtils.getAllParts().keySet()) {
-                itemStack.add(getDefaultInstance(part));
+                for (ResourceLocation material : PartUtils.getPart(part).getRender().getMaterials()) {
+                    if (MaterialUtils.hasMaterial(material)) {
+                        itemStack.add(getDefaultInstance(part, material));
+                    }
+                }
             }
         }
     }
@@ -29,18 +34,8 @@ public class PartItem extends Item {
 
     public static ItemStack addMaterial(ItemStack partItem, ResourceLocation material) {
         if (partItem.getItem() instanceof RoundItem) {
-            NBT.putLocationTag(partItem, "material_0", material);
+            NBT.putLocationTag(partItem, "material", material);
         }
-        return partItem;
-    }
-
-    public static ItemStack getFromPart(String location) {
-        return getFromPart(new ResourceLocation(location));
-    }
-
-    public static ItemStack getFromPart(ResourceLocation location) {
-        ItemStack partItem = new ItemStack(GunsmokeItems.PART_ITEM.get());
-        NBT.putLocationTag(partItem, "part", location);
         return partItem;
     }
 
@@ -54,9 +49,15 @@ public class PartItem extends Item {
     }
 
     public static ItemStack getDefaultInstance(ResourceLocation location) {
-        return addMaterial(
-                getFromPart(location),
-                "minecraft:oak"
-        );
+        ItemStack partItem = new ItemStack(GunsmokeItems.PART_ITEM.get());
+        NBT.putLocationTag(partItem, "part", location);
+        return partItem;
+    }
+
+    public static ItemStack getDefaultInstance(ResourceLocation location, ResourceLocation material) {
+        ItemStack partItem = new ItemStack(GunsmokeItems.PART_ITEM.get());
+        NBT.putLocationTag(partItem, "part", location);
+        NBT.putLocationTag(partItem, "material", material);
+        return partItem;
     }
 }

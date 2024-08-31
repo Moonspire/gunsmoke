@@ -134,17 +134,24 @@ public class Gunsmoke {
         @SubscribeEvent
         public static void registerItemColors(RegisterColorHandlersEvent.Item event)
         {
-            for (RegistryObject<Item> regItem : GunsmokeItems.REGISTRY.getEntries()) {
-                Item item = regItem.get();
-                if (item instanceof RoundItem) {
-                    event.getItemColors().register(
-                            (
-                                    MaterialUtils::getRoundColor
-                            ),
-                            item
-                    );
-                }
-            }
+            event.getItemColors().register(
+                    (
+                            MaterialUtils::getPartColor
+                    ),
+                    GunsmokeItems.PART_ITEM.get()
+            );
+            event.getItemColors().register(
+                    (
+                            MaterialUtils::getRoundColor
+                    ),
+                    GunsmokeItems.ROUND_ITEM.get()
+            );
+            event.getItemColors().register(
+                    (
+                            MaterialUtils::getGunColor
+                    ),
+                    GunsmokeItems.GUN_ITEM.get()
+            );
         }
     }
 

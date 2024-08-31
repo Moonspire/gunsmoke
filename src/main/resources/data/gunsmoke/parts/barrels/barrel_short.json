@@ -1,5 +1,10 @@
 {
   "render": {
-    "model": "gunsmoke:parts/barrel_short"
+    "model": "gunsmoke:parts/barrel_short",
+    "materials": [
+      "minecraft:iron",
+      "forge:steel",
+      "forge:aluminum"
+    ]
   }
 }

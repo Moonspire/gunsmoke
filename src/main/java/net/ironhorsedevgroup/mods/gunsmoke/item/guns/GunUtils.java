@@ -10,6 +10,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.GunRenderPacket;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -150,7 +151,7 @@ public class GunUtils {
 
         public static Gun fromPacket(GunRenderPacket packet) {
             Properties properties = new Properties();
-            Composition composition = new Composition();
+            Composition composition = packet.composition;
             Magazine magazine = new Magazine();
             Sounds sounds = new Sounds();
             Render render = Render.fromPacket(packet);
@@ -538,12 +539,26 @@ public class GunUtils {
                 return new Composition(barrel, breach, core, stock);
             }
 
+            public static Composition fromPacket(FriendlyByteBuf buf) {
+                ResourceLocation barrel = buf.readResourceLocation();
+                ResourceLocation breach = buf.readResourceLocation();
+                ResourceLocation core = buf.readResourceLocation();
+                ResourceLocation stock = buf.readResourceLocation();
+                ResourceLocation part = new ResourceLocation("gunsmoke:gun_parts");
+                return new Composition(
+                        new Part(part, barrel),
+                        new Part(part, breach),
+                        new Part(part, core),
+                        new Part(part, stock)
+                );
+            }
+
             public static class Part {
                 private final ResourceLocation part;
                 private final ResourceLocation material;
 
                 public Part() {
-                    part = new ResourceLocation("gunsmoke:parts");
+                    part = new ResourceLocation("gunsmoke:gun_parts");
                     material = new ResourceLocation("minecraft:iron");
                 }
 

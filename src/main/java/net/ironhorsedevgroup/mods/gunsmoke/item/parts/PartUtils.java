@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.parts;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
@@ -11,6 +12,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +58,7 @@ public class PartUtils {
 
     public static void sendParts(ServerPlayer player) {
         for (ResourceLocation part : parts.keySet()) {
-            GunsmokeMessages.sendToPlayer(new PartRenderPacket(part, parts.get(part).render.getModel()), player);
+            GunsmokeMessages.sendToPlayer(new PartRenderPacket(part, parts.get(part).getRender().getModel(), parts.get(part).getRender().getMaterials()), player);
         }
     }
 
@@ -93,33 +95,46 @@ public class PartUtils {
 
         public static class Render {
             private final ResourceLocation model;
+            private final List<ResourceLocation> materials;
 
             public Render() {
                 model = new ResourceLocation("gunsmoke:parts/parts");
+                materials = new ArrayList<>();
             }
 
-            private Render(ResourceLocation model) {
+            private Render(ResourceLocation model, List<ResourceLocation> materials) {
                 this.model = model;
+                this.materials = materials;
             }
 
             public static Render fromJson(JsonObject json) {
                 ResourceLocation model;
+                List<ResourceLocation> materials = new ArrayList<>();
 
                 if (json.has("model")) {
                     model = new ResourceLocation(json.get("model").getAsString());
                 } else {
                     model = new ResourceLocation("gunsmoke:parts/parts");
                 }
+                if (json.has("materials")) {
+                    for (JsonElement element : json.getAsJsonArray("materials")) {
+                        materials.add(new ResourceLocation(element.getAsString()));
+                    }
+                }
 
-                return new Render(model);
+                return new Render(model, materials);
             }
 
             public static Render fromPacket(PartRenderPacket packet) {
-                return new Render(packet.model);
+                return new Render(packet.model, packet.materials);
             }
 
             public ResourceLocation getModel() {
                 return model;
+            }
+
+            public List<ResourceLocation> getMaterials() {
+                return materials;
             }
         }
     }

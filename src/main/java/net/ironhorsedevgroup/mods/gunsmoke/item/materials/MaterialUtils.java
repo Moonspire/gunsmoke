@@ -3,6 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.materials;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
 import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.MaterialColorPacket;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
@@ -14,13 +15,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class MaterialUtils {
     private static final Map<ResourceLocation, Material> materials = new HashMap<>();
+    private static final List<ResourceLocation> erroredMaterials = new ArrayList<>();
 
     public static void loadMaterials(List<ResourceLocation> materials, MinecraftServer server) {
         clearMaterials();
@@ -70,6 +69,10 @@ public class MaterialUtils {
         return new Material();
     }
 
+    public static boolean hasMaterial(ResourceLocation location) {
+        return materials.containsKey(location);
+    }
+
     public static Material getMaterial(String namespace, String path) {
         return getMaterial(new ResourceLocation(namespace, path));
     }
@@ -82,11 +85,12 @@ public class MaterialUtils {
     }
 
     public static Material getMaterial(ResourceLocation location) {
-        if (!Objects.equals(location, null)) {
+        if (!Objects.equals(location, null) && !erroredMaterials.contains(location)) {
             if (materials.containsKey(location)) {
                return materials.get(location);
             }
-            Gunsmoke.LOGGER.warn("Could not locate material: {}", location);
+            Gunsmoke.LOGGER.error("Could not locate material: {}", location);
+            erroredMaterials.add(location);
         }
         return getNull();
     }
@@ -98,14 +102,30 @@ public class MaterialUtils {
         return "gun_material.null";
     }
 
+    public static int getPartColor(ItemStack itemStack, int tintIndex) {
+        if (tintIndex == 0) {
+            ResourceLocation location = new ResourceLocation(NBT.getStringTag(itemStack, "material"));
+            return getMaterial(location).getProperties().getColor();
+        }
+        return Color.getIntFromRGB(255, 255, 255);
+    }
+
     public static int getRoundColor(ItemStack itemStack, int tintIndex) {
         if (tintIndex < 2) {
             ResourceLocation location = new ResourceLocation(NBT.getStringTag(itemStack, "material_" + tintIndex));
             return getMaterial(location).getProperties().getColor();
         } else if (tintIndex == 3) {
+            if (RoundUtils.getRound(itemStack) instanceof RoundUtils.DynamicRound round) {
+                return round.getRender().getColor();
+            }
             return 0;
         }
         return Color.getIntFromRGB(255, 255, 255);
+    }
+
+    public static int getGunColor(ItemStack itemStack, int tintIndex) {
+        ResourceLocation location = new ResourceLocation(NBT.getStringTag(itemStack, "material_" + tintIndex));
+        return getMaterial(location).getProperties().getColor();
     }
 
     public static class Material {
