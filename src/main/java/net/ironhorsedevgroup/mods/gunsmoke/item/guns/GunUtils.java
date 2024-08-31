@@ -5,11 +5,14 @@ import com.google.gson.JsonObject;
 import com.mrcrayfish.guns.common.GripType;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
+import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
+import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.GunRenderPacket;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -39,9 +42,21 @@ public class GunUtils {
         updateGun(location, gun);
     }
 
+    public static void loadGun(GunRenderPacket packet) {
+        ResourceLocation location = packet.location;
+        Gunsmoke.LOGGER.info("Registering client gun: {}", location);
+        updateGun(location, Gun.fromPacket(packet));
+    }
+
     public static void updateGun(ResourceLocation location, Gun gun) {
         guns.remove(location);
         guns.put(location, gun);
+    }
+
+    public static void sendGuns(ServerPlayer player) {
+        for (ResourceLocation gun : guns.keySet()) {
+            GunsmokeMessages.sendToPlayer(new GunRenderPacket(gun, guns.get(gun)), player);
+        }
     }
 
     public static Gun getGun(ResourceLocation location) {
@@ -65,6 +80,13 @@ public class GunUtils {
 
     public static boolean hasGun(ResourceLocation location) {
         return guns.containsKey(location);
+    }
+
+    public static ResourceLocation getModel(ResourceLocation gun) {
+        if (guns.containsKey(gun)) {
+            return guns.get(gun).getRender().getModel();
+        }
+        return NULL.getRender().getModel();
     }
 
     public static class Gun {
@@ -123,6 +145,15 @@ public class GunUtils {
                 render = new Render();
             }
 
+            return new Gun(properties, composition, magazine, sounds, render);
+        }
+
+        public static Gun fromPacket(GunRenderPacket packet) {
+            Properties properties = new Properties();
+            Composition composition = new Composition();
+            Magazine magazine = new Magazine();
+            Sounds sounds = new Sounds();
+            Render render = Render.fromPacket(packet);
             return new Gun(properties, composition, magazine, sounds, render);
         }
 
@@ -814,6 +845,15 @@ public class GunUtils {
                     ironSights = new IronSights();
                 }
 
+                return new Render(model, toolTip, attachments, muzzleFlash, ironSights);
+            }
+
+            public static Render fromPacket(GunRenderPacket packet) {
+                ResourceLocation model = packet.model;
+                ToolTip toolTip = new ToolTip();
+                Attachments attachments = new Attachments();
+                Attachments.Attachment muzzleFlash = new Attachments.Attachment();
+                IronSights ironSights = new IronSights();
                 return new Render(model, toolTip, attachments, muzzleFlash, ironSights);
             }
 

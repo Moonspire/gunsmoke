@@ -2,14 +2,19 @@ package net.ironhorsedevgroup.mods.gunsmoke;
 
 import com.mojang.logging.LogUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.data.GunsmokeDataHandler;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunModelOverride;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
+import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartModelOverride;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundModelOverride;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.*;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverrides;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -85,6 +90,10 @@ public class Gunsmoke {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(GunsmokeMessages::register);
+
+        ItemModelOverrides.registerItem(GunsmokeItems.PART_ITEM.get(), new PartModelOverride());
+        ItemModelOverrides.registerItem(GunsmokeItems.ROUND_ITEM.get(), new RoundModelOverride());
+        ItemModelOverrides.registerItem(GunsmokeItems.GUN_ITEM.get(), new GunModelOverride());
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -98,6 +107,7 @@ public class Gunsmoke {
         MaterialUtils.sendMaterials(player);
         PartUtils.sendParts(player);
         RoundUtils.sendRounds(player);
+        GunUtils.sendGuns(player);
     }
 
     @Mod.EventBusSubscriber(modid = Gunsmoke.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)

@@ -10,28 +10,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class GunModelOverride implements ItemModelOverride {
-    private final Map<ResourceLocation, BakedModel> models;
-
-    public GunModelOverride() {
-        this.models = new HashMap<>();
-    }
-
-    public void addModel(ResourceLocation gun) {
-        ModelManager manager = Minecraft.getInstance().getModelManager();
-        ResourceLocation location = GunUtils.getGun(gun).getRender().getModel();
-        location = new ModelResourceLocation(location, "inventory");
-        models.put(gun, manager.getModel(location));
-    }
+    public GunModelOverride() { }
 
     public BakedModel getModel(ResourceLocation location) {
-        if (models.containsKey(location)) {
-            return models.get(location);
-        }
-        return getModel();
+        ModelManager manager = Minecraft.getInstance().getModelManager();
+        return manager.getModel(new ModelResourceLocation(GunUtils.getModel(location), "inventory"));
     }
 
     @Override
