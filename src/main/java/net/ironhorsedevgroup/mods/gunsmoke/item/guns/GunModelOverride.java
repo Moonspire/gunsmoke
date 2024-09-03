@@ -15,7 +15,7 @@ public class GunModelOverride implements ItemModelOverride {
 
     public BakedModel getModel(ResourceLocation location) {
         ModelManager manager = Minecraft.getInstance().getModelManager();
-        return manager.getModel(new ModelResourceLocation(GunUtils.getModel(location), "inventory"));
+        return manager.getModel(new ModelResourceLocation(Guns.getModel(location), "inventory"));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.network.stc;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.DynamicGun;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
@@ -10,15 +11,15 @@ import java.util.function.Supplier;
 public class GunRenderPacket {
     public ResourceLocation location;
     public ResourceLocation model;
-    public GunUtils.Gun.Composition composition;
+    public DynamicGun.Composition composition;
 
-    public GunRenderPacket(ResourceLocation location, GunUtils.Gun gun) {
+    public GunRenderPacket(ResourceLocation location, DynamicGun gun) {
         this.location = location;
         model = gun.getRender().getModel();
         composition = gun.getComposition();
     }
 
-    public GunRenderPacket(ResourceLocation location, ResourceLocation model, GunUtils.Gun.Composition composition) {
+    public GunRenderPacket(ResourceLocation location, ResourceLocation model, DynamicGun.Composition composition) {
         this.location = location;
         this.model = model;
         this.composition = composition;
@@ -27,7 +28,7 @@ public class GunRenderPacket {
     public static GunRenderPacket decode(FriendlyByteBuf buf) {
         ResourceLocation location = buf.readResourceLocation();
         ResourceLocation model = buf.readResourceLocation();
-        GunUtils.Gun.Composition composition = GunUtils.Gun.Composition.fromPacket(buf);
+        DynamicGun.Composition composition = DynamicGun.Composition.fromPacket(buf);
         return new GunRenderPacket(location, model, composition);
     }
 
@@ -43,7 +44,7 @@ public class GunRenderPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            GunUtils.loadGun(this);
+            Guns.loadGun(this);
         });
         return true;
     }

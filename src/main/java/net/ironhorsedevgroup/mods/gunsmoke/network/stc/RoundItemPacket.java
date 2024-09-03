@@ -1,6 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.network.stc;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.ItemRound;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Rounds;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
@@ -11,7 +12,7 @@ public class RoundItemPacket {
     public ResourceLocation location;
     public ResourceLocation item;
 
-    public RoundItemPacket(ResourceLocation location, RoundUtils.ItemRound round) {
+    public RoundItemPacket(ResourceLocation location, ItemRound round) {
         this.location = location;
         item = round.getItemLocation();
     }
@@ -35,7 +36,7 @@ public class RoundItemPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            RoundUtils.loadRound(this);
+            Rounds.loadRound(this);
         });
         return true;
     }

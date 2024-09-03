@@ -1,6 +1,5 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.rounds;
 
-import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverride;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;
@@ -15,7 +14,7 @@ public class RoundModelOverride implements ItemModelOverride {
     @Override
     public BakedModel getModel(ItemStack itemStack) {
         ModelManager manager = Minecraft.getInstance().getModelManager();
-        if (RoundUtils.getRound(itemStack) instanceof RoundUtils.DynamicRound round) {
+        if (Rounds.getRound(itemStack) instanceof DynamicRound round) {
             ModelResourceLocation location = new ModelResourceLocation(round.getRender().getModel(), "inventory");
             return manager.getModel(location);
         }

@@ -72,7 +72,12 @@
       {
         "type": "magazine",
         "magazine": "gunsmoke:test_magazine",
-        "reload_quantity": 1,
+        "reload_time": 10,
+        "reload_sound": "cgm:item.pistol.reload"
+      },
+      {
+        "type": "magazine_family",
+        "family": "gunsmoke:test_family",
         "reload_time": 10,
         "reload_sound": "cgm:item.pistol.reload"
       }

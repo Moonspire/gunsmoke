@@ -1,7 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +21,7 @@ public class GunsmokeTabs {
             @Override
             public @NotNull ItemStack makeIcon() {
                 ItemStack gunItem = GunItem.get().getDefaultInstance("gunsmoke:sharps");
-                return NBT.putIntTag(gunItem, "AmmoCount", GunUtils.getGun("gunsmoke:sharps").getMagazine().getCapacity());
+                return NBT.putIntTag(gunItem, "AmmoCount", Guns.getGun("gunsmoke:sharps").getMagazine().getCapacity());
             }
 
             @OnlyIn(Dist.CLIENT)

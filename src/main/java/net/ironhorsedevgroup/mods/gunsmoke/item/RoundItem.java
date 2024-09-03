@@ -1,6 +1,8 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.ItemRound;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Round;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Rounds;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -26,7 +28,7 @@ public class RoundItem extends Item {
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemStack) {
         if (this.allowedIn(tab)) {
-            Map<String, Map<String, RoundUtils.Round>> allRounds = RoundUtils.getAllRounds();
+            Map<String, Map<String, Round>> allRounds = Rounds.getAllRounds();
             for (String caliber : allRounds.keySet()) {
                 for (String round : allRounds.get(caliber).keySet()) {
                     itemStack.add(getDefaultInstance(new ResourceLocation(caliber, round)));
@@ -40,12 +42,12 @@ public class RoundItem extends Item {
     }
 
     public static ItemStack getFromRound(ResourceLocation location) {
-        RoundUtils.Round round = RoundUtils.getRound(location);
-        if (round instanceof RoundUtils.ItemRound itemRound) {
+        Round round = Rounds.getRound(location);
+        if (round instanceof ItemRound itemRound) {
             return new ItemStack(itemRound.getItem());
         }
         ItemStack roundItem = new ItemStack(GunsmokeItems.ROUND_ITEM.get());
-        NBT.putLocationTag(roundItem, "round", location);
+        NBT.putLocationTag(roundItem, "round_id", location);
         return roundItem;
     }
 
@@ -61,8 +63,8 @@ public class RoundItem extends Item {
         return roundItem;
     }
 
-    public RoundUtils.Round getRound(ItemStack stack) {
-        return RoundUtils.getRound(new ResourceLocation(NBT.getStringTag(stack, "round")));
+    public Round getRound(ItemStack stack) {
+        return Rounds.getRound(new ResourceLocation(NBT.getStringTag(stack, "round_id")));
     }
 
     @Override
@@ -84,7 +86,7 @@ public class RoundItem extends Item {
 
     @Override
     public String getDescriptionId(ItemStack itemStack) {
-        ResourceLocation location = new ResourceLocation(NBT.getStringTag(itemStack, "round"));
+        ResourceLocation location = new ResourceLocation(NBT.getStringTag(itemStack, "round_id"));
         return "round." + location.getNamespace() + "." + location.getPath();
     }
 

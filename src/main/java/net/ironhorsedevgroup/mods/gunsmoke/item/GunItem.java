@@ -1,7 +1,8 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
 import com.mrcrayfish.guns.common.Gun;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.DynamicGun;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.CrashReport;
@@ -22,7 +23,7 @@ public class GunItem extends com.mrcrayfish.guns.item.GunItem {
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemStack) {
         if (this.allowedIn(tab)) {
-            Map<ResourceLocation, GunUtils.Gun> allGuns = GunUtils.getAllGuns();
+            Map<ResourceLocation, DynamicGun> allGuns = Guns.getAllGuns();
             for (ResourceLocation gun : allGuns.keySet()) {
                 itemStack.add(getDefaultInstance(gun));
             }
@@ -41,7 +42,7 @@ public class GunItem extends com.mrcrayfish.guns.item.GunItem {
     public @NotNull ItemStack getDefaultInstance(ResourceLocation location) {
         ItemStack stack = super.getDefaultInstance();
         NBT.putLocationTag(stack, "gun", location);
-        GunUtils.Gun.Composition composition = GunUtils.getGun(location).getComposition();
+        DynamicGun.Composition composition = Guns.getGun(location).getComposition();
         NBT.putLocationTag(stack, "barrel", composition.getBarrel().getMaterial());
         NBT.putLocationTag(stack, "breach", composition.getBreach().getMaterial());
         NBT.putLocationTag(stack, "core", composition.getCore().getMaterial());
@@ -59,6 +60,6 @@ public class GunItem extends com.mrcrayfish.guns.item.GunItem {
 
     @Override
     public Gun getModifiedGun(ItemStack stack) {
-        return GunUtils.Gun.asGun(stack);
+        return DynamicGun.asGun(stack);
     }
 }

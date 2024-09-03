@@ -1,0 +1,9 @@
+{
+  "capacity": 10,
+  "calibers": [
+    ".50-70"
+  ],
+  "families": [
+    "gunsmoke:test_family"
+  ]
+}
