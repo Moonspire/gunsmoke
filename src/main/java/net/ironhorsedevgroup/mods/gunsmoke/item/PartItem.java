@@ -1,8 +1,8 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +20,7 @@ public class PartItem extends Item {
         if (this.allowedIn(tab)) {
             for (ResourceLocation part : PartUtils.getAllParts().keySet()) {
                 for (ResourceLocation material : PartUtils.getPart(part).getRender().getMaterials()) {
-                    if (MaterialUtils.hasMaterial(material)) {
+                    if (Materials.hasMaterial(material)) {
                         itemStack.add(getDefaultInstance(part, material));
                     }
                 }

@@ -20,7 +20,7 @@ public class GunsmokeItems {
 
     public static final RegistryObject<Item> GUN_ITEM = REGISTRY.register("gun_item", () -> new GunItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS)));
 
-    public static final RegistryObject<Item> ROUND_ITEM = REGISTRY.register("round_item", () -> new RoundItem(new Item.Properties().tab(GunsmokeTabs.FIREARMS)));
+    public static final RegistryObject<Item> ROUND_ITEM = REGISTRY.register("round_item", () -> new RoundItem(new Item.Properties().tab(GunsmokeTabs.ROUNDS)));
 
     public static final RegistryObject<Item> PART_ITEM = REGISTRY.register("part_item", () -> new PartItem(new Item.Properties().tab(GunsmokeTabs.PARTS)));
 

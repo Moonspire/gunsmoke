@@ -3,10 +3,8 @@ package net.ironhorsedevgroup.mods.gunsmoke;
 import com.mojang.logging.LogUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.data.GunsmokeDataHandler;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunModelOverride;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
-import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartModelOverride;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundModelOverride;
@@ -18,14 +16,11 @@ import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemMod
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -37,7 +32,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 
 import java.util.function.BiConsumer;
@@ -55,7 +49,7 @@ public class Gunsmoke {
 
     public Gunsmoke() {
         GunsmokeTabs.load();
-        DataLoader.addPackDataFile("gunsmoke", new GunsmokeDataHandler());
+        DataLoader.addPackDataHandler("gunsmoke", new GunsmokeDataHandler());
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -101,15 +95,6 @@ public class Gunsmoke {
     public void onServerStarting(ServerStartingEvent event) {
     }
 
-    @SubscribeEvent
-    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        ServerPlayer player = event.getEntity().getServer().getPlayerList().getPlayer(event.getEntity().getUUID());
-        MaterialUtils.sendMaterials(player);
-        PartUtils.sendParts(player);
-        RoundUtils.sendRounds(player);
-        GunUtils.sendGuns(player);
-    }
-
     @Mod.EventBusSubscriber(modid = Gunsmoke.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class DataGenerators {
         @SubscribeEvent
@@ -136,19 +121,19 @@ public class Gunsmoke {
         {
             event.getItemColors().register(
                     (
-                            MaterialUtils::getPartColor
+                            PartUtils::getColor
                     ),
                     GunsmokeItems.PART_ITEM.get()
             );
             event.getItemColors().register(
                     (
-                            MaterialUtils::getRoundColor
+                            RoundUtils::getColor
                     ),
                     GunsmokeItems.ROUND_ITEM.get()
             );
             event.getItemColors().register(
                     (
-                            MaterialUtils::getGunColor
+                            GunUtils::getColor
                     ),
                     GunsmokeItems.GUN_ITEM.get()
             );

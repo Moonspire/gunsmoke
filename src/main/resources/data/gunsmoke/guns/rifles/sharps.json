@@ -48,7 +48,7 @@
     },
     "breach": {
       "part": "gunsmoke:chamber_parts",
-      "default_material": "forge:steel"
+      "default_material": "forge:lead"
     },
     "core": {
       "part": "gunsmoke:lever_action_core",

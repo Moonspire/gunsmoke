@@ -1,10 +1,8 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverrides;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.SimpleItemModelOverride;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.NonNullList;
@@ -57,8 +55,8 @@ public class RoundItem extends Item {
 
     public static ItemStack addMaterials(ItemStack roundItem, ResourceLocation round, ResourceLocation casing) {
         if (roundItem.getItem() instanceof RoundItem) {
-            NBT.putStringTag(roundItem, "material_0", round.toString());
-            NBT.putStringTag(roundItem, "material_1", casing.toString());
+            NBT.putStringTag(roundItem, "round", round.toString());
+            NBT.putStringTag(roundItem, "casing", casing.toString());
         }
         return roundItem;
     }
@@ -94,11 +92,11 @@ public class RoundItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, level, components, tooltipFlag);
         if (level != null && level.isClientSide) {
-            ResourceLocation round = new ResourceLocation(NBT.getStringTag(stack, "material_0"));
-            ResourceLocation casing = new ResourceLocation(NBT.getStringTag(stack, "material_1"));
+            ResourceLocation round = new ResourceLocation(NBT.getStringTag(stack, "round"));
+            ResourceLocation casing = new ResourceLocation(NBT.getStringTag(stack, "casing"));
 
-            components.add(Component.literal(I18n.get("tooltip.gunsmoke.round_material") + ": " + I18n.get(MaterialUtils.getMaterialLang(round))));
-            components.add(Component.literal(I18n.get("tooltip.gunsmoke.casing_material") + ": " + I18n.get(MaterialUtils.getMaterialLang(casing))));
+            components.add(Component.literal(I18n.get("tooltip.gunsmoke.round_material") + ": " + I18n.get(Materials.getMaterialLang(round))));
+            components.add(Component.literal(I18n.get("tooltip.gunsmoke.casing_material") + ": " + I18n.get(Materials.getMaterialLang(casing))));
         }
     }
 }

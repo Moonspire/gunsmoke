@@ -1,7 +1,10 @@
 package net.ironhorsedevgroup.mods.gunsmoke.network;
 
-import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.*;
-import net.ironhorsedevgroup.mods.toolshed.Toolshed;
+import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
+import net.ironhorsedevgroup.mods.gunsmoke.network.stc.GunRenderPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.stc.PartRenderPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.stc.RoundItemPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.stc.RoundRenderPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -19,19 +22,13 @@ public class GunsmokeMessages {
 
     public static void register() {
         SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(Toolshed.MODID, "content_pack_messages"))
+                .named(new ResourceLocation(Gunsmoke.MODID, "content_pack_messages"))
                 .networkProtocolVersion(() -> "1.0")
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)
                 .simpleChannel();
 
         INSTANCE = net;
-
-        net.messageBuilder(MaterialColorPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(MaterialColorPacket::decode)
-                .encoder(MaterialColorPacket::encode)
-                .consumerMainThread(MaterialColorPacket::handle)
-                .add();
 
         net.messageBuilder(PartRenderPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(PartRenderPacket::decode)

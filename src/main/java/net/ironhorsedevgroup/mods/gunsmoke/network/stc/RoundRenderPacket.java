@@ -1,41 +1,46 @@
-package net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc;
+package net.ironhorsedevgroup.mods.gunsmoke.network.stc;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class MaterialColorPacket {
+public class RoundRenderPacket {
     public ResourceLocation location;
+    public ResourceLocation model;
     public int color;
 
-    public MaterialColorPacket(ResourceLocation location, MaterialUtils.Material material) {
+    public RoundRenderPacket(ResourceLocation location, RoundUtils.DynamicRound round) {
         this.location = location;
-        color = material.getProperties().getColor();
+        color = round.getRender().getColor();
+        model = round.getRender().getModel();
     }
 
-    public MaterialColorPacket(ResourceLocation location, int color) {
+    public RoundRenderPacket(ResourceLocation location, ResourceLocation model, int color) {
         this.location = location;
+        this.model = model;
         this.color = color;
     }
 
-    public static MaterialColorPacket decode(FriendlyByteBuf buf) {
+    public static RoundRenderPacket decode(FriendlyByteBuf buf) {
         ResourceLocation location = buf.readResourceLocation();
+        ResourceLocation model = buf.readResourceLocation();
         int color = buf.readInt();
-        return new MaterialColorPacket(location, color);
+        return new RoundRenderPacket(location, model, color);
     }
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeResourceLocation(location);
+        buf.writeResourceLocation(model);
         buf.writeInt(color);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            MaterialUtils.loadMaterial(this);
+            RoundUtils.loadRound(this);
         });
         return true;
     }

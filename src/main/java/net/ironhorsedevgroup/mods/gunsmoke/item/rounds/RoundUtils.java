@@ -5,9 +5,10 @@ import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
-import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.RoundItemPacket;
-import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.RoundRenderPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.stc.RoundItemPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.stc.RoundRenderPacket;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
@@ -118,6 +119,23 @@ public class RoundUtils {
         return new ArrayList<>();
     }
 
+    public static int getColor(ItemStack stack, int tintIndex) {
+        ResourceLocation material;
+        switch (tintIndex) {
+            case 0:
+                material = NBT.getLocationTag(stack, "round");
+                break;
+            case 1:
+                material = NBT.getLocationTag(stack, "casing");
+                break;
+            case 2:
+                return getRound(stack).getRender().getColor();
+            default:
+                return Color.getIntFromRGB(255, 255, 255);
+        }
+        return Materials.getMaterial(material).getProperties().getColor();
+    }
+
     public interface Round {
         static Round fromJson(JsonObject json) {
             if (json.has("item")) {
@@ -133,6 +151,10 @@ public class RoundUtils {
         Properties getProperties();
 
         boolean hasRenderer();
+
+        default DynamicRound.Render getRender() {
+            return new DynamicRound.Render();
+        }
 
         class Damage {
             private final float entityDamage;

@@ -6,9 +6,11 @@ import com.mrcrayfish.guns.common.GripType;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
-import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.GunRenderPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.stc.GunRenderPacket;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
+import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -67,6 +69,10 @@ public class GunUtils {
         return NULL;
     }
 
+    public static Gun getGun(String location) {
+        return getGun(new ResourceLocation(location));
+    }
+
     public static Gun getNull() {
         return NULL;
     }
@@ -88,6 +94,27 @@ public class GunUtils {
             return guns.get(gun).getRender().getModel();
         }
         return NULL.getRender().getModel();
+    }
+
+    public static int getColor(ItemStack stack, int tintIndex) {
+        ResourceLocation material;
+        switch (tintIndex) {
+            case 0:
+                material = NBT.getLocationTag(stack, "barrel");
+                break;
+            case 1:
+                material = NBT.getLocationTag(stack, "breach");
+                break;
+            case 2:
+                material = NBT.getLocationTag(stack, "core");
+                break;
+            case 3:
+                material = NBT.getLocationTag(stack, "stock");
+                break;
+            default:
+                return Color.getIntFromRGB(255, 255, 255);
+        }
+        return Materials.getMaterial(material).getProperties().getColor();
     }
 
     public static class Gun {

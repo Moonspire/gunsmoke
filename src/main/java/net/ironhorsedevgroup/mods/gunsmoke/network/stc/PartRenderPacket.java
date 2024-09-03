@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc;
+package net.ironhorsedevgroup.mods.gunsmoke.network.stc;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
 import net.minecraft.network.FriendlyByteBuf;

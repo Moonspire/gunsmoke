@@ -2,7 +2,10 @@ package net.ironhorsedevgroup.mods.gunsmoke.item;
 
 import com.mrcrayfish.guns.common.Gun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
+import net.minecraft.CrashReport;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -37,13 +40,21 @@ public class GunItem extends com.mrcrayfish.guns.item.GunItem {
 
     public @NotNull ItemStack getDefaultInstance(ResourceLocation location) {
         ItemStack stack = super.getDefaultInstance();
-        NBT.putStringTag(stack, "gun", location.toString());
+        NBT.putLocationTag(stack, "gun", location);
         GunUtils.Gun.Composition composition = GunUtils.getGun(location).getComposition();
-        NBT.putStringTag(stack, "barrel", composition.getBarrel().getMaterial().toString());
-        NBT.putStringTag(stack, "breach", composition.getBreach().getMaterial().toString());
-        NBT.putStringTag(stack, "core", composition.getCore().getMaterial().toString());
-        NBT.putStringTag(stack, "stock", composition.getStock().getMaterial().toString());
+        NBT.putLocationTag(stack, "barrel", composition.getBarrel().getMaterial());
+        NBT.putLocationTag(stack, "breach", composition.getBreach().getMaterial());
+        NBT.putLocationTag(stack, "core", composition.getCore().getMaterial());
+        NBT.putLocationTag(stack, "stock", composition.getStock().getMaterial());
         return stack;
+    }
+
+    public static GunItem get() {
+        if (GunsmokeItems.GUN_ITEM.get() instanceof GunItem gun) {
+            return gun;
+        }
+        Minecraft.crash(new CrashReport("gunsmoke:gun_item is not of type GunItem, should never happen =/", new Throwable()));
+        return new GunItem(new Properties());
     }
 
     @Override

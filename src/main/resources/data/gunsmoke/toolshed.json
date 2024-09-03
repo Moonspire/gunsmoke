@@ -1,0 +1,17 @@
+{
+  "gunsmoke": {
+    "guns": [
+      "gunsmoke:guns/rifles/sharps"
+    ],
+    "rounds": [
+      "gunsmoke:rounds/50_70/pointed",
+      "gunsmoke:rounds/arrow/arrow"
+    ],
+    "parts": [
+      "gunsmoke:parts/gun_parts",
+      "gunsmoke:parts/barrels/barrel_long",
+      "gunsmoke:parts/barrels/barrel_medium",
+      "gunsmoke:parts/barrels/barrel_short"
+    ]
+  }
+}

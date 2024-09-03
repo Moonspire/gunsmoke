@@ -4,8 +4,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
-import net.ironhorsedevgroup.mods.gunsmoke.network.packets.stc.PartRenderPacket;
+import net.ironhorsedevgroup.mods.gunsmoke.network.stc.PartRenderPacket;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
+import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -64,6 +66,14 @@ public class PartUtils {
 
     public static Map<ResourceLocation, Part> getAllParts() {
         return parts;
+    }
+
+    public static int getColor(ItemStack stack, int tintIndex) {
+        if (tintIndex == 0) {
+            ResourceLocation material = NBT.getLocationTag(stack, "material");
+            return Materials.getMaterial(material).getProperties().getColor();
+        }
+        return Color.getIntFromRGB(255, 255, 255);
     }
 
     public static class Part {

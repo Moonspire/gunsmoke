@@ -3,32 +3,26 @@ package net.ironhorsedevgroup.mods.gunsmoke.data;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunUtils;
-import net.ironhorsedevgroup.mods.gunsmoke.item.materials.MaterialUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundUtils;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataFileHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.server.ServerStartingEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GunsmokeDataHandler implements DataFileHandler {
-    private final List<ResourceLocation> materials = new ArrayList<>();
-    private final List<ResourceLocation> parts = new ArrayList<>();
-    private final List<ResourceLocation> rounds = new ArrayList<>();
-    private final List<ResourceLocation> guns = new ArrayList<>();
+    private List<ResourceLocation> parts = new ArrayList<>();
+    private List<ResourceLocation> rounds = new ArrayList<>();
+    private List<ResourceLocation> guns = new ArrayList<>();
 
     public GunsmokeDataHandler() {}
 
     @Override
     public void fromJson(JsonObject json) {
-        if (json.has("materials")) {
-            for (JsonElement entry : json.getAsJsonArray("materials")) {
-                materials.add(new ResourceLocation(entry.getAsString()));
-            }
-        }
         if (json.has("rounds")) {
             for (JsonElement entry : json.getAsJsonArray("rounds")) {
                 rounds.add(new ResourceLocation(entry.getAsString()));
@@ -50,9 +44,19 @@ public class GunsmokeDataHandler implements DataFileHandler {
     public void serverSetupEvent(ServerStartingEvent event) {
         MinecraftServer server = event.getServer();
 
-        MaterialUtils.loadMaterials(materials, server);
         PartUtils.loadParts(parts, server);
         RoundUtils.loadRounds(rounds, server);
         GunUtils.loadGuns(guns, server);
+
+        parts = null;
+        rounds = null;
+        guns = null;
+    }
+
+    @Override
+    public void joinSTC(ServerPlayer player) {
+        PartUtils.sendParts(player);
+        RoundUtils.sendRounds(player);
+        GunUtils.sendGuns(player);
     }
 }
