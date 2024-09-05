@@ -10,18 +10,20 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemRound implements Round {
     private final String caliber;
+    private final String round;
     private final ResourceLocation item;
     private final Damage damage;
     private final Properties properties;
 
-    private ItemRound(String caliber, ResourceLocation item, Damage damage, Properties properties) {
-        this.caliber = caliber;
+    private ItemRound(ResourceLocation location, ResourceLocation item, Damage damage, Properties properties) {
+        this.caliber = location.getNamespace();
+        this.round = location.getPath();
         this.item = item;
         this.damage = damage;
         this.properties = properties;
     }
 
-    public static ItemRound fromJson(JsonObject json) {
+    public static ItemRound fromJson(JsonObject json, String round) {
         String caliber = json.get("caliber").getAsString();
         ResourceLocation item = new ResourceLocation(json.get("item").getAsString());
         Rounds.setItemRound(item, caliber);
@@ -39,16 +41,21 @@ public class ItemRound implements Round {
             properties = new Properties();
         }
 
-        return new ItemRound(caliber, item, damage, properties);
+        return new ItemRound(new ResourceLocation(caliber, round), item, damage, properties);
+    }
+
+    @Override
+    public ResourceLocation getLocation() {
+        return new ResourceLocation(caliber, round);
     }
 
     public static ItemRound fromPacket(RoundItemPacket packet) {
-        String caliber = packet.location.getNamespace();
+        ResourceLocation location = packet.location;
         ResourceLocation item = packet.item;
         Damage damage = new Damage();
         Properties properties = new Properties();
 
-        return new ItemRound(caliber, item, damage, properties);
+        return new ItemRound(location, item, damage, properties);
     }
 
     @Override

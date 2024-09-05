@@ -49,6 +49,10 @@ public class Guns {
         }
     }
 
+    public static DynamicGun getGun(ItemStack stack) {
+        return getGun(NBT.getLocationTag(stack, "gun"));
+    }
+
     public static DynamicGun getGun(ResourceLocation location) {
         if (guns.containsKey(location)) {
             return guns.get(location);

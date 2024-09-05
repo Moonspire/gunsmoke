@@ -3,11 +3,12 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.magazines;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DynamicMagazine implements Magazine{
+public class DynamicMagazine implements Magazine {
     private final int capacity;
     private final List<ResourceLocation> families;
     private final List<String> calibers;
@@ -18,7 +19,7 @@ public class DynamicMagazine implements Magazine{
         this.calibers = new ArrayList<>();
     }
 
-    private DynamicMagazine(int capacity, List<ResourceLocation> families, List<String> calibers) {
+    public DynamicMagazine(int capacity, List<ResourceLocation> families, List<String> calibers) {
         this.capacity = capacity;
         this.families = families;
         this.calibers = calibers;
@@ -68,5 +69,6 @@ public class DynamicMagazine implements Magazine{
         return calibers.contains(caliber);
     }
 
-
+    @Override
+    public void putTag(ItemStack stack) {}
 }

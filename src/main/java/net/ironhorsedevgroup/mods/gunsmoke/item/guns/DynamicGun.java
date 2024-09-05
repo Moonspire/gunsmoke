@@ -2,8 +2,15 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mrcrayfish.guns.common.AmmoContext;
 import com.mrcrayfish.guns.common.GripType;
+import com.mrcrayfish.guns.common.Gun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.magazines.Magazine;
+import net.ironhorsedevgroup.mods.gunsmoke.item.magazines.MaterialMagazine;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Round;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Rounds;
 import net.ironhorsedevgroup.mods.gunsmoke.network.stc.GunRenderPacket;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.materials.Material;
@@ -11,8 +18,11 @@ import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,15 +116,38 @@ public class DynamicGun {
         return render;
     }
 
-    public static com.mrcrayfish.guns.common.Gun asGun(ItemStack itemStack) {
-        com.mrcrayfish.guns.common.Gun.Builder builder = com.mrcrayfish.guns.common.Gun.Builder.create();
+    public static void loadRound(Player player, ItemStack gunItem) {
+        ItemStack offhand = player.getItemInHand(InteractionHand.OFF_HAND);
+        DynamicGun gun = Guns.getGun(gunItem);
+        if (offhand.getItem() instanceof RoundItem) {
+            Round round = Rounds.getRound(offhand);
+        }
+    }
 
-        if (itemStack.getItem() instanceof GunItem) {
-            DynamicGun gun = Guns.getGun(NBT.getLocationTag(itemStack, "gun"));
-            Material barrel = Materials.getMaterial(NBT.getLocationTag(itemStack, "barrel"));
-            Material breach = Materials.getMaterial(NBT.getLocationTag(itemStack, "breach"));
-            Material core = Materials.getMaterial(NBT.getLocationTag(itemStack, "core"));
-            Material stock = Materials.getMaterial(NBT.getLocationTag(itemStack, "stock"));
+    public static void loadRound(ItemStack stack) {
+
+    }
+
+    public static void loadMagazine(ItemStack stack) {
+
+    }
+
+    public static void fireRound(ItemStack stack) {
+        Magazine magazine = MaterialMagazine.fromItemStack(stack);
+        magazine.useNextRound();
+        magazine.putTag(stack);
+    }
+
+    public static Gun asGun(ItemStack stack) {
+        Gun.Builder builder = Gun.Builder.create();
+
+        if (stack.getItem() instanceof GunItem) {
+            DynamicGun gun = Guns.getGun(NBT.getLocationTag(stack, "gun"));
+            Material barrel = Materials.getMaterial(NBT.getLocationTag(stack, "barrel"));
+            Material breach = Materials.getMaterial(NBT.getLocationTag(stack, "breach"));
+            Material core = Materials.getMaterial(NBT.getLocationTag(stack, "core"));
+            Material stock = Materials.getMaterial(NBT.getLocationTag(stack, "stock"));
+            Magazine magazine = MaterialMagazine.fromItemStack(stack);
 
             builder
                     // Display

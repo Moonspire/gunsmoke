@@ -32,9 +32,9 @@ public class Rounds {
     }
 
     public static void loadRound(ResourceLocation location, MinecraftServer server) {
-        Round round = Round.fromJson(DataLoader.loadJson(location, server));
         String[] strippedPath = location.getPath().split("/");
-        location = new ResourceLocation(round.getCaliber(), strippedPath[strippedPath.length - 1]);
+        Round round = Round.fromJson(DataLoader.loadJson(location, server), strippedPath[strippedPath.length - 1]);
+        location = round.getLocation();
         Gunsmoke.LOGGER.info("Registering server round: {}", location);
         updateRound(location, round);
     }

@@ -42,26 +42,58 @@ public class MaterialMagazine implements Magazine {
 
     @Override
     public int getCapacity() {
-        return 0;
+        return capacity;
     }
 
     @Override
     public List<ResourceLocation> getFamilies() {
-        return List.of();
+        return families;
     }
 
     @Override
     public boolean hasFamily(ResourceLocation location) {
-        return false;
+        return families.contains(location);
     }
 
     @Override
     public List<String> getCalibers() {
-        return List.of();
+        return calibers;
     }
 
     @Override
     public boolean hasCaliber(String caliber) {
-        return false;
+        return calibers.contains(caliber);
+    }
+
+    @Override
+    public Round useNextRound() {
+        Round round = rounds.get(rounds.size() - 1);
+        rounds.remove(rounds.size() - 1);
+        return round;
+    }
+
+    @Override
+    public Round useRound(int index) {
+        if (rounds.size() > index) {
+            Round round = rounds.get(index);
+            rounds.remove(index);
+            return round;
+        }
+        return null;
+    }
+
+    @Override
+    public void putTag(ItemStack stack) {
+        for (int i = 0; i < capacity; i++) {
+            String tag = "round." + i;
+            if (i < rounds.size()) {
+                Round round = rounds.get(i);
+                round.putTag(tag, stack);
+            } else {
+                NBT.removeTag(stack, tag + ".location");
+                NBT.removeTag(stack, tag + ".round");
+                NBT.removeTag(stack, tag + ".casing");
+            }
+        }
     }
 }

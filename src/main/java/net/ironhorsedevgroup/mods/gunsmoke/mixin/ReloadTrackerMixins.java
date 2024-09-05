@@ -1,11 +1,8 @@
 package net.ironhorsedevgroup.mods.gunsmoke.mixin;
 
-import com.mrcrayfish.guns.common.AmmoContext;
-import com.mrcrayfish.guns.common.Gun;
 import com.mrcrayfish.guns.common.ReloadTracker;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.DynamicGun;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -20,11 +17,7 @@ public class ReloadTrackerMixins {
     private void increaseAmmo(Player player, CallbackInfo ci) {
         ItemStack mainItem = player.getItemInHand(InteractionHand.MAIN_HAND);
         if (mainItem.getItem() instanceof GunItem) {
-            AmmoContext context = Gun.findAmmo(player, GunsmokeItems.ROUND_ITEM.getId());
-            ItemStack ammo = context.stack();
-            if (ammo.getItem() instanceof RoundItem) {
-                //rifleItem.loadRound(RoundItem.getRound(ammo));
-            }
+            DynamicGun.loadRound(player, mainItem);
         }
     }
 }

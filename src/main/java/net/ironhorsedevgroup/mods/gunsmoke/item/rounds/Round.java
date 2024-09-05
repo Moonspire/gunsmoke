@@ -5,15 +5,23 @@ import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.network.stc.RoundRenderPacket;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
+import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 public interface Round {
-    static Round fromJson(JsonObject json) {
+    static Round fromJson(JsonObject json, String round) {
         if (json.has("item")) {
-            return ItemRound.fromJson(json);
+            return ItemRound.fromJson(json, round);
         }
-        return DynamicRound.fromJson(json);
+        return DynamicRound.fromJson(json, round);
     };
+
+    default void putTag(String tag, ItemStack stack) {
+        NBT.putLocationTag(stack, tag + ".location", getLocation());
+    }
+
+    ResourceLocation getLocation();
 
     String getCaliber();
 
