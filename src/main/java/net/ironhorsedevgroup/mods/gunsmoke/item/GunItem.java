@@ -60,6 +60,6 @@ public class GunItem extends com.mrcrayfish.guns.item.GunItem {
 
     @Override
     public Gun getModifiedGun(ItemStack stack) {
-        return DynamicGun.asGun(stack);
+        return Guns.getGun(stack).asGun();
     }
 }

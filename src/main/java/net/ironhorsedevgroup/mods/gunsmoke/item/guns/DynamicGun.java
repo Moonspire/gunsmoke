@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class DynamicGun {
+public class DynamicGun implements net.ironhorsedevgroup.mods.gunsmoke.item.guns.Gun {
     private final DynamicGun.Properties properties;
     private final DynamicGun.Composition composition;
     private final RoundStorage magazine;
@@ -116,106 +116,77 @@ public class DynamicGun {
         return render;
     }
 
-    public static void loadRound(Player player, ItemStack gunItem) {
-        ItemStack offhand = player.getItemInHand(InteractionHand.OFF_HAND);
-        DynamicGun gun = Guns.getGun(gunItem);
-        if (offhand.getItem() instanceof RoundItem) {
-            Round round = Rounds.getRound(offhand);
-        }
-    }
-
-    public static void loadRound(ItemStack stack) {
-
-    }
-
-    public static void loadMagazine(ItemStack stack) {
-
-    }
-
-    public static void fireRound(ItemStack stack) {
-        Magazine magazine = MaterialMagazine.fromItemStack(stack);
-        magazine.useNextRound();
-        magazine.putTag(stack);
-    }
-
-    public static Gun asGun(ItemStack stack) {
+    @Override
+    public Gun asGun() {
         Gun.Builder builder = Gun.Builder.create();
 
-        if (stack.getItem() instanceof GunItem) {
-            DynamicGun gun = Guns.getGun(NBT.getLocationTag(stack, "gun"));
-            Material barrel = Materials.getMaterial(NBT.getLocationTag(stack, "barrel"));
-            Material breach = Materials.getMaterial(NBT.getLocationTag(stack, "breach"));
-            Material core = Materials.getMaterial(NBT.getLocationTag(stack, "core"));
-            Material stock = Materials.getMaterial(NBT.getLocationTag(stack, "stock"));
-            Magazine magazine = MaterialMagazine.fromItemStack(stack);
-
             builder
-                    // Display
-                    .setMuzzleFlash(
-                            gun.getProperties().getFire().getFlashSize(),
-                            gun.getProperties().getGeneral().getBarrelEnd().get(0),
-                            gun.getProperties().getGeneral().getBarrelEnd().get(1),
-                            gun.getProperties().getGeneral().getBarrelEnd().get(2)
-                    )
+                // Display
+                .setMuzzleFlash(
+                        this.getProperties().getFire().getFlashSize(),
+                        this.getProperties().getGeneral().getBarrelEnd().get(0),
+                        this.getProperties().getGeneral().getBarrelEnd().get(1),
+                        this.getProperties().getGeneral().getBarrelEnd().get(2)
+                )
 
-                    // General
-                    .setAlwaysSpread(true)
-                    .setGripType(GripType.getType(gun.getProperties().getGeneral().getGrip()))
-                    .setMaxAmmo(gun.getMagazine().getCapacity())
-                    .setProjectileAmount(1)
-                    .setFireRate(gun.getProperties().getFire().getCooldown())
-                    .setRecoilAdsReduction(gun.getProperties().getFire().getRecoil().getAdsReduction())
-                    .setRecoilAngle(gun.getProperties().getFire().getRecoil().getAngle())
-                    .setRecoilKick(gun.getProperties().getFire().getRecoil().getKick())
-                    .setSpread(gun.getProperties().getFire().getSpread())
+                // General
+                .setAlwaysSpread(true)
+                .setGripType(GripType.getType(this.getProperties().getGeneral().getGrip()))
+                .setMaxAmmo(this.getMagazine().getCapacity())
+                .setProjectileAmount(1)
+                .setFireRate(this.getProperties().getFire().getCooldown())
+                .setRecoilAdsReduction(this.getProperties().getFire().getRecoil().getAdsReduction())
+                .setRecoilAngle(this.getProperties().getFire().getRecoil().getAngle())
+                .setRecoilKick(this.getProperties().getFire().getRecoil().getKick())
+                .setSpread(this.getProperties().getFire().getSpread())
 
-                    //Modules
-                    .setBarrel(
-                            gun.getProperties().getAttachments().getBarrel().getScale().get(0),
-                            gun.getProperties().getAttachments().getBarrel().getTranslation().get(0),
-                            gun.getProperties().getAttachments().getBarrel().getTranslation().get(1),
-                            gun.getProperties().getAttachments().getBarrel().getTranslation().get(2)
-                    )
-                    .setScope(
-                            gun.getProperties().getAttachments().getScope().getScale().get(0),
-                            gun.getProperties().getAttachments().getScope().getTranslation().get(0),
-                            gun.getProperties().getAttachments().getScope().getTranslation().get(1),
-                            gun.getProperties().getAttachments().getScope().getTranslation().get(2)
-                    )
-                    .setStock(
-                            gun.getProperties().getAttachments().getStock().getScale().get(0),
-                            gun.getProperties().getAttachments().getStock().getTranslation().get(0),
-                            gun.getProperties().getAttachments().getStock().getTranslation().get(1),
-                            gun.getProperties().getAttachments().getStock().getTranslation().get(2)
-                    )
-                    .setUnderBarrel(
-                            gun.getProperties().getAttachments().getUnderBarrel().getScale().get(0),
-                            gun.getProperties().getAttachments().getUnderBarrel().getTranslation().get(0),
-                            gun.getProperties().getAttachments().getUnderBarrel().getTranslation().get(1),
-                            gun.getProperties().getAttachments().getUnderBarrel().getTranslation().get(2)
-                    )
-                    .setZoom(
-                            gun.getProperties().getGeneral().getZoom().get(0),
-                            gun.getProperties().getGeneral().getZoom().get(1),
-                            gun.getProperties().getGeneral().getZoom().get(2),
-                            gun.getProperties().getGeneral().getZoom().get(3)
-                    )
+                //Modules
+                .setBarrel(
+                        this.getProperties().getAttachments().getBarrel().getScale().get(0),
+                        this.getProperties().getAttachments().getBarrel().getTranslation().get(0),
+                        this.getProperties().getAttachments().getBarrel().getTranslation().get(1),
+                        this.getProperties().getAttachments().getBarrel().getTranslation().get(2)
+                )
+                .setScope(
+                        this.getProperties().getAttachments().getScope().getScale().get(0),
+                        this.getProperties().getAttachments().getScope().getTranslation().get(0),
+                        this.getProperties().getAttachments().getScope().getTranslation().get(1),
+                        this.getProperties().getAttachments().getScope().getTranslation().get(2)
+                )
+                .setStock(
+                        this.getProperties().getAttachments().getStock().getScale().get(0),
+                        this.getProperties().getAttachments().getStock().getTranslation().get(0),
+                        this.getProperties().getAttachments().getStock().getTranslation().get(1),
+                        this.getProperties().getAttachments().getStock().getTranslation().get(2)
+                )
+                .setUnderBarrel(
+                        this.getProperties().getAttachments().getUnderBarrel().getScale().get(0),
+                        this.getProperties().getAttachments().getUnderBarrel().getTranslation().get(0),
+                        this.getProperties().getAttachments().getUnderBarrel().getTranslation().get(1),
+                        this.getProperties().getAttachments().getUnderBarrel().getTranslation().get(2)
+                )
+                .setZoom(
+                        this.getProperties().getGeneral().getZoom().get(0),
+                        this.getProperties().getGeneral().getZoom().get(1),
+                        this.getProperties().getGeneral().getZoom().get(2),
+                        this.getProperties().getGeneral().getZoom().get(3)
+                )
 
-                    //Projectile
-                    .setDamage(1)
-                    .setProjectileAffectedByGravity(true)
-                    .setAmmo(GunsmokeItems.ROUND_ITEM.get())
-                    .setProjectileLife(5)
-                    .setProjectileSpeed(10)
-                    .setProjectileSize(0.2f)
+                //Projectile
+                .setDamage(1)
+                .setProjectileAffectedByGravity(true)
+                .setAmmo(GunsmokeItems.ROUND_ITEM.get())
+                .setProjectileLife(5)
+                .setProjectileSpeed(10)
+                .setProjectileSize(0.2f)
 
-                    //Sounds
-                    .setCockSound(ForgeRegistries.SOUND_EVENTS.getValue(gun.getSounds().getCock()))
-                    .setEnchantedFireSound(ForgeRegistries.SOUND_EVENTS.getValue(gun.getSounds().getEnchantedFire()))
-                    .setFireSound(ForgeRegistries.SOUND_EVENTS.getValue(gun.getSounds().getFire()))
-                    .setSilencedFireSound(ForgeRegistries.SOUND_EVENTS.getValue(gun.getSounds().getSilencedFire()))
-                    .setReloadSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cgm:item.pistol.reload")));
-        }
+                //Sounds
+                .setCockSound(ForgeRegistries.SOUND_EVENTS.getValue(this.getSounds().getCock()))
+                .setEnchantedFireSound(ForgeRegistries.SOUND_EVENTS.getValue(this.getSounds().getEnchantedFire()))
+                .setFireSound(ForgeRegistries.SOUND_EVENTS.getValue(this.getSounds().getFire()))
+                .setSilencedFireSound(ForgeRegistries.SOUND_EVENTS.getValue(this.getSounds().getSilencedFire()))
+                .setReloadSound(ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation("cgm:item.pistol.reload")));
+
         return builder.build();
     }
 
@@ -515,6 +486,16 @@ public class DynamicGun {
                     new DynamicGun.Composition.Part(part, breach),
                     new DynamicGun.Composition.Part(part, core),
                     new DynamicGun.Composition.Part(part, stock)
+            );
+        }
+
+        public static DynamicGun.Composition fromMaterials(ResourceLocation gun, ResourceLocation barrel, ResourceLocation breach, ResourceLocation core, ResourceLocation stock) {
+            DynamicGun gunInst = Guns.getGun(gun);
+            return new DynamicGun.Composition(
+                    new DynamicGun.Composition.Part(gunInst.getComposition().getBarrel().getPart(), barrel),
+                    new DynamicGun.Composition.Part(gunInst.getComposition().getBreach().getPart(), breach),
+                    new DynamicGun.Composition.Part(gunInst.getComposition().getCore().getPart(), core),
+                    new DynamicGun.Composition.Part(gunInst.getComposition().getStock().getPart(), stock)
             );
         }
 

@@ -13,6 +13,8 @@ public interface Magazine {
     }
 
     int getCapacity();
+    boolean canReloadInGun();
+    ResourceLocation getMaterial();
     List<ResourceLocation> getFamilies();
     boolean hasFamily(ResourceLocation location);
     List<String> getCalibers();
@@ -22,6 +24,9 @@ public interface Magazine {
     }
     default Round useRound(int index) {
         return null;
+    }
+    default boolean loadRound(Round round) {
+        return false;
     }
     void putTag(ItemStack stack);
 }

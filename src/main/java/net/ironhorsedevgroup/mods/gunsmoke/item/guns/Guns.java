@@ -49,7 +49,7 @@ public class Guns {
         }
     }
 
-    public static DynamicGun getGun(ItemStack stack) {
+    public static Gun getGun(ItemStack stack) {
         return getGun(NBT.getLocationTag(stack, "gun"));
     }
 

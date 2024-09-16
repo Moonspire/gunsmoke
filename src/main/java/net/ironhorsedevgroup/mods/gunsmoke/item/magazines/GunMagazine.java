@@ -1,6 +1,8 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.magazines;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.DynamicGun;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Gun;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.MaterialGun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Round;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
@@ -11,16 +13,19 @@ import java.util.List;
 
 public class GunMagazine implements Magazine {
     private final int capacity;
+    private final ResourceLocation material;
     private final List<String> calibers;
     private final List<Round> rounds = new ArrayList<>();
 
-    public GunMagazine(int capacity, List<String> calibers) {
+    public GunMagazine(int capacity, ResourceLocation material, List<String> calibers) {
         this.capacity = capacity;
+        this.material = material;
         this.calibers = calibers;
     }
 
-    public static GunMagazine fromGun(DynamicGun gun) {
+    public static GunMagazine fromGun(Gun gun) {
         int capacity = gun.getMagazine().getCapacity();
+        ResourceLocation material = gun.getComposition().getCore().getMaterial();
         List<String> calibers = new ArrayList<>();
 
         for (DynamicGun.RoundStorage.Round round : gun.getMagazine().getRounds()) {
@@ -29,12 +34,22 @@ public class GunMagazine implements Magazine {
             }
         }
 
-        return new GunMagazine(capacity, calibers);
+        return new GunMagazine(capacity, material, calibers);
     }
 
     @Override
     public int getCapacity() {
         return capacity;
+    }
+
+    @Override
+    public boolean canReloadInGun() {
+        return true;
+    }
+
+    @Override
+    public ResourceLocation getMaterial() {
+        return material;
     }
 
     @Override
@@ -55,6 +70,23 @@ public class GunMagazine implements Magazine {
     @Override
     public boolean hasCaliber(String caliber) {
         return calibers.contains(caliber);
+    }
+
+    @Override
+    public Round useNextRound() {
+        Round round = rounds.get(rounds.size() - 1);
+        rounds.remove(rounds.size() - 1);
+        return round;
+    }
+
+    @Override
+    public Round useRound(int index) {
+        if (rounds.size() > index) {
+            Round round = rounds.get(index);
+            rounds.remove(index);
+            return round;
+        }
+        return null;
     }
 
     @Override

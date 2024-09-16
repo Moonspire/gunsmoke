@@ -10,25 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MaterialMagazine implements Magazine {
-    private final int capacity;
-    private final List<ResourceLocation> families;
-    private final List<String> calibers;
+    private final ResourceLocation magazine;
+    private final ResourceLocation material;
     private final List<Round> rounds;
 
-    private MaterialMagazine(int capacity, List<ResourceLocation> families, List<String> calibers, List<Round> rounds) {
-        this.capacity = capacity;
-        this.families = families;
-        this.calibers = calibers;
+    private MaterialMagazine(ResourceLocation magazine, ResourceLocation material, List<Round> rounds) {
+        this.magazine = magazine;
+        this.material = material;
         this.rounds = rounds;
     }
 
     public static Magazine fromItemStack(ItemStack stack) {
-        Magazine magazine = Magazines.getMagazine(stack);
-        int capacity = magazine.getCapacity();
-        List<ResourceLocation> families = magazine.getFamilies();
-        List<String> calibers = magazine.getCalibers();
+        ResourceLocation magazine = NBT.getLocationTag(stack, "magazine");
+        ResourceLocation material = NBT.getLocationTag(stack, "mag_material");
         List<Round> rounds = new ArrayList<>();
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < Magazines.getMagazine(magazine).getCapacity(); i++) {
             Round round = MaterialRound.fromTag("round." + i, stack);
             if (round != null) {
                 rounds.add(round);
@@ -37,32 +33,42 @@ public class MaterialMagazine implements Magazine {
             }
         }
 
-        return new MaterialMagazine(capacity, families, calibers, rounds);
+        return new MaterialMagazine(magazine, material, rounds);
     }
 
     @Override
     public int getCapacity() {
-        return capacity;
+        return Magazines.getMagazine(magazine).getCapacity();
+    }
+
+    @Override
+    public boolean canReloadInGun() {
+        return Magazines.getMagazine(magazine).canReloadInGun();
+    }
+
+    @Override
+    public ResourceLocation getMaterial() {
+        return material;
     }
 
     @Override
     public List<ResourceLocation> getFamilies() {
-        return families;
+        return Magazines.getMagazine(magazine).getFamilies();
     }
 
     @Override
     public boolean hasFamily(ResourceLocation location) {
-        return families.contains(location);
+        return Magazines.getMagazine(magazine).hasFamily(location);
     }
 
     @Override
     public List<String> getCalibers() {
-        return calibers;
+        return Magazines.getMagazine(magazine).getCalibers();
     }
 
     @Override
     public boolean hasCaliber(String caliber) {
-        return calibers.contains(caliber);
+        return Magazines.getMagazine(magazine).hasCaliber(caliber);
     }
 
     @Override
@@ -83,8 +89,17 @@ public class MaterialMagazine implements Magazine {
     }
 
     @Override
+    public boolean loadRound(Round round) {
+        if (rounds.size() < Magazines.getMagazine(magazine).getCapacity()) {
+            rounds.add(round);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void putTag(ItemStack stack) {
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < Magazines.getMagazine(magazine).getCapacity(); i++) {
             String tag = "round." + i;
             if (i < rounds.size()) {
                 Round round = rounds.get(i);
