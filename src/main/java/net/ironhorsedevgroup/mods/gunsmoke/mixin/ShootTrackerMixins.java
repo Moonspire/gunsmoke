@@ -3,7 +3,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.mixin;
 import com.mrcrayfish.guns.common.Gun;
 import com.mrcrayfish.guns.common.ShootTracker;
 import com.mrcrayfish.guns.item.GunItem;
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.DynamicGun;
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,9 +15,7 @@ public class ShootTrackerMixins {
     @Inject(at = @At("HEAD"), method = "putCooldown(Lnet/minecraft/world/item/ItemStack;Lcom/mrcrayfish/guns/item/GunItem;Lcom/mrcrayfish/guns/common/Gun;)V", remap = false)
     public void putCooldown(ItemStack weapon, GunItem item, Gun modifiedGun, CallbackInfo ci) {
         if (item instanceof net.ironhorsedevgroup.mods.gunsmoke.item.GunItem) {
-            DynamicGun.fireRound(weapon);
+            Guns.getMaterialGun(weapon).getMagazine().useNextRound();
         }
     }
-
-
 }

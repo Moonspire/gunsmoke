@@ -2,9 +2,8 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
 import com.mrcrayfish.guns.common.GripType;
 import net.ironhorsedevgroup.mods.gunsmoke.item.magazines.Magazine;
-import net.ironhorsedevgroup.mods.gunsmoke.item.magazines.MaterialMagazine;
+import net.ironhorsedevgroup.mods.gunsmoke.item.magazines.Magazines;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Round;
-import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Rounds;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +31,7 @@ public class MaterialGun implements Gun {
 
     public static Gun fromItemStack(ItemStack itemStack) {
         ResourceLocation gun = NBT.getLocationTag(itemStack, "gun");
-        Magazine magazine = MaterialMagazine.fromItemStack(itemStack);
+        Magazine magazine = Magazines.getMagazine(itemStack);
         ResourceLocation barrel_material = NBT.getLocationTag(itemStack, "barrel");
         int barrel_damage = NBT.getIntTag(itemStack, "barrel_damage");
         ResourceLocation breach_material = NBT.getLocationTag(itemStack, "breach");
@@ -75,8 +74,13 @@ public class MaterialGun implements Gun {
     }
 
     @Override
-    public DynamicGun.RoundStorage getMagazine() {
-        return Guns.getGun(this.gun).getMagazine();
+    public Magazine getMagazine() {
+        return magazine;
+    }
+
+    @Override
+    public DynamicGun.RoundStorage getRoundStorage() {
+        return Guns.getGun(this.gun).getRoundStorage();
     }
 
     @Override
@@ -89,13 +93,7 @@ public class MaterialGun implements Gun {
         return Guns.getGun(this.gun).getRender();
     }
 
-    public boolean loadRound(ItemStack stack) {
-        if (Rounds.getRound(stack) != null) {
-            return loadRound(Rounds.getRound(stack));
-        }
-        return false;
-    }
-
+    @Override
     public boolean loadRound(Round round) {
         if (magazine.canReloadInGun()) {
             return magazine.loadRound(round);

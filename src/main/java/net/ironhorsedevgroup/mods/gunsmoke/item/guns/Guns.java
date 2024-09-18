@@ -49,6 +49,10 @@ public class Guns {
         }
     }
 
+    public static Gun getMaterialGun(ItemStack stack) {
+        return MaterialGun.fromItemStack(stack);
+    }
+
     public static Gun getGun(ItemStack stack) {
         return getGun(NBT.getLocationTag(stack, "gun"));
     }

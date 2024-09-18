@@ -7,6 +7,7 @@ import com.mrcrayfish.guns.common.GripType;
 import com.mrcrayfish.guns.common.Gun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.magazines.GunMagazine;
 import net.ironhorsedevgroup.mods.gunsmoke.item.magazines.Magazine;
 import net.ironhorsedevgroup.mods.gunsmoke.item.magazines.MaterialMagazine;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Round;
@@ -31,7 +32,7 @@ import java.util.Objects;
 public class DynamicGun implements net.ironhorsedevgroup.mods.gunsmoke.item.guns.Gun {
     private final DynamicGun.Properties properties;
     private final DynamicGun.Composition composition;
-    private final RoundStorage magazine;
+    private final DynamicGun.RoundStorage magazine;
     private final DynamicGun.Sounds sounds;
     private final DynamicGun.Render render;
 
@@ -96,15 +97,23 @@ public class DynamicGun implements net.ironhorsedevgroup.mods.gunsmoke.item.guns
         return new DynamicGun(properties, composition, magazine, sounds, render);
     }
 
+    @Override
     public DynamicGun.Properties getProperties() {
         return properties;
     }
 
+    @Override
     public DynamicGun.Composition getComposition() {
         return composition;
     }
 
-    public RoundStorage getMagazine() {
+    @Override
+    public Magazine getMagazine() {
+        return GunMagazine.fromGun(this);
+    }
+
+    @Override
+    public RoundStorage getRoundStorage() {
         return magazine;
     }
 

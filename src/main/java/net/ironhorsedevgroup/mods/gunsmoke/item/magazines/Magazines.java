@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.magazines;
 
+import net.ironhorsedevgroup.mods.gunsmoke.item.guns.DynamicGun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
@@ -42,7 +43,11 @@ public class Magazines {
 
     public static Magazine getMagazine(ItemStack stack) {
         String magazine = NBT.getStringTag(stack, "magazine");
+        String material = NBT.getStringTag(stack, "mag_material");
         if (!Objects.equals(magazine, "")) {
+            if (!Objects.equals(material, "")) {
+                return MaterialMagazine.fromItemStack(stack);
+            }
             return getMagazine(magazine);
         }
         return GunMagazine.fromGun(Guns.getGun(stack));

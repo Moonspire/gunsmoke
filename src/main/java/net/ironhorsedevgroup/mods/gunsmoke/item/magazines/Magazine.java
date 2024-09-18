@@ -5,6 +5,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Round;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Magazine {
@@ -27,6 +28,12 @@ public interface Magazine {
     }
     default boolean loadRound(Round round) {
         return false;
+    }
+    default List<Round> getRounds() {
+        return new ArrayList<>();
+    }
+    default boolean isFull() {
+        return true;
     }
     void putTag(ItemStack stack);
 }

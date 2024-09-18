@@ -24,11 +24,11 @@ public class GunMagazine implements Magazine {
     }
 
     public static GunMagazine fromGun(Gun gun) {
-        int capacity = gun.getMagazine().getCapacity();
+        int capacity = gun.getRoundStorage().getCapacity();
         ResourceLocation material = gun.getComposition().getCore().getMaterial();
         List<String> calibers = new ArrayList<>();
 
-        for (DynamicGun.RoundStorage.Round round : gun.getMagazine().getRounds()) {
+        for (DynamicGun.RoundStorage.Round round : gun.getRoundStorage().getRounds()) {
             if (round instanceof DynamicGun.RoundStorage.Caliber caliber) {
                 calibers.add(caliber.getCaliber());
             }
@@ -102,5 +102,15 @@ public class GunMagazine implements Magazine {
                 NBT.removeTag(stack, tag + ".casing");
             }
         }
+    }
+
+    @Override
+    public boolean isFull() {
+        return rounds.size() == getCapacity();
+    }
+
+    @Override
+    public List<Round> getRounds() {
+        return rounds;
     }
 }

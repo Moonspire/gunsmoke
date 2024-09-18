@@ -111,4 +111,14 @@ public class MaterialMagazine implements Magazine {
             }
         }
     }
+
+    @Override
+    public boolean isFull() {
+        return rounds.size() == getCapacity();
+    }
+
+    @Override
+    public List<Round> getRounds() {
+        return rounds;
+    }
 }
