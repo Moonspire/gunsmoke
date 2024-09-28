@@ -17,7 +17,7 @@ public class GunsmokeTabs {
             @Override
             public ItemStack makeIcon() {
                 if (GunsmokeItems.DRAGOON.get() instanceof RifleItem rifle) {
-                    ItemStack rifleItem = rifle.setMaterials(GunsmokeMaterials.SPRUCE, GunsmokeMaterials.WROUGHT_IRON, GunsmokeMaterials.BRASS, GunsmokeMaterials.WROUGHT_IRON);
+                    ItemStack rifleItem = rifle.setMaterials("minecraft:spruce", "minecraft:iron", "forge:brass", "minecraft:iron");
                     return NBT.putIntTag(rifleItem, "AmmoCount", rifle.getModifiedGun(rifleItem).getGeneral().getMaxAmmo());
                 }
                 return null;
@@ -32,7 +32,7 @@ public class GunsmokeTabs {
         PARTS = new CreativeModeTab("gunsmoke.parts") {
             @Override
             public ItemStack makeIcon() {
-                return NBT.putStringTag(new ItemStack(GunsmokeItems.STOCK_ADVANCED.get()), "material", GunsmokeMaterials.OAK.getSerializedName());
+                return NBT.putStringTag(new ItemStack(GunsmokeItems.STOCK_ADVANCED.get()), "material", "minecraft:oak");
             }
 
             @OnlyIn(Dist.CLIENT)

@@ -6,6 +6,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeCalibers;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -92,28 +93,28 @@ public class GunProperties {
     }
 
     private Float calcSpread(Float initSpread) {
-        return (float)((200 + gunMakeup.getBarrelTotalDamage()) / gunMakeup.getBarrel().getPurity()) * initSpread;
+        return (float)((200 + gunMakeup.getBarrelTotalDamage()) / Materials.getMaterial(gunMakeup.getBarrel()).getProperties().getPurity()) * initSpread;
     }
 
     private Integer calcReload() {
-        return ((200 + gunMakeup.getBreachTotalDamage()) / gunMakeup.getBreach().getPurity()) * reloadWait;
+        return ((200 + gunMakeup.getBreachTotalDamage()) / Materials.getMaterial(gunMakeup.getBreach()).getProperties().getPurity()) * reloadWait;
     }
 
     private Integer calcFire(Integer initRate) {
-        return (int)(Math.pow(1.1, (gunMakeup.getCore().getHardness() * (gunMakeup.getCoreTotalDamage() / 100.0)) / 6.0) * initRate);
+        return (int)(Math.pow(1.1, (Materials.getMaterial(gunMakeup.getCore()).getProperties().getHardness() * (gunMakeup.getCoreTotalDamage() / 100.0)) / 6.0) * initRate);
     }
 
     private Float calcRecoilAngle(Float initRecoilAngle) {
-        Integer front = gunMakeup.getBarrel().getDensity();
+        Integer front = Materials.getMaterial(gunMakeup.getBarrel()).getProperties().getDensity();
         if (front == 0) {
             front = 1;
         }
-        Integer rear = gunMakeup.getCore().getDensity() + gunMakeup.getStock().getDensity() + gunMakeup.getBreach().getDensity();
+        Integer rear = Materials.getMaterial(gunMakeup.getCore()).getProperties().getDensity() + Materials.getMaterial(gunMakeup.getStock()).getProperties().getDensity() + Materials.getMaterial(gunMakeup.getBreach()).getProperties().getDensity();
         return ((rear / front) - 1) * (initRecoilAngle / 3);
     }
 
     private Float calcRecoilKick(Float initRecoilKick) {
-        Integer density = gunMakeup.getBarrel().getDensity() + gunMakeup.getCore().getDensity() + gunMakeup.getStock().getDensity() + gunMakeup.getBreach().getDensity();
+        Integer density = Materials.getMaterial(gunMakeup.getBarrel()).getProperties().getDensity() + Materials.getMaterial(gunMakeup.getCore()).getProperties().getDensity() + Materials.getMaterial(gunMakeup.getStock()).getProperties().getDensity() + Materials.getMaterial(gunMakeup.getBreach()).getProperties().getDensity();
         return (float)((681.0 + gunMakeup.getStockTotalDamage()) / (density + 81)) * initRecoilKick;
     }
     

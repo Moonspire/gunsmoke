@@ -1,8 +1,10 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
-import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeMaterials;
+import net.ironhorsedevgroup.mods.toolshed.materials.Material;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.Objects;
@@ -12,25 +14,25 @@ public class GunMakeup {
     private Damage breachDamage = null;
     private Damage coreDamage = null;
     private Damage stockDamage = null;
-    private GunMaterial barrel;
-    private GunMaterial breach;
-    private GunMaterial core;
-    private GunMaterial stock;
+    private ResourceLocation barrel;
+    private ResourceLocation breach;
+    private ResourceLocation core;
+    private ResourceLocation stock;
     private ItemStack stack;
 
     public GunMakeup(ItemStack itemStack) {
-        stock = GunsmokeMaterials.getMaterial(NBT.getStringTag(itemStack, "material_1"));
-        barrel = GunsmokeMaterials.getMaterial(NBT.getStringTag(itemStack, "material_2"));
-        core = GunsmokeMaterials.getMaterial(NBT.getStringTag(itemStack, "material_3"));
-        breach = GunsmokeMaterials.getMaterial(NBT.getStringTag(itemStack, "material_4"));
+        stock = NBT.getLocationTag(itemStack, "material_1");
+        barrel = NBT.getLocationTag(itemStack, "material_2");
+        core = NBT.getLocationTag(itemStack, "material_3");
+        breach = NBT.getLocationTag(itemStack, "material_4");
         stack = itemStack;
     }
 
     public GunMakeup() {
-        stock = GunsmokeMaterials.NULL.getMaterial();
-        barrel = GunsmokeMaterials.NULL.getMaterial();
-        core = GunsmokeMaterials.NULL.getMaterial();
-        breach = GunsmokeMaterials.NULL.getMaterial();
+        stock = new ResourceLocation("null");
+        barrel = new ResourceLocation("null");
+        core = new ResourceLocation("null");
+        breach = new ResourceLocation("null");
     }
 
     public Integer getBarrelDamage() {
@@ -126,33 +128,37 @@ public class GunMakeup {
             this.maxHealth = maxHealth;
         }
 
-        public static Damage newBarrel(GunMaterial material) {
+        public static Damage newBarrel(ResourceLocation location) {
             int barrelHealth = 1;
-            if (!material.isFlamable()) {
-                barrelHealth = material.getHardness() * (material.getPurity() / 10);
+            Material material = Materials.getMaterial(location);
+            if (!material.getProperties().isFlammable()) {
+                barrelHealth = material.getProperties().getHardness() * (material.getProperties().getPurity() / 10);
             }
             return new Damage(barrelHealth);
         }
 
-        public static Damage newBreach(GunMaterial material) {
+        public static Damage newBreach(ResourceLocation location) {
             int breachHealth = 1;
-            if (!material.isFlamable()) {
-                breachHealth = material.getHardness() * (material.getPurity() / 15);
+            Material material = Materials.getMaterial(location);
+            if (!material.getProperties().isFlammable()) {
+                breachHealth = material.getProperties().getHardness() * (material.getProperties().getPurity() / 15);
             }
             return new Damage(breachHealth);
         }
 
-        public static Damage newCore(GunMaterial material) {
+        public static Damage newCore(ResourceLocation location) {
             int coreHealth = 1;
-            if (!material.isFlamable()) {
-                coreHealth = material.getHardness() * (material.getPurity() / 10);
+            Material material = Materials.getMaterial(location);
+            if (!material.getProperties().isFlammable()) {
+                coreHealth = material.getProperties().getHardness() * (material.getProperties().getPurity() / 10);
             }
             return new Damage(coreHealth);
         }
 
-        public static Damage newStock(GunMaterial material) {
-            int stockHealth = material.getHardness() * material.getPurity() * 10;
-            if (material.isFlamable()) {
+        public static Damage newStock(ResourceLocation location) {
+            Material material = Materials.getMaterial(location);
+            int stockHealth = material.getProperties().getHardness() * material.getProperties().getPurity() * 10;
+            if (material.getProperties().isFlammable()) {
                 stockHealth = (int)(stockHealth / 1.25);
             }
             return new Damage(stockHealth);
@@ -336,10 +342,10 @@ public class GunMakeup {
     }
 
     private void syncValues() {
-        stock = GunsmokeMaterials.getMaterial(NBT.getStringTag(stack, "material_1"));
-        barrel = GunsmokeMaterials.getMaterial(NBT.getStringTag(stack, "material_2"));
-        core = GunsmokeMaterials.getMaterial(NBT.getStringTag(stack, "material_3"));
-        breach = GunsmokeMaterials.getMaterial(NBT.getStringTag(stack, "material_4"));
+        stock = NBT.getLocationTag(stack, "material_1");
+        barrel = NBT.getLocationTag(stack, "material_2");
+        core = NBT.getLocationTag(stack, "material_3");
+        breach = NBT.getLocationTag(stack, "material_4");
 
         barrelDamage = Damage.newBarrel(barrel);
         barrelDamage.damage(barrelDamage.getMaxHealth() + NBT.getIntTag(stack, "barrelDamagePermanent"))
@@ -380,19 +386,19 @@ public class GunMakeup {
         NBT.putIntTag(stack, "stockDamagePermanent", stockDamage.getPermDamage());
     }
 
-    public GunMaterial getBarrel() {
+    public ResourceLocation getBarrel() {
         return barrel;
     }
 
-    public GunMaterial getBreach() {
+    public ResourceLocation getBreach() {
         return breach;
     }
 
-    public GunMaterial getCore() {
+    public ResourceLocation getCore() {
         return core;
     }
 
-    public GunMaterial getStock() {
+    public ResourceLocation getStock() {
         return stock;
     }
 

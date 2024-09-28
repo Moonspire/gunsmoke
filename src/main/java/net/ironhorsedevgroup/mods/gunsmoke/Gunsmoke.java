@@ -6,7 +6,6 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.GunPartItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
-import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
@@ -94,7 +93,6 @@ public class Gunsmoke {
             DataGenerator generator = event.getGenerator();
             ExistingFileHelper helper = event.getExistingFileHelper();
 
-            generator.addProvider(true, new RecipeGenerator(generator));
             generator.addProvider(true, new ItemModelGenerator(generator, MODID, helper));
         }
     }
