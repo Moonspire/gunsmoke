@@ -7,7 +7,6 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunColor;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.*;
-import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -102,12 +101,7 @@ public class Gunsmoke {
     public static class ClientModEvents {
 
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
-
-            // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        public static void onClientSetup(FMLClientSetupEvent event) {
         }
 
         @SubscribeEvent
@@ -122,10 +116,17 @@ public class Gunsmoke {
                             ),
                             item
                     );
-                } else if (item instanceof RifleItem || item instanceof RoundItem) {
+                } else if (item instanceof RifleItem) {
                     event.getItemColors().register(
                             (
                                     GunColor::getColor
+                            ),
+                            item
+                    );
+                } else if (item instanceof RoundItem) {
+                    event.getItemColors().register(
+                            (
+                                    GunColor::getRoundColor
                             ),
                             item
                     );

@@ -31,17 +31,46 @@ public class ItemModelGenerator extends ItemModelProvider {
             if (!path.equals(lastPath)) {
                 lastPath = path;
                 if (round.getId() == 0) {
-                    builder
-                            .texture("layer0", path + "/round")
-                            .texture("layer1", path + "/casing");
+                    if (round.isRoundRendered()) {
+                        builder.texture("layer0", path + "/round");
+                    } else {
+                        builder.texture("layer0", new ResourceLocation("gunsmoke", "items/invis"));
+                    }
+
+                    if (!round.isCaseless()) {
+                        builder.texture("layer1", path + "/casing");
+                    } else {
+                        builder.texture("layer1", new ResourceLocation("gunsmoke", "items/invis"));
+                    }
+
+                    if (round.hasColor()) {
+                        builder.texture("layer2", path + "/color");
+                    } else if (round.hasAccessories()) {
+                        builder.texture("layer2", path + "/accessories");
+                    }
                 } else {
+                    ItemModelBuilder predicate = withExistingParent(caliber.getName() + "." + round.getId(), ITEM_GENERATED);
+                    if (round.isRoundRendered()) {
+                        predicate.texture("layer0", path + "/round");
+                    } else {
+                        predicate.texture("layer0", new ResourceLocation("gunsmoke", "items/invis"));
+                    }
+
+                    if (!round.isCaseless()) {
+                        predicate.texture("layer1", path + "/casing");
+                    } else {
+                        predicate.texture("layer1", new ResourceLocation("gunsmoke", "items/invis"));
+                    }
+
+                    if (round.hasColor()) {
+                        predicate.texture("layer2", path + "/color");
+                    } else if (round.hasAccessories()) {
+                        predicate.texture("layer2", path + "/accessories");
+                    }
+
                     builder.override()
                             .predicate(new ResourceLocation("custom_model_data"), round.getId())
-                            .model(
-                                    withExistingParent(caliber.getName() + "." + round.getId(), ITEM_GENERATED)
-                                            .texture("layer0", path + "/round")
-                                            .texture("layer1", path + "/casing")
-                            );
+                            .model(predicate);
                 }
             }
         }
