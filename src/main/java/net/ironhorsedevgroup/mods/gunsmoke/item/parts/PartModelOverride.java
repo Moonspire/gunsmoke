@@ -1,7 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.parts;
 
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverride;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.model.ItemModelOverride;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;
@@ -15,7 +15,7 @@ public class PartModelOverride implements ItemModelOverride {
     @Override
     public BakedModel getModel(ItemStack itemStack) {
         ModelManager manager = Minecraft.getInstance().getModelManager();
-        ModelResourceLocation location = new ModelResourceLocation(PartUtils.getPart(itemStack).getRender().getModel(), "inventory");
+        ModelResourceLocation location = new ModelResourceLocation(Parts.getPart(itemStack).getRender().getModel(), "inventory");
         return manager.getModel(location);
     }
 

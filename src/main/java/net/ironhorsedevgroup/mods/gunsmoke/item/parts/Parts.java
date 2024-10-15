@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
 import net.ironhorsedevgroup.mods.gunsmoke.network.stc.PartRenderPacket;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PartUtils {
+public class Parts {
     private static final Map<ResourceLocation, Part> parts = new HashMap<>();
 
     public static void loadParts(List<ResourceLocation> parts, MinecraftServer server) {

@@ -1,7 +1,10 @@
 package net.ironhorsedevgroup.mods.gunsmoke.registry;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.GunItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.PartItem;
+import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
+import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Rounds;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -34,7 +37,7 @@ public class GunsmokeTabs {
 
             @Override
             public @NotNull ItemStack makeIcon() {
-                return new ItemStack(GunsmokeItems.ROUND_ITEM.get());
+                return RoundItem.getDefaultInstance(".50-70:pointed");
             }
 
             @OnlyIn(Dist.CLIENT)
@@ -47,7 +50,7 @@ public class GunsmokeTabs {
 
             @Override
             public @NotNull ItemStack makeIcon() {
-                return new ItemStack(GunsmokeItems.PART_ITEM.get());
+                return PartItem.getDefaultInstance("gunsmoke:gun_parts");
             }
 
             @OnlyIn(Dist.CLIENT)

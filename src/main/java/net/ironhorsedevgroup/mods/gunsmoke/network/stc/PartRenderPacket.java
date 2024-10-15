@@ -1,6 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.network.stc;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.parts.Parts;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
@@ -14,7 +14,7 @@ public class PartRenderPacket {
     public ResourceLocation model;
     public List<ResourceLocation> materials;
 
-    public PartRenderPacket(ResourceLocation location, PartUtils.Part part) {
+    public PartRenderPacket(ResourceLocation location, Parts.Part part) {
         this.location = location;
         model = part.getRender().getModel();
         materials = part.getRender().getMaterials();
@@ -49,7 +49,7 @@ public class PartRenderPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            PartUtils.loadPart(this);
+            Parts.loadPart(this);
         });
         return true;
     }

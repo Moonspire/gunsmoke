@@ -87,7 +87,7 @@ public class RoundItem extends Item {
     @Override
     public String getDescriptionId(ItemStack itemStack) {
         ResourceLocation location = new ResourceLocation(NBT.getStringTag(itemStack, "round_id"));
-        return "round." + location.getNamespace() + "." + location.getPath();
+        return "dynamicItem.round." + location.getNamespace() + "." + location.getPath();
     }
 
     @Override

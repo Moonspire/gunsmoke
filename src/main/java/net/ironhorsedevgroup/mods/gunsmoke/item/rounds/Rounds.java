@@ -5,7 +5,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
 import net.ironhorsedevgroup.mods.gunsmoke.network.stc.RoundItemPacket;
 import net.ironhorsedevgroup.mods.gunsmoke.network.stc.RoundRenderPacket;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;

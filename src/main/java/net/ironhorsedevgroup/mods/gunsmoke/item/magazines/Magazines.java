@@ -1,9 +1,8 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.magazines;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.guns.DynamicGun;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;

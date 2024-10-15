@@ -1,6 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.rounds;
 
-import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverride;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.model.ItemModelOverride;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;

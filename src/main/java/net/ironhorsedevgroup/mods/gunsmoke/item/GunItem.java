@@ -62,4 +62,10 @@ public class GunItem extends com.mrcrayfish.guns.item.GunItem {
     public Gun getModifiedGun(ItemStack stack) {
         return Guns.getMaterialGun(stack).asGun();
     }
+
+    @Override
+    public String getDescriptionId(ItemStack itemStack) {
+        ResourceLocation location = new ResourceLocation(NBT.getStringTag(itemStack, "gun"));
+        return "dynamicItem.gun." + location.getNamespace() + "." + location.getPath();
+    }
 }

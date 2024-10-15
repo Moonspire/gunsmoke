@@ -1,6 +1,6 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item;
 
-import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.parts.Parts;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.GunsmokeItems;
 import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
@@ -10,6 +10,8 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+
 public class PartItem extends Item {
     public PartItem(Properties properties) {
         super(properties);
@@ -18,8 +20,8 @@ public class PartItem extends Item {
     @Override
     public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> itemStack) {
         if (this.allowedIn(tab)) {
-            for (ResourceLocation part : PartUtils.getAllParts().keySet()) {
-                for (ResourceLocation material : PartUtils.getPart(part).getRender().getMaterials()) {
+            for (ResourceLocation part : Parts.getAllParts().keySet()) {
+                for (ResourceLocation material : Parts.getPart(part).getRender().getMaterials()) {
                     if (Materials.hasMaterial(material)) {
                         itemStack.add(getDefaultInstance(part, material));
                     }
@@ -49,9 +51,7 @@ public class PartItem extends Item {
     }
 
     public static ItemStack getDefaultInstance(ResourceLocation location) {
-        ItemStack partItem = new ItemStack(GunsmokeItems.PART_ITEM.get());
-        NBT.putLocationTag(partItem, "part", location);
-        return partItem;
+        return getDefaultInstance(location, new ResourceLocation("forge:brass"));
     }
 
     public static ItemStack getDefaultInstance(ResourceLocation location, ResourceLocation material) {
@@ -59,5 +59,11 @@ public class PartItem extends Item {
         NBT.putLocationTag(partItem, "part", location);
         NBT.putLocationTag(partItem, "material", material);
         return partItem;
+    }
+
+    @Override
+    public String getDescriptionId(ItemStack itemStack) {
+        ResourceLocation location = new ResourceLocation(NBT.getStringTag(itemStack, "part"));
+        return "dynamicItem.part." + location.getNamespace() + "." + location.getPath();
     }
 }

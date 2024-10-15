@@ -6,13 +6,13 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.guns.GunModelOverride;
 import net.ironhorsedevgroup.mods.gunsmoke.data.recipes.RecipeGenerator;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
 import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartModelOverride;
-import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.parts.Parts;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundModelOverride;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Rounds;
 import net.ironhorsedevgroup.mods.gunsmoke.network.GunsmokeMessages;
 import net.ironhorsedevgroup.mods.gunsmoke.registry.*;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverrides;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.model.ItemModelOverrides;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -121,7 +121,7 @@ public class Gunsmoke {
         {
             event.getItemColors().register(
                     (
-                            PartUtils::getColor
+                            Parts::getColor
                     ),
                     GunsmokeItems.PART_ITEM.get()
             );

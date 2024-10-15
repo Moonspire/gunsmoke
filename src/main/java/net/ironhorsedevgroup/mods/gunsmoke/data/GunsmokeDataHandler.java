@@ -3,9 +3,9 @@ package net.ironhorsedevgroup.mods.gunsmoke.data;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.gunsmoke.item.guns.Guns;
-import net.ironhorsedevgroup.mods.gunsmoke.item.parts.PartUtils;
+import net.ironhorsedevgroup.mods.gunsmoke.item.parts.Parts;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.Rounds;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataFileHandler;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataFileHandler;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -44,7 +44,7 @@ public class GunsmokeDataHandler implements DataFileHandler {
     public void serverSetupEvent(ServerStartingEvent event) {
         MinecraftServer server = event.getServer();
 
-        PartUtils.loadParts(parts, server);
+        Parts.loadParts(parts, server);
         Rounds.loadRounds(rounds, server);
         Guns.loadGuns(guns, server);
 
@@ -55,7 +55,7 @@ public class GunsmokeDataHandler implements DataFileHandler {
 
     @Override
     public void joinSTC(ServerPlayer player) {
-        PartUtils.sendParts(player);
+        Parts.sendParts(player);
         Rounds.sendRounds(player);
         Guns.sendGuns(player);
     }

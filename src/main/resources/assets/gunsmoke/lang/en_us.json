@@ -1,11 +1,19 @@
 {
   "itemGroup.gunsmoke.firearms": "Gunsmoke Firearms",
   "itemGroup.gunsmoke.parts": "Gunsmoke Parts",
+  "itemGroup.gunsmoke.rounds": "Gunsmoke Rounds",
 
   "caliber..50-70": ".50-70",
   "caliber.arrow": "Arrow Projectile",
 
-  "round..50-70.gunsmoke.pointed": ".50-70 Pointed",
+  "dynamicItem.round..50-70.pointed": ".50-70 Pointed",
+
+  "dynamicItem.part.gunsmoke.gun_parts": "Gun Parts",
+  "dynamicItem.part.gunsmoke.barrel_short": "Short Barrel",
+  "dynamicItem.part.gunsmoke.barrel_medium": "Medium Barrel",
+  "dynamicItem.part.gunsmoke.barrel_long": "Long Barrel",
+
+  "dynamicItem.gun.gunsmoke.sharps": "Sharps",
 
   "gun_material.null": "Null",
   "gun_material.minecraft.copper": "Copper",
