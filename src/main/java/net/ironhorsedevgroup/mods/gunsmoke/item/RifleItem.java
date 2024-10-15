@@ -7,6 +7,7 @@ import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -66,8 +67,8 @@ public class RifleItem extends GunItem {
     private void loadRound(ItemStack gunItem) {
         Item projectile = ForgeRegistries.ITEMS.getValue(this.getGun().getProjectile().getItem());
         int ammo = this.getGun().getGeneral().getMaxAmmo();
-        if (projectile instanceof RoundItem roundItem) {
-            RoundProperties round = roundItem.getCaliber().getRound(0);
+        if (projectile instanceof RoundItem) {
+            RoundProperties round = gunProperties.getChamberedRound();
             for (int i = 0; i < ammo; i++) {
                 loadRound(round);
             }

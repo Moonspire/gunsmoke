@@ -2,6 +2,7 @@ package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
 import com.mrcrayfish.guns.common.GripType;
 import com.mrcrayfish.guns.common.Gun;
+import net.ironhorsedevgroup.mods.gunsmoke.Gunsmoke;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RifleItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.RoundItem;
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
@@ -60,9 +61,21 @@ public class GunProperties {
     }
 
     public void fireRound(ItemStack gunItem) {
-        RoundProperties round = loadedRounds.get(loadedRounds.size() - 1);
+        fireRound(gunItem, true);
+    }
+
+    public void fireRound(ItemStack gunItem, boolean spendRound) {
+        RoundProperties round;
+        if (!loadedRounds.isEmpty()) {
+            round = loadedRounds.get(loadedRounds.size() - 1);
+            if (spendRound) {
+                removeRound();
+            }
+        } else {
+            round = lastRound;
+        }
+        System.out.println("Firing Round: " + round);
         damageGun(gunItem, round);
-        removeRound();
     }
 
     public void removeRound() {
@@ -74,11 +87,11 @@ public class GunProperties {
     }
 
     public RoundProperties getChamberedRound() {
-        int size = loadedRounds.size();
-        if (size > 0) {
+        if (!loadedRounds.isEmpty()) {
+            int size = loadedRounds.size();
             return loadedRounds.get(size - 1);
         }
-        return new RoundProperties(0, 0.0);
+        return lastRound;
     }
 
     private Gun updateGun(ItemStack itemStack) {

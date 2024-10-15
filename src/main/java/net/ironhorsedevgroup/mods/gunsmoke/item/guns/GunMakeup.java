@@ -1,6 +1,7 @@
 package net.ironhorsedevgroup.mods.gunsmoke.item.guns;
 
 import net.ironhorsedevgroup.mods.gunsmoke.item.rounds.RoundProperties;
+import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.ironhorsedevgroup.mods.toolshed.materials.Material;
 import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
