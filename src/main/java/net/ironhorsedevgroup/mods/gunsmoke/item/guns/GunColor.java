@@ -9,11 +9,11 @@ import net.minecraft.world.item.ItemStack;
 
 public class GunColor {
     public static int getColor(ItemStack itemStack, int tintIndex) {
-        return Materials.getClientMaterial(NBT.getStringTag(itemStack, "material_" + tintIndex)).getProperties().getColor();
+        return Materials.getMaterial(NBT.getStringTag(itemStack, "material_" + tintIndex)).getProperties().getColor();
     }
 
     public static int getPartColor(ItemStack itemStack, int tintIndex) {
-        return Materials.getClientMaterial(NBT.getStringTag(itemStack, "material")).getProperties().getColor();
+        return Materials.getMaterial(NBT.getStringTag(itemStack, "material")).getProperties().getColor();
     }
 
     public static int getRoundColor(ItemStack itemStack, int tintIndex) {
